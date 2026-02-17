@@ -7,19 +7,22 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
+import com.segnities007.cmp_form_validation.catalog.components.CatalogTokens
+
+private const val VALIDATE_LABEL = "Validate"
+private const val RESET_LABEL = "Reset"
 
 @Composable
 fun FormActionButtons(
     onValidate: () -> Unit,
     onReset: () -> Unit,
 ) {
-    Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+    Row(horizontalArrangement = Arrangement.spacedBy(CatalogTokens.ActionButtonSpacing)) {
         Button(onClick = onValidate) {
-            Text("Validate")
+            Text(VALIDATE_LABEL)
         }
         Button(onClick = onReset) {
-            Text("Reset")
+            Text(RESET_LABEL)
         }
     }
 }

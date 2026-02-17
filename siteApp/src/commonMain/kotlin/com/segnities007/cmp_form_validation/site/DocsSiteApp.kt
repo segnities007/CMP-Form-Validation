@@ -16,7 +16,14 @@ import androidx.compose.ui.Modifier
 import com.segnities007.cmp_form_validation.site.components.NavBar
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
-enum class SiteTab { Home, Docs, Api, Examples }
+enum class SiteTab(
+    val showsBottomCta: Boolean = false,
+) {
+    Home,
+    Docs,
+    Api(showsBottomCta = true),
+    Examples(showsBottomCta = true),
+}
 
 @Composable
 fun DocsSiteApp(
@@ -24,7 +31,7 @@ fun DocsSiteApp(
     onLocaleToggle: () -> Unit = {},
 ) {
     val systemDark = isSystemInDarkTheme()
-    var themeMode by remember { mutableStateOf(if (systemDark) ThemeMode.DARK else ThemeMode.LIGHT) }
+    var themeMode by remember { mutableStateOf(themeModeForSystem(systemDark)) }
     var selectedTab by remember { mutableStateOf(SiteTab.Home) }
 
     val colorScheme = colorSchemeFor(themeMode)
@@ -41,11 +48,9 @@ fun DocsSiteApp(
                     NavBar(
                         selectedTab = selectedTab,
                         themeMode = themeMode,
-                        localeLabel = if (currentLocaleCode.startsWith("ja")) "JA" else "EN",
+                        localeLabel = localeLabelFor(currentLocaleCode),
                         onTabSelected = { selectedTab = it },
-                        onThemeToggle = {
-                            themeMode = if (themeMode == ThemeMode.DARK) ThemeMode.LIGHT else ThemeMode.DARK
-                        },
+                        onThemeToggle = { themeMode = themeMode.toggled() },
                         onLocaleToggle = onLocaleToggle,
                     )
                 },
@@ -67,3 +72,12 @@ fun DocsSiteApp(
 private fun DocsSiteAppPreview() {
     DocsSiteApp()
 }
+
+private fun themeModeForSystem(systemDark: Boolean): ThemeMode =
+    if (systemDark) ThemeMode.DARK else ThemeMode.LIGHT
+
+private fun localeLabelFor(currentLocaleCode: String): String =
+    if (currentLocaleCode.startsWith("ja")) "JA" else "EN"
+
+private fun ThemeMode.toggled(): ThemeMode =
+    if (this == ThemeMode.DARK) ThemeMode.LIGHT else ThemeMode.DARK

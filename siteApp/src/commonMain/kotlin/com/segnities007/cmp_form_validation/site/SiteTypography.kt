@@ -4,6 +4,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.Typography
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
 import com.segnities007.cmp_form_validation.site.resources.Res
 import com.segnities007.cmp_form_validation.site.resources.noto_sans_jp
@@ -13,25 +14,28 @@ import org.jetbrains.compose.ui.tooling.preview.Preview
 @Composable
 fun siteTypography(): Typography {
     val fontFamily = FontFamily(Font(Res.font.noto_sans_jp))
-    val base = Typography()
-    return Typography(
-        displayLarge = base.displayLarge.copy(fontFamily = fontFamily),
-        displayMedium = base.displayMedium.copy(fontFamily = fontFamily),
-        displaySmall = base.displaySmall.copy(fontFamily = fontFamily),
-        headlineLarge = base.headlineLarge.copy(fontFamily = fontFamily),
-        headlineMedium = base.headlineMedium.copy(fontFamily = fontFamily),
-        headlineSmall = base.headlineSmall.copy(fontFamily = fontFamily),
-        titleLarge = base.titleLarge.copy(fontFamily = fontFamily),
-        titleMedium = base.titleMedium.copy(fontFamily = fontFamily),
-        titleSmall = base.titleSmall.copy(fontFamily = fontFamily),
-        bodyLarge = base.bodyLarge.copy(fontFamily = fontFamily),
-        bodyMedium = base.bodyMedium.copy(fontFamily = fontFamily),
-        bodySmall = base.bodySmall.copy(fontFamily = fontFamily),
-        labelLarge = base.labelLarge.copy(fontFamily = fontFamily),
-        labelMedium = base.labelMedium.copy(fontFamily = fontFamily),
-        labelSmall = base.labelSmall.copy(fontFamily = fontFamily),
-    )
+    return Typography().withFontFamily(fontFamily)
 }
+
+private fun Typography.withFontFamily(fontFamily: FontFamily): Typography = Typography(
+    displayLarge = displayLarge.withFontFamily(fontFamily),
+    displayMedium = displayMedium.withFontFamily(fontFamily),
+    displaySmall = displaySmall.withFontFamily(fontFamily),
+    headlineLarge = headlineLarge.withFontFamily(fontFamily),
+    headlineMedium = headlineMedium.withFontFamily(fontFamily),
+    headlineSmall = headlineSmall.withFontFamily(fontFamily),
+    titleLarge = titleLarge.withFontFamily(fontFamily),
+    titleMedium = titleMedium.withFontFamily(fontFamily),
+    titleSmall = titleSmall.withFontFamily(fontFamily),
+    bodyLarge = bodyLarge.withFontFamily(fontFamily),
+    bodyMedium = bodyMedium.withFontFamily(fontFamily),
+    bodySmall = bodySmall.withFontFamily(fontFamily),
+    labelLarge = labelLarge.withFontFamily(fontFamily),
+    labelMedium = labelMedium.withFontFamily(fontFamily),
+    labelSmall = labelSmall.withFontFamily(fontFamily),
+)
+
+private fun TextStyle.withFontFamily(fontFamily: FontFamily): TextStyle = copy(fontFamily = fontFamily)
 
 @Preview
 @Composable

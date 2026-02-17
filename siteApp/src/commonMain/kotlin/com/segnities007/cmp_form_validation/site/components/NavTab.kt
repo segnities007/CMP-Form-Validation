@@ -24,6 +24,15 @@ import com.segnities007.cmp_form_validation.site.SiteDimens
 import com.segnities007.cmp_form_validation.site.SitePreviewTheme
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
+private val ActiveTabBackgroundAlpha = 0.08f
+private val CompactTabPaddingH = 12.dp
+private val CompactTabPaddingV = 6.dp
+private val CompactTabFontSize = 13.sp
+private val IndicatorWidth = 32.dp
+private val IndicatorHeight = 2.5.dp
+private val IndicatorCornerRadius = 1.dp
+private val IndicatorSpacerHeight = 4.dp
+
 @Composable
 internal fun NavTab(
     label: String,
@@ -31,7 +40,7 @@ internal fun NavTab(
     compact: Boolean = false,
     onClick: () -> Unit,
 ) {
-    val activeBg = MaterialTheme.colorScheme.primary.copy(alpha = 0.08f)
+    val activeBg = MaterialTheme.colorScheme.primary.copy(alpha = ActiveTabBackgroundAlpha)
 
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -40,14 +49,14 @@ internal fun NavTab(
             .background(if (isActive) activeBg else Color.Transparent)
             .clickable(onClick = onClick)
             .padding(
-                horizontal = if (compact) 12.dp else SiteDimens.NavTabPaddingH,
-                vertical = if (compact) 6.dp else SiteDimens.NavTabPaddingV,
+                horizontal = if (compact) CompactTabPaddingH else SiteDimens.NavTabPaddingH,
+                vertical = if (compact) CompactTabPaddingV else SiteDimens.NavTabPaddingV,
             ),
     ) {
         Text(
             text = label,
             style = if (compact) {
-                MaterialTheme.typography.bodySmall.copy(fontSize = 13.sp)
+                MaterialTheme.typography.bodySmall.copy(fontSize = CompactTabFontSize)
             } else {
                 MaterialTheme.typography.bodyMedium
             },
@@ -55,14 +64,14 @@ internal fun NavTab(
             color = if (isActive) MaterialTheme.colorScheme.primary
             else MaterialTheme.colorScheme.onSurfaceVariant,
         )
-        Spacer(Modifier.height(4.dp))
+        Spacer(Modifier.height(IndicatorSpacerHeight))
         Box(
             Modifier
-                .width(if (isActive) 32.dp else 0.dp)
-                .height(2.5.dp)
+                .width(if (isActive) IndicatorWidth else 0.dp)
+                .height(IndicatorHeight)
                 .background(
                     if (isActive) MaterialTheme.colorScheme.primary else Color.Transparent,
-                    RoundedCornerShape(1.dp),
+                    RoundedCornerShape(IndicatorCornerRadius),
                 ),
         )
     }

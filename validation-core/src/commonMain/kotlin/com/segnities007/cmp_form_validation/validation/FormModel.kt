@@ -6,6 +6,8 @@ import kotlinx.collections.immutable.persistentListOf
 import kotlinx.collections.immutable.toImmutableList
 import kotlinx.collections.immutable.toImmutableMap
 
+private val EmptyFormErrors = persistentListOf<ValidationError>()
+
 /**
  * Defines when a field should run validation and reveal errors.
  *
@@ -156,11 +158,11 @@ class ValidatedStringForm(
     private val formRules: List<FormRule> = emptyList(),
 ) {
     /** Latest cross-field validation errors. */
-    var formErrors: ImmutableList<ValidationError> = persistentListOf()
+    var formErrors: ImmutableList<ValidationError> = EmptyFormErrors
         private set
 
     /** Current field values keyed by field name. */
-    fun values(): ImmutableMap<String, String> = fields.mapValues { (_, field) -> field.value }.toImmutableMap()
+    fun values(): ImmutableMap<String, String> = fields.currentValues()
 
     /** Returns the latest result for a named field. */
     fun fieldResult(name: String): ValidationResult = fields.getValue(name).result
@@ -188,7 +190,7 @@ class ValidatedStringForm(
     /** Resets all fields and clears form-level errors. */
     fun reset() {
         fields.values.forEach { it.reset() }
-        formErrors = persistentListOf()
+        formErrors = EmptyFormErrors
     }
 
     private fun evaluateFormRules(): ImmutableList<ValidationError> {
@@ -198,6 +200,9 @@ class ValidatedStringForm(
         return crossFieldErrors
     }
 }
+
+private fun ImmutableMap<String, ValidatedField<String>>.currentValues(): ImmutableMap<String, String> =
+    mapValues { (_, field) -> field.value }.toImmutableMap()
 
 /**
  * Creates a simple cross-field equality rule.

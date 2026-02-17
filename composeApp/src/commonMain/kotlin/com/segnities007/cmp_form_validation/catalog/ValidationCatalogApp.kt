@@ -14,11 +14,24 @@ import com.segnities007.cmp_form_validation.catalog.components.CatalogTopBar
 import com.segnities007.cmp_form_validation.catalog.screens.FormCatalogScreen
 import com.segnities007.cmp_form_validation.catalog.screens.PatternCatalogScreen
 import com.segnities007.cmp_form_validation.catalog.screens.RuleCatalogScreen
+import androidx.compose.foundation.layout.PaddingValues
 
-enum class CatalogTab(val label: String) {
-    Rules("Rules"),
-    Patterns("Patterns"),
-    Form("Sign-up Form"),
+enum class CatalogTab(
+    val label: String,
+    val description: String,
+) {
+    Rules(
+        label = "Rules",
+        description = "Inspect core validation rules independently.",
+    ),
+    Patterns(
+        label = "Patterns",
+        description = "Compare primary and supplementary Compose APIs.",
+    ),
+    Form(
+        label = "Sign-up Form",
+        description = "Validate a complete form flow with cross-field checks.",
+    ),
 }
 
 /** Top-level catalog shell for validating library behavior in a running app. */
@@ -35,13 +48,7 @@ fun ValidationCatalogApp() {
                 onTabSelected = { selectedTab = it },
             )
         },
-    ) { innerPadding ->
-        when (selectedTab) {
-            CatalogTab.Rules -> RuleCatalogScreen(innerPadding)
-            CatalogTab.Patterns -> PatternCatalogScreen(innerPadding)
-            CatalogTab.Form -> FormCatalogScreen(innerPadding)
-        }
-    }
+    ) { innerPadding -> selectedTab.Render(innerPadding) }
 }
 
 @Preview
@@ -52,9 +59,11 @@ private fun ValidationCatalogAppPreview() {
     }
 }
 
-private val CatalogTab.description: String
-    get() = when (this) {
-        CatalogTab.Rules -> "Inspect core validation rules independently."
-        CatalogTab.Patterns -> "Compare primary and supplementary Compose APIs."
-        CatalogTab.Form -> "Validate a complete form flow with cross-field checks."
+@Composable
+private fun CatalogTab.Render(innerPadding: PaddingValues) {
+    when (this) {
+        CatalogTab.Rules -> RuleCatalogScreen(innerPadding)
+        CatalogTab.Patterns -> PatternCatalogScreen(innerPadding)
+        CatalogTab.Form -> FormCatalogScreen(innerPadding)
     }
+}

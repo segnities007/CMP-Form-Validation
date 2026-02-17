@@ -8,7 +8,6 @@ import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
 
 @Composable
 fun CatalogLazyColumn(
@@ -19,8 +18,8 @@ fun CatalogLazyColumn(
         modifier = Modifier
             .fillMaxSize()
             .padding(innerPadding),
-        contentPadding = PaddingValues(16.dp),
-        verticalArrangement = Arrangement.spacedBy(12.dp),
+        contentPadding = PaddingValues(CatalogTokens.ScreenContentPadding),
+        verticalArrangement = Arrangement.spacedBy(CatalogTokens.ScreenItemSpacing),
         content = content,
     )
 }

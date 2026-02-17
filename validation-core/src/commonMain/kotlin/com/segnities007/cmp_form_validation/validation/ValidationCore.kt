@@ -26,6 +26,8 @@ data class ValidationError(
     val meta: ImmutableMap<String, String> = persistentMapOf(),
 )
 
+private val EmptyValidationErrors = persistentListOf<ValidationError>()
+
 /**
  * Immutable result of validating one input value.
  *
@@ -34,14 +36,14 @@ data class ValidationError(
  * - Callers can inspect all failures or only the first one depending on strategy.
  */
 data class ValidationResult(
-    val errors: ImmutableList<ValidationError> = persistentListOf(),
+    val errors: ImmutableList<ValidationError> = EmptyValidationErrors,
 ) {
     /** `true` when [errors] is empty. */
     val isValid: Boolean = errors.isEmpty()
 
     companion object {
         /** Creates a successful result without errors. */
-        fun valid(): ValidationResult = ValidationResult()
+        fun valid(): ValidationResult = ValidationResult(EmptyValidationErrors)
 
         /** Creates a failed result from the provided [errors]. */
         fun invalid(errors: Iterable<ValidationError>): ValidationResult =

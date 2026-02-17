@@ -10,8 +10,9 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import com.segnities007.cmp_form_validation.catalog.CatalogTab
+
+private const val CATALOG_TITLE = "cmpformvalidation catalog"
 
 @Composable
 fun CatalogTopBar(
@@ -22,17 +23,20 @@ fun CatalogTopBar(
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(top = 12.dp),
+            .padding(top = CatalogTokens.TopBarTopPadding),
     ) {
         Text(
-            text = "cmpformvalidation catalog",
+            text = CATALOG_TITLE,
             style = MaterialTheme.typography.titleLarge,
-            modifier = Modifier.padding(horizontal = 16.dp),
+            modifier = Modifier.padding(horizontal = CatalogTokens.TopBarHorizontalPadding),
         )
         Text(
             text = tabDescription,
             style = MaterialTheme.typography.bodySmall,
-            modifier = Modifier.padding(horizontal = 16.dp, vertical = 4.dp),
+            modifier = Modifier.padding(
+                horizontal = CatalogTokens.TopBarHorizontalPadding,
+                vertical = CatalogTokens.TopBarSubtitleVerticalPadding,
+            ),
         )
         PrimaryTabRow(selectedTabIndex = selectedTab.ordinal) {
             CatalogTab.entries.forEach { tab ->

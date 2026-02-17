@@ -12,7 +12,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 
 @Composable
 fun CatalogHero(
@@ -23,10 +22,10 @@ fun CatalogHero(
         modifier = Modifier
             .fillMaxWidth()
             .background(MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.5f))
-            .padding(14.dp),
+            .padding(CatalogTokens.CardContentPadding),
     ) {
         Column(
-            verticalArrangement = Arrangement.spacedBy(4.dp),
+            verticalArrangement = Arrangement.spacedBy(CatalogTokens.HeroContentSpacing),
         ) {
             Text(
                 text = title,

@@ -14,6 +14,8 @@ import kotlinx.collections.immutable.persistentListOf
 import kotlinx.collections.immutable.toImmutableList
 import kotlinx.collections.immutable.toImmutableMap
 
+private val EmptyFormErrors = persistentListOf<ValidationError>()
+
 /**
  * Compose-facing form coordinator for multiple [ComposeValidatedField] values.
  *
@@ -27,11 +29,11 @@ class ComposeValidatedStringForm internal constructor(
     private val formRules: ImmutableList<FormRule>,
 ) {
     /** Latest cross-field errors produced by [formRules]. */
-    var formErrors: ImmutableList<ValidationError> by mutableStateOf(persistentListOf())
+    var formErrors: ImmutableList<ValidationError> by mutableStateOf(EmptyFormErrors)
         private set
 
     /** Returns the latest values snapshot. */
-    fun values(): ImmutableMap<String, String> = fields.mapValues { (_, field) -> field.value }.toImmutableMap()
+    fun values(): ImmutableMap<String, String> = fields.currentValues()
 
     /**
      * Submits all fields and returns overall validity.
@@ -53,7 +55,7 @@ class ComposeValidatedStringForm internal constructor(
     /** Resets all fields and clears cross-field errors. */
     fun reset() {
         fields.values.forEach { it.reset() }
-        formErrors = persistentListOf()
+        formErrors = EmptyFormErrors
     }
 
     private fun evaluateFormRules(): ImmutableList<ValidationError> {
@@ -61,6 +63,9 @@ class ComposeValidatedStringForm internal constructor(
         return formRules.mapNotNull { it.validate(currentValues) }.toImmutableList()
     }
 }
+
+private fun ImmutableMap<String, ComposeValidatedField<String>>.currentValues(): ImmutableMap<String, String> =
+    mapValues { (_, field) -> field.value }.toImmutableMap()
 
 /**
  * Remembers a compose-friendly form coordinator.

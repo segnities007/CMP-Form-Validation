@@ -36,16 +36,29 @@ fun SitePageContent(
             .fillMaxWidth()
             .verticalScroll(scrollState),
     ) {
-        when (selectedTab) {
-            SiteTab.Home -> HomePage(onNavigateToDocs = onNavigateToDocs)
-            SiteTab.Docs -> DocsPage(onScrollRequested = onScrollRequested)
-            SiteTab.Api -> ApiPage(onScrollRequested = onScrollRequested)
-            SiteTab.Examples -> ExamplesPage(onScrollRequested = onScrollRequested)
-        }
-        if (selectedTab == SiteTab.Api || selectedTab == SiteTab.Examples) {
+        SiteTabContent(
+            selectedTab = selectedTab,
+            onNavigateToDocs = onNavigateToDocs,
+            onScrollRequested = onScrollRequested,
+        )
+        if (selectedTab.showsBottomCta) {
             CtaSection(onGetStarted = onNavigateToDocs)
         }
         Footer(onNavigateToDocs = onNavigateToDocs)
+    }
+}
+
+@Composable
+private fun SiteTabContent(
+    selectedTab: SiteTab,
+    onNavigateToDocs: () -> Unit,
+    onScrollRequested: (Int) -> Unit,
+) {
+    when (selectedTab) {
+        SiteTab.Home -> HomePage(onNavigateToDocs = onNavigateToDocs)
+        SiteTab.Docs -> DocsPage(onScrollRequested = onScrollRequested)
+        SiteTab.Api -> ApiPage(onScrollRequested = onScrollRequested)
+        SiteTab.Examples -> ExamplesPage(onScrollRequested = onScrollRequested)
     }
 }
 

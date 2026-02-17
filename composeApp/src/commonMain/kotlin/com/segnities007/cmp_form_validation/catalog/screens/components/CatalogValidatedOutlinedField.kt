@@ -7,7 +7,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.VisualTransformation
-import androidx.compose.ui.unit.dp
+import com.segnities007.cmp_form_validation.catalog.components.CatalogTokens
 import com.segnities007.cmp_form_validation.validation.compose.ComposeValidatedField
 import com.segnities007.cmp_form_validation.validation.compose.ValidationSupportingText
 
@@ -26,7 +26,7 @@ internal fun CatalogValidatedOutlinedField(
         onValueChange = onValueChange,
         modifier = modifier.fillMaxWidth(),
         singleLine = true,
-        shape = RoundedCornerShape(12.dp),
+        shape = RoundedCornerShape(CatalogTokens.FieldCornerRadius),
         label = { Text(label) },
         placeholder = {
             if (placeholderText != null) {
