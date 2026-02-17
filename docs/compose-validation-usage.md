@@ -1,10 +1,10 @@
 # Compose Validation Usage
 
-最終更新: 2026-02-17
+Last updated: 2026-02-17
 
 ## API Tiering
 
-このライブラリは複数の導入パターンを提供するが、推奨順は以下。
+This library supports multiple integration patterns. Recommended order:
 
 1. Primary: `rememberValidatedField` + native `OutlinedTextField` / `TextField`
 2. Supplementary: `Modifier.validation(field)`
@@ -28,11 +28,11 @@ OutlinedTextField(
 )
 ```
 
-特徴:
+Characteristics:
 
-- Composeの状態が明示的
-- デバッグしやすい
-- 既存TextField利用を維持できる
+- Explicit state flow in Compose
+- Easy to debug
+- Keeps native TextField usage patterns
 
 ## 2) Modifier-based (Supplementary)
 
@@ -44,13 +44,13 @@ OutlinedTextField(
 )
 ```
 
-用途:
+When to use:
 
-- 既存フィールド構成を大きく崩さずblur検証を追加したい場合
+- When you want to add blur-based validation without heavily changing existing field structure
 
-注意:
+Notes:
 
-- `Modifier` は補助用途として使う
+- Use `Modifier` as a supplementary approach
 
 ## 3) Wrapper-based (Supplementary)
 
@@ -61,13 +61,13 @@ ValidatedOutlinedTextField(
 )
 ```
 
-用途:
+When to use:
 
-- 画面実装を短くしたい場合
+- When you want shorter UI code
 
-注意:
+Notes:
 
-- 標準TextFieldの全パラメータを常に追随できるとは限らない
+- Wrapper APIs may not always expose every parameter from native TextField components
 
 ## 4) Core-only
 
@@ -78,7 +78,7 @@ val coreField = ValidatedField(
 )
 ```
 
-用途:
+When to use:
 
-- Compose以外の統合レイヤーを作る場合
-- ライブラリ内部の基盤ロジックとして使う場合
+- When building non-Compose integration layers
+- When using validation models as internal foundation logic

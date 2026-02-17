@@ -7,13 +7,13 @@
 [![Compose Multiplatform](https://img.shields.io/badge/compose%20multiplatform-1.10.0-4285F4.svg)](https://www.jetbrains.com/compose-multiplatform/)
 [![Maven](https://img.shields.io/badge/maven-not%20published-lightgrey.svg)](#installation)
 [![GitHub License](https://img.shields.io/badge/license-Apache%202.0-blue.svg)](LICENSE)
-[![Status](https://img.shields.io/badge/status-early%20stage-orange.svg)](#status)
+[![Status](https://img.shields.io/badge/status-early%20stage-orange.svg)](#project-status)
 
-CMP Form Validation is a KMP library to share form-validation logic across Android, iOS, Desktop, and Web while keeping the validation core UI-agnostic and testable.
+CMP Form Validation helps you share form validation logic across Android, iOS, Desktop, and Web while keeping the core model UI-agnostic and testable.
 
-## Status
+## Project Status
 
-- Early stage (library implementation in progress)
+- Pre-release (API may change)
 - API is not stable yet
 - Maven publishing has not started yet
 
@@ -99,18 +99,12 @@ The catalog `App()` currently demonstrates:
 
 ## Documentation
 
-Design decisions and logs are in `docs/`.
-
-- Index: `docs/README.md`
-- ADR-0001: `docs/adr/0001-validation-core-shape.md`
-- ADR-0002: `docs/adr/0002-react-inspired-design-principles.md`
-- ADR-0003: `docs/adr/0003-form-model-and-catalog-app.md`
-- ADR-0004: `docs/adr/0004-compose-integration-api-tiering.md`
-- ADR-0005: `docs/adr/0005-module-split-for-publishing.md`
-- Plan: `docs/form-validation-plan.md`
-- Research: `docs/research/react-form-libraries.md`
-- Usage guide: `docs/compose-validation-usage.md`
-- KDoc guide: `docs/kdoc-style-guide.md`
+- [Docs index](docs/README.md)
+- [ADR index](docs/adr/README.md)
+- [Usage guide](docs/compose-validation-usage.md)
+- [CI/CD and security](docs/ci-cd.md)
+- [Contributing guide](docs/contributing.md)
+- [Security policy](SECURITY.md)
 
 ## Roadmap
 
@@ -122,7 +116,7 @@ Design decisions and logs are in `docs/`.
 
 Issues and pull requests are welcome.
 
-For design-impacting changes, add or update relevant docs under `docs/` before implementation.
+Please follow `docs/contributing.md` and the GitHub templates for issues/PRs.
 
 ## License
 

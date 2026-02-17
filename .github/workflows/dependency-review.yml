@@ -8,16 +8,18 @@ on:
 
 permissions:
   contents: read
-  pull-requests: write
 
 jobs:
   dependency-review:
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@de0fac2e4504108322c05c4f009e8fba97dc00dd # v6
+        with:
+          persist-credentials: false
 
       - name: Dependency Review
-        uses: actions/dependency-review-action@v4
+        uses: actions/dependency-review-action@3c4e3dce57d591d8f362fd44f0df96647475af78 # v4
         with:
           fail-on-severity: moderate

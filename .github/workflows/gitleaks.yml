@@ -16,13 +16,15 @@ permissions:
 jobs:
   gitleaks:
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@de0fac2e4504108322c05c4f009e8fba97dc00dd # v6
         with:
           fetch-depth: 0
+          persist-credentials: false
 
       - name: Run Gitleaks
-        uses: gitleaks/gitleaks-action@v2
+        uses: gitleaks/gitleaks-action@ff981062c538ed475cd9551de5844d1c9f88f435 # v2
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

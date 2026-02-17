@@ -5,35 +5,35 @@
 
 ## Context
 
-v1では、ルール単体だけでなく「フォームとしての検証フロー」を標準化する必要がある。  
-また、実装済み機能を常に確認できるカタログアプリを維持し、設計と挙動の乖離を防ぎたい。
+In v1, we need to standardize not only individual rules but also full form validation flow.  
+We also need to keep a catalog app that continuously validates implemented behavior and prevents drift between design and runtime behavior.
 
 ## Decision
 
-以下をv1スコープとして採用する。
+Adopt the following as v1 scope:
 
-1. `ValidatedField<T>` を追加し、`value/touched/dirty/submitted/result` を管理する
-2. 検証トリガを `ValidationTrigger` で切り替える
+1. Add `ValidatedField<T>` to manage `value/touched/dirty/submitted/result`
+2. Support trigger switching with `ValidationTrigger`
    - `OnChange`
    - `OnBlur`
    - `OnSubmitThenChange`
-3. `ValidatedStringForm` を追加し、複数フィールドとクロスフィールドルールを扱う
-4. クロスフィールド検証の最小ユースケースとして `fieldsMatchRule` を提供する
-5. `App()` をカタログアプリとして維持し、以下を確認可能にする
+3. Add `ValidatedStringForm` to manage multiple fields and cross-field rules
+4. Provide `fieldsMatchRule` as a minimal cross-field validation use case
+5. Keep `App()` as the catalog app and verify:
    - Rule Catalog
-   - Sign-up Form (submit後再検証 + password一致検証)
+   - Sign-up Form (post-submit revalidation + password match check)
 
 ## Consequences
 
-- 長所:
-  - 実運用で必要なフォームフローを共通化できる
-  - ライブラリ変更をカタログ画面で即確認できる
-  - クロスフィールド検証までv1でカバーできる
-- 短所:
-  - v1は string-keyed フォームモデルに限定される
-  - 型付きフォームモデルは次フェーズで検討が必要
+- Pros:
+  - Standardizes practical form flow needed in real use
+  - Library changes can be quickly verified in catalog screens
+  - Cross-field validation is covered in v1
+- Cons:
+  - v1 is limited to a string-keyed form model
+  - Typed form model requires a follow-up phase
 
 ## Follow-up
 
-- 型付きフォームモデルの導入検討（`Map` 依存の削減）
-- 非同期ルールを導入する際の `submit` / `revalidate` 振る舞い設計
+- Evaluate typed form model introduction (reduce `Map` dependency)
+- Define `submit` / `revalidate` behavior when async rules are introduced
