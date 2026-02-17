@@ -35,11 +35,14 @@ This repository uses GitHub Actions for the following workflows:
 ## Local Equivalent Checks
 
 ```bash
+./scripts/setup-git-hooks.sh
 ./gradlew --no-daemon :validation-core:jvmTest
 ./gradlew --no-daemon ktlintCheckAll detektAll
 ./gradlew --no-daemon :validation-compose:compileKotlinJvm
 ./gradlew --no-daemon :siteApp:compileKotlinJs :siteApp:compileKotlinWasmJs
 ```
+
+Local Git hooks provide pre-commit and pre-push checks before CI runs.
 
 ## Update Policy
 

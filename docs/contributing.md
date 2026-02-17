@@ -14,6 +14,25 @@ See [SECURITY.md](../SECURITY.md) for details.
 
 When opening a PR, follow [`.github/PULL_REQUEST_TEMPLATE.md`](../.github/PULL_REQUEST_TEMPLATE.md).
 
+## Git Hooks (Recommended)
+
+Install local hooks once:
+
+```bash
+./scripts/setup-git-hooks.sh
+```
+
+Installed hooks:
+
+- `pre-commit`: conflict markers, common secret patterns, key/certificate file extensions, and `ktlint` for affected modules
+- `pre-push`: `gitleaks` (if installed) + Gradle quality/test/compile checks
+
+Temporary bypass (not recommended):
+
+```bash
+SKIP_GIT_HOOKS=1 git push
+```
+
 Minimum checks:
 
 - `./gradlew --no-daemon ktlintCheckAll detektAll`

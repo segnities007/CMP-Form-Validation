@@ -1,0 +1,77 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+ROOT_DIR="$(git rev-parse --show-toplevel)"
+cd "$ROOT_DIR"
+
+echo "[pre-commit] Running local checks..."
+
+STAGED_FILES="$(git diff --cached --name-only --diff-filter=ACMR)"
+if [[ -z "$STAGED_FILES" ]]; then
+  echo "[pre-commit] No staged files."
+  exit 0
+fi
+
+# 1) Block unresolved merge conflict markers in staged content.
+while IFS= read -r file; do
+  [[ -z "$file" ]] && continue
+  if git show ":$file" | rg -n "^(<<<<<<<|=======|>>>>>>>)" >/dev/null 2>&1; then
+    echo "[pre-commit] ERROR: Merge conflict markers found in staged file: $file"
+    exit 1
+  fi
+done <<<"$STAGED_FILES"
+
+# 2) Block common secret patterns in added lines.
+if git diff --cached -U0 | rg -n "^\+.*(AKIA[0-9A-Z]{16}|AIza[0-9A-Za-z_-]{35}|ghp_[0-9A-Za-z]{36}|github_pat_[0-9A-Za-z_]{20,}|-----BEGIN (RSA|OPENSSH|EC|DSA) PRIVATE KEY-----|xox[baprs]-[0-9A-Za-z-]{10,})" >/dev/null 2>&1; then
+  echo "[pre-commit] ERROR: Possible secret detected in staged diff."
+  echo "[pre-commit] Remove the secret and rotate credentials if needed."
+  exit 1
+fi
+
+# 3) Warn when committing key-like files.
+if echo "$STAGED_FILES" | rg -n "\.(pem|p12|pfx|jks|keystore)$" >/dev/null 2>&1; then
+  echo "[pre-commit] ERROR: Key/certificate-like file detected in commit."
+  echo "[pre-commit] If intentional, use secure secret handling instead of committing it."
+  exit 1
+fi
+
+# 4) Run ktlint checks for affected modules (fast gate).
+KOTLIN_STAGED="$(echo "$STAGED_FILES" | rg '\.(kt|kts)$' || true)"
+if [[ -n "$KOTLIN_STAGED" ]]; then
+  if [[ ! -x "./gradlew" ]]; then
+    echo "[pre-commit] WARN: ./gradlew not found. Skipping ktlint."
+  else
+    declare -A task_set=()
+    run_full_check=0
+
+    while IFS= read -r file; do
+      [[ -z "$file" ]] && continue
+      top_dir="${file%%/*}"
+      case "$top_dir" in
+      composeApp|validation-core|validation-compose|siteApp|iosApp)
+        task_set[":$top_dir:ktlintCheck"]=1
+        ;;
+      *)
+        # Root-level Kotlin/Gradle scripts can affect global style config.
+        run_full_check=1
+        ;;
+      esac
+    done <<<"$KOTLIN_STAGED"
+
+    if [[ "$run_full_check" -eq 1 ]]; then
+      echo "[pre-commit] Running ktlintCheckAll (root-level Kotlin script changed)"
+      ./gradlew --no-daemon ktlintCheckAll
+    else
+      tasks=()
+      for t in "${!task_set[@]}"; do
+        tasks+=("$t")
+      done
+      if [[ "${#tasks[@]}" -gt 0 ]]; then
+        echo "[pre-commit] Running ktlint for affected modules: ${tasks[*]}"
+        ./gradlew --no-daemon "${tasks[@]}"
+      fi
+    fi
+  fi
+fi
+
+echo "[pre-commit] OK"
