@@ -14,6 +14,7 @@ import androidx.compose.material.icons.rounded.Lock
 import androidx.compose.material.icons.rounded.Shield
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.segnities007.cmp_form_validation.site.SiteDimens
 import com.segnities007.cmp_form_validation.site.SitePreviewTheme
@@ -30,7 +31,6 @@ import com.segnities007.cmp_form_validation.site.resources.feature_type_safe_des
 import com.segnities007.cmp_form_validation.site.resources.feature_type_safe_title
 import com.segnities007.cmp_form_validation.site.resources.why_title
 import org.jetbrains.compose.resources.stringResource
-import androidx.compose.ui.tooling.preview.Preview
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable

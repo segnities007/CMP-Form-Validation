@@ -17,12 +17,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.segnities007.cmp_form_validation.site.LocalExtraColors
 import com.segnities007.cmp_form_validation.site.SiteDimens
 import com.segnities007.cmp_form_validation.site.SitePreviewTheme
-import androidx.compose.ui.tooling.preview.Preview
 
 /**
  * Feature highlight card used in "Why CMP Form Validation?" section.
@@ -62,9 +62,10 @@ fun FeatureCard(
                     imageVector = icon,
                     contentDescription = null,
                     tint = extra.accentBar,
-                    modifier = Modifier
-                        .padding(SiteDimens.FeatureIconPadding)
-                        .size(SiteDimens.FeatureIconSize),
+                    modifier =
+                        Modifier
+                            .padding(SiteDimens.FeatureIconPadding)
+                            .size(SiteDimens.FeatureIconSize),
                 )
             }
             Text(

@@ -19,6 +19,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.LayoutCoordinates
 import androidx.compose.ui.layout.onGloballyPositioned
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
 import com.segnities007.cmp_form_validation.site.SiteDimens
 import com.segnities007.cmp_form_validation.site.SitePreviewTheme
@@ -36,10 +37,40 @@ import com.segnities007.cmp_form_validation.site.pages.sections.DocsStrategiesSe
 import com.segnities007.cmp_form_validation.site.pages.sections.DocsTipsSection
 import com.segnities007.cmp_form_validation.site.pages.sections.DocsTriggersSection
 import com.segnities007.cmp_form_validation.site.resources.Res
-import com.segnities007.cmp_form_validation.site.resources.*
+import com.segnities007.cmp_form_validation.site.resources.docs_overview
+import com.segnities007.cmp_form_validation.site.resources.docs_subtitle
+import com.segnities007.cmp_form_validation.site.resources.docs_time
+import com.segnities007.cmp_form_validation.site.resources.docs_title
+import com.segnities007.cmp_form_validation.site.resources.integration_title
+import com.segnities007.cmp_form_validation.site.resources.overview_beginner
+import com.segnities007.cmp_form_validation.site.resources.overview_difficulty
+import com.segnities007.cmp_form_validation.site.resources.overview_docs_desc
+import com.segnities007.cmp_form_validation.site.resources.overview_reading_time
+import com.segnities007.cmp_form_validation.site.resources.overview_sections
+import com.segnities007.cmp_form_validation.site.resources.overview_title
+import com.segnities007.cmp_form_validation.site.resources.sidebar_advanced
+import com.segnities007.cmp_form_validation.site.resources.sidebar_config
+import com.segnities007.cmp_form_validation.site.resources.sidebar_guide
+import com.segnities007.cmp_form_validation.site.resources.step1_desc
+import com.segnities007.cmp_form_validation.site.resources.step1_note
+import com.segnities007.cmp_form_validation.site.resources.step1_title
+import com.segnities007.cmp_form_validation.site.resources.step2_desc
+import com.segnities007.cmp_form_validation.site.resources.step2_explain
+import com.segnities007.cmp_form_validation.site.resources.step2_title
+import com.segnities007.cmp_form_validation.site.resources.step3_desc
+import com.segnities007.cmp_form_validation.site.resources.step3_explain
+import com.segnities007.cmp_form_validation.site.resources.step3_title
+import com.segnities007.cmp_form_validation.site.resources.step4_title
+import com.segnities007.cmp_form_validation.site.resources.step5_title
+import com.segnities007.cmp_form_validation.site.resources.step6_desc
+import com.segnities007.cmp_form_validation.site.resources.step6_explain
+import com.segnities007.cmp_form_validation.site.resources.step6_title
+import com.segnities007.cmp_form_validation.site.resources.step7_desc
+import com.segnities007.cmp_form_validation.site.resources.step7_explain
+import com.segnities007.cmp_form_validation.site.resources.step7_title
+import com.segnities007.cmp_form_validation.site.resources.tips_title
 import kotlinx.coroutines.launch
 import org.jetbrains.compose.resources.stringResource
-import androidx.compose.ui.tooling.preview.Preview
 
 /**
  * Getting Started documentation page with sidebar navigation and overview card.
@@ -51,17 +82,18 @@ fun DocsPage(onScrollRequested: ((LayoutCoordinates) -> Unit)? = null) {
     val sectionCoords = remember { mutableMapOf<Int, LayoutCoordinates>() }
     val scope = rememberCoroutineScope()
 
-    val sectionLabels = listOf(
-        stringResource(Res.string.step1_title),
-        stringResource(Res.string.step2_title),
-        stringResource(Res.string.step3_title),
-        stringResource(Res.string.step4_title),
-        stringResource(Res.string.step5_title),
-        stringResource(Res.string.step6_title),
-        stringResource(Res.string.step7_title),
-        stringResource(Res.string.integration_title),
-        stringResource(Res.string.tips_title),
-    )
+    val sectionLabels =
+        listOf(
+            stringResource(Res.string.step1_title),
+            stringResource(Res.string.step2_title),
+            stringResource(Res.string.step3_title),
+            stringResource(Res.string.step4_title),
+            stringResource(Res.string.step5_title),
+            stringResource(Res.string.step6_title),
+            stringResource(Res.string.step7_title),
+            stringResource(Res.string.integration_title),
+            stringResource(Res.string.tips_title),
+        )
 
     fun handleSectionClick(index: Int) {
         activeSection = index
@@ -108,11 +140,20 @@ fun DocsPage(onScrollRequested: ((LayoutCoordinates) -> Unit)? = null) {
                 OverviewCard(
                     title = stringResource(Res.string.overview_title),
                     description = stringResource(Res.string.overview_docs_desc),
-                    metaItems = listOf(
-                        OverviewMeta(Icons.Rounded.AccessTime, stringResource(Res.string.overview_reading_time), stringResource(Res.string.docs_time)),
-                        OverviewMeta(Icons.Rounded.Layers, stringResource(Res.string.overview_sections), "9"),
-                        OverviewMeta(Icons.Rounded.Star, stringResource(Res.string.overview_difficulty), stringResource(Res.string.overview_beginner)),
-                    ),
+                    metaItems =
+                        listOf(
+                            OverviewMeta(
+                                Icons.Rounded.AccessTime,
+                                stringResource(Res.string.overview_reading_time),
+                                stringResource(Res.string.docs_time),
+                            ),
+                            OverviewMeta(Icons.Rounded.Layers, stringResource(Res.string.overview_sections), "9"),
+                            OverviewMeta(
+                                Icons.Rounded.Star,
+                                stringResource(Res.string.overview_difficulty),
+                                stringResource(Res.string.overview_beginner),
+                            ),
+                        ),
                 )
             },
             mainContent = {
@@ -211,9 +252,10 @@ private fun DocsStepSection(
     note: String? = null,
 ) {
     Column(
-        modifier = Modifier.onGloballyPositioned {
-            sectionCoords[index] = it
-        },
+        modifier =
+            Modifier.onGloballyPositioned {
+                sectionCoords[index] = it
+            },
         verticalArrangement = Arrangement.spacedBy(SiteDimens.CardItemSpacing),
     ) {
         SectionHeader(title)

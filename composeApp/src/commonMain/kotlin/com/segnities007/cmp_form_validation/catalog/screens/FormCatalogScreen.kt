@@ -20,83 +20,92 @@ import com.segnities007.cmp_form_validation.catalog.screens.components.FormSubmi
 import com.segnities007.cmp_form_validation.catalog.screens.components.FormValidatedField
 import com.segnities007.cmp_form_validation.validation.Rule
 import com.segnities007.cmp_form_validation.validation.ValidationError
+import com.segnities007.cmp_form_validation.validation.compose.ComposeValidatedField
+import com.segnities007.cmp_form_validation.validation.compose.rememberValidatedField
+import com.segnities007.cmp_form_validation.validation.compose.rememberValidatedStringForm
 import com.segnities007.cmp_form_validation.validation.email
 import com.segnities007.cmp_form_validation.validation.fieldsMatchRule
 import com.segnities007.cmp_form_validation.validation.maxLength
 import com.segnities007.cmp_form_validation.validation.minLength
 import com.segnities007.cmp_form_validation.validation.required
-import com.segnities007.cmp_form_validation.validation.compose.ComposeValidatedField
-import com.segnities007.cmp_form_validation.validation.compose.rememberValidatedField
-import com.segnities007.cmp_form_validation.validation.compose.rememberValidatedStringForm
 import kotlinx.collections.immutable.persistentListOf
 import kotlinx.collections.immutable.persistentMapOf
 
 /** Catalog screen demonstrating form-level submission and cross-field validation. */
 @Composable
 fun FormCatalogScreen(innerPadding: PaddingValues) {
-    val nameField = rememberValidatedField(
-        initialValue = "",
-        rules = persistentListOf(required(), minLength(2), maxLength(30)),
-    )
-    val emailField = rememberValidatedField(
-        initialValue = "",
-        rules = persistentListOf(required(), email()),
-    )
-    val passwordField = rememberValidatedField(
-        initialValue = "",
-        rules = persistentListOf(
-            required(),
-            minLength(8),
-            requireDigitRule(),
-        ),
-    )
-    val confirmField = rememberValidatedField(
-        initialValue = "",
-        rules = persistentListOf(required()),
-    )
+    val nameField =
+        rememberValidatedField(
+            initialValue = "",
+            rules = persistentListOf(required(), minLength(2), maxLength(30)),
+        )
+    val emailField =
+        rememberValidatedField(
+            initialValue = "",
+            rules = persistentListOf(required(), email()),
+        )
+    val passwordField =
+        rememberValidatedField(
+            initialValue = "",
+            rules =
+                persistentListOf(
+                    required(),
+                    minLength(8),
+                    requireDigitRule(),
+                ),
+        )
+    val confirmField =
+        rememberValidatedField(
+            initialValue = "",
+            rules = persistentListOf(required()),
+        )
     var submitted by remember { mutableStateOf(false) }
     var isFormValid by remember { mutableStateOf(false) }
-    val form = rememberValidatedStringForm(
-        fields = persistentMapOf(
-            FIELD_NAME to nameField,
-            FIELD_EMAIL to emailField,
-            FIELD_PASSWORD to passwordField,
-            FIELD_CONFIRM_PASSWORD to confirmField,
-        ),
-        formRules = persistentListOf(
-            fieldsMatchRule(
-                leftField = FIELD_CONFIRM_PASSWORD,
-                rightField = FIELD_PASSWORD,
-                code = "password_mismatch",
-                message = "Password confirmation does not match.",
-            ),
-        ),
-    )
+    val form =
+        rememberValidatedStringForm(
+            fields =
+                persistentMapOf(
+                    FIELD_NAME to nameField,
+                    FIELD_EMAIL to emailField,
+                    FIELD_PASSWORD to passwordField,
+                    FIELD_CONFIRM_PASSWORD to confirmField,
+                ),
+            formRules =
+                persistentListOf(
+                    fieldsMatchRule(
+                        leftField = FIELD_CONFIRM_PASSWORD,
+                        rightField = FIELD_PASSWORD,
+                        code = "password_mismatch",
+                        message = "Password confirmation does not match.",
+                    ),
+                ),
+        )
     val passwordVisualTransformation = PasswordVisualTransformation()
-    val fields = listOf(
-        FormFieldUiSpec(
-            label = "Name",
-            idleText = "2 to 30 chars",
-            field = nameField,
-        ),
-        FormFieldUiSpec(
-            label = "Email",
-            idleText = "name@example.com",
-            field = emailField,
-        ),
-        FormFieldUiSpec(
-            label = "Password",
-            idleText = "At least 8 chars + number",
-            field = passwordField,
-            visualTransformation = passwordVisualTransformation,
-        ),
-        FormFieldUiSpec(
-            label = "Confirm password",
-            idleText = "Must match password",
-            field = confirmField,
-            visualTransformation = passwordVisualTransformation,
-        ),
-    )
+    val fields =
+        listOf(
+            FormFieldUiSpec(
+                label = "Name",
+                idleText = "2 to 30 chars",
+                field = nameField,
+            ),
+            FormFieldUiSpec(
+                label = "Email",
+                idleText = "name@example.com",
+                field = emailField,
+            ),
+            FormFieldUiSpec(
+                label = "Password",
+                idleText = "At least 8 chars + number",
+                field = passwordField,
+                visualTransformation = passwordVisualTransformation,
+            ),
+            FormFieldUiSpec(
+                label = "Confirm password",
+                idleText = "Must match password",
+                field = confirmField,
+                visualTransformation = passwordVisualTransformation,
+            ),
+        )
     val revalidateCrossFieldOnEdit = {
         if (submitted) {
             form.revalidateCrossField()
@@ -165,16 +174,17 @@ private const val FIELD_CONFIRM_PASSWORD = "confirmPassword"
 private fun requireDigitRule(
     code: String = "password_number",
     message: String = "Password must include at least one number.",
-): Rule<String> = Rule { value ->
-    if (value.any(Char::isDigit)) {
-        null
-    } else {
-        ValidationError(
-            code = code,
-            defaultMessage = message,
-        )
+): Rule<String> =
+    Rule { value ->
+        if (value.any(Char::isDigit)) {
+            null
+        } else {
+            ValidationError(
+                code = code,
+                defaultMessage = message,
+            )
+        }
     }
-}
 
 @Preview
 @Composable

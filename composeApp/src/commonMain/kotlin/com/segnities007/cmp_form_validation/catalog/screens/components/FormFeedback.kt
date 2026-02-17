@@ -37,12 +37,13 @@ fun FormSubmissionStatus(isFormValid: Boolean) {
 private fun FormCrossFieldErrorsPreview() {
     MaterialTheme {
         FormCrossFieldErrors(
-            errors = persistentListOf(
-                ValidationError(
-                    code = "password_mismatch",
-                    defaultMessage = "Password confirmation does not match.",
+            errors =
+                persistentListOf(
+                    ValidationError(
+                        code = "password_mismatch",
+                        defaultMessage = "Password confirmation does not match.",
+                    ),
                 ),
-            ),
         )
     }
 }

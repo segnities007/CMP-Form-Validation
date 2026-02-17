@@ -55,11 +55,14 @@ val downloadFonts by tasks.registering {
         if (!notoFile.exists()) {
             logger.lifecycle("Downloading Noto Sans JP font...")
             try {
-                ant.invokeMethod("get", mapOf(
-                    "src" to "https://github.com/google/fonts/raw/main/ofl/notosansjp/NotoSansJP%5Bwght%5D.ttf",
-                    "dest" to notoFile,
-                    "skipexisting" to true,
-                ))
+                ant.invokeMethod(
+                    "get",
+                    mapOf(
+                        "src" to "https://github.com/google/fonts/raw/main/ofl/notosansjp/NotoSansJP%5Bwght%5D.ttf",
+                        "dest" to notoFile,
+                        "skipexisting" to true,
+                    ),
+                )
                 logger.lifecycle("Downloaded: ${notoFile.name} (${notoFile.length() / 1024} KB)")
             } catch (e: Exception) {
                 logger.warn("Could not download Noto Sans JP: ${e.message}")

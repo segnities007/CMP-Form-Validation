@@ -14,24 +14,28 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.segnities007.cmp_form_validation.site.LocalExtraColors
 import com.segnities007.cmp_form_validation.site.SiteDimens
 import com.segnities007.cmp_form_validation.site.SitePreviewTheme
-import androidx.compose.ui.tooling.preview.Preview
 
 @Composable
-fun InfoCard(title: String, body: String) {
+fun InfoCard(
+    title: String,
+    body: String,
+) {
     BoxWithConstraints {
         val compact = maxWidth < 320.dp
         val padding = if (compact) SiteDimens.CompactCardPadding else SiteDimens.InfoCardPadding
         val extra = LocalExtraColors.current
 
         Surface(
-            modifier = Modifier
-                .fillMaxWidth()
-                .heightIn(min = SiteDimens.InfoCardMinHeight),
+            modifier =
+                Modifier
+                    .fillMaxWidth()
+                    .heightIn(min = SiteDimens.InfoCardMinHeight),
             color = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.3f),
             shape = RoundedCornerShape(SiteDimens.InfoCardCorner),
             border = BorderStroke(SiteDimens.CardBorderWidth, extra.cardBorder),

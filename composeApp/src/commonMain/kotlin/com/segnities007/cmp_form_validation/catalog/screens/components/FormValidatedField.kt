@@ -6,6 +6,7 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import com.segnities007.cmp_form_validation.validation.compose.ComposeValidatedField
 import com.segnities007.cmp_form_validation.validation.compose.rememberValidatedField
+import com.segnities007.cmp_form_validation.validation.maxLength
 import com.segnities007.cmp_form_validation.validation.minLength
 import com.segnities007.cmp_form_validation.validation.required
 import kotlinx.collections.immutable.persistentListOf
@@ -33,9 +34,10 @@ fun FormValidatedField(
 @Preview
 @Composable
 private fun FormValidatedFieldPreview() {
-    val field = rememberValidatedField(
-        rules = persistentListOf(required(), minLength(2)),
-    )
+    val field =
+        rememberValidatedField(
+            rules = persistentListOf(required(), minLength(2), maxLength(30)),
+        )
     MaterialTheme {
         FormValidatedField(
             label = "Name",

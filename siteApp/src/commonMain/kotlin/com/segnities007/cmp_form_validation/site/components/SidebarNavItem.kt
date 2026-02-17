@@ -19,11 +19,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.segnities007.cmp_form_validation.site.LocalExtraColors
 import com.segnities007.cmp_form_validation.site.SiteDimens
 import com.segnities007.cmp_form_validation.site.SitePreviewTheme
-import androidx.compose.ui.tooling.preview.Preview
 
 @Composable
 fun SidebarSectionLabel(label: String) {
@@ -32,11 +32,12 @@ fun SidebarSectionLabel(label: String) {
         style = MaterialTheme.typography.labelSmall,
         fontWeight = FontWeight.Bold,
         color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.6f),
-        modifier = Modifier.padding(
-            start = SiteDimens.SidebarItemPaddingH,
-            top = SiteDimens.SidebarSectionLabelPaddingTop,
-            bottom = SiteDimens.SidebarSectionLabelPaddingBottom,
-        ),
+        modifier =
+            Modifier.padding(
+                start = SiteDimens.SidebarItemPaddingH,
+                top = SiteDimens.SidebarSectionLabelPaddingTop,
+                bottom = SiteDimens.SidebarSectionLabelPaddingBottom,
+            ),
     )
 }
 
@@ -48,19 +49,24 @@ fun SidebarNavItem(
 ) {
     val extra = LocalExtraColors.current
     val bgColor = if (isActive) extra.sidebarActiveBg else Color.Transparent
-    val textColor = if (isActive) MaterialTheme.colorScheme.primary
-    else MaterialTheme.colorScheme.onSurfaceVariant
+    val textColor =
+        if (isActive) {
+            MaterialTheme.colorScheme.primary
+        } else {
+            MaterialTheme.colorScheme.onSurfaceVariant
+        }
 
     Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .clip(RoundedCornerShape(8.dp))
-            .background(bgColor)
-            .clickable(onClick = onClick)
-            .padding(
-                horizontal = SiteDimens.SidebarItemPaddingH,
-                vertical = SiteDimens.SidebarItemPaddingV,
-            ),
+        modifier =
+            Modifier
+                .fillMaxWidth()
+                .clip(RoundedCornerShape(8.dp))
+                .background(bgColor)
+                .clickable(onClick = onClick)
+                .padding(
+                    horizontal = SiteDimens.SidebarItemPaddingH,
+                    vertical = SiteDimens.SidebarItemPaddingV,
+                ),
         verticalAlignment = Alignment.CenterVertically,
     ) {
         Box(

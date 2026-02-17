@@ -22,6 +22,7 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.segnities007.cmp_form_validation.site.LocalExtraColors
@@ -35,7 +36,6 @@ import com.segnities007.cmp_form_validation.site.resources.footer_tagline
 import com.segnities007.cmp_form_validation.site.resources.hero_github
 import com.segnities007.cmp_form_validation.site.resources.nav_docs
 import org.jetbrains.compose.resources.stringResource
-import androidx.compose.ui.tooling.preview.Preview
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
@@ -44,24 +44,26 @@ fun Footer(onNavigateToDocs: () -> Unit) {
     val uriHandler = LocalUriHandler.current
 
     BoxWithConstraints(
-        modifier = Modifier
-            .fillMaxWidth()
-            .background(
-                Brush.verticalGradient(
-                    listOf(extra.ctaGradientEnd, extra.footerBg),
+        modifier =
+            Modifier
+                .fillMaxWidth()
+                .background(
+                    Brush.verticalGradient(
+                        listOf(extra.ctaGradientEnd, extra.footerBg),
+                    ),
                 ),
-            ),
         contentAlignment = Alignment.Center,
     ) {
         val compact = maxWidth < 760.dp
         val horizontalPadding = if (compact) SiteDimens.CompactContentPaddingH else SiteDimens.ContentPaddingH
 
         Column(
-            modifier = Modifier
-                .widthIn(max = SiteDimens.MaxContentWidth)
-                .fillMaxWidth()
-                .padding(horizontal = horizontalPadding)
-                .padding(vertical = SiteDimens.FooterVerticalPadding),
+            modifier =
+                Modifier
+                    .widthIn(max = SiteDimens.MaxContentWidth)
+                    .fillMaxWidth()
+                    .padding(horizontal = horizontalPadding)
+                    .padding(vertical = SiteDimens.FooterVerticalPadding),
         ) {
             // Top divider
             Box(

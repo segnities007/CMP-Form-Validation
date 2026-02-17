@@ -3,6 +3,7 @@ package com.segnities007.cmp_form_validation.site.pages.sections
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.tooling.preview.Preview
 import com.segnities007.cmp_form_validation.site.SiteDimens
 import com.segnities007.cmp_form_validation.site.SitePreviewTheme
 import com.segnities007.cmp_form_validation.site.components.NoteBox
@@ -12,7 +13,6 @@ import com.segnities007.cmp_form_validation.site.resources.tip_cross_field
 import com.segnities007.cmp_form_validation.site.resources.tip_error_codes
 import com.segnities007.cmp_form_validation.site.resources.tip_immutable
 import org.jetbrains.compose.resources.stringResource
-import androidx.compose.ui.tooling.preview.Preview
 
 @Composable
 fun DocsTipsSection() {

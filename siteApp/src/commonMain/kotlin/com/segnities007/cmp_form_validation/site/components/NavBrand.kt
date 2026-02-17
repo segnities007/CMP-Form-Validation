@@ -11,10 +11,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.segnities007.cmp_form_validation.site.SitePreviewTheme
-import androidx.compose.ui.tooling.preview.Preview
 
 @Composable
 internal fun NavBrand(compact: Boolean = false) {
@@ -24,11 +24,12 @@ internal fun NavBrand(compact: Boolean = false) {
     ) {
         Text(
             text = "cmp-form-validation",
-            style = if (compact) {
-                MaterialTheme.typography.titleSmall.copy(fontSize = 15.sp)
-            } else {
-                MaterialTheme.typography.titleMedium
-            },
+            style =
+                if (compact) {
+                    MaterialTheme.typography.titleSmall.copy(fontSize = 15.sp)
+                } else {
+                    MaterialTheme.typography.titleMedium
+                },
             fontWeight = FontWeight.Bold,
             color = MaterialTheme.colorScheme.primary,
         )

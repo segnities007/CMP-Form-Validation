@@ -76,9 +76,10 @@ private fun ImmutableMap<String, ComposeValidatedField<String>>.currentValues():
 fun rememberValidatedStringForm(
     fields: ImmutableMap<String, ComposeValidatedField<String>>,
     formRules: ImmutableList<FormRule> = persistentListOf(),
-): ComposeValidatedStringForm = remember(fields, formRules) {
-    ComposeValidatedStringForm(
-        fields = fields,
-        formRules = formRules,
-    )
-}
+): ComposeValidatedStringForm =
+    remember(fields, formRules) {
+        ComposeValidatedStringForm(
+            fields = fields,
+            formRules = formRules,
+        )
+    }

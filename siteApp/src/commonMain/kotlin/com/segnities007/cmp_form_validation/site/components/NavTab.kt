@@ -18,13 +18,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.segnities007.cmp_form_validation.site.SiteDimens
 import com.segnities007.cmp_form_validation.site.SitePreviewTheme
-import androidx.compose.ui.tooling.preview.Preview
 
-private val ActiveTabBackgroundAlpha = 0.08f
+private const val ACTIVE_TAB_BACKGROUND_ALPHA = 0.08f
 private val CompactTabPaddingH = 12.dp
 private val CompactTabPaddingV = 6.dp
 private val CompactTabFontSize = 13.sp
@@ -40,29 +40,35 @@ internal fun NavTab(
     compact: Boolean = false,
     onClick: () -> Unit,
 ) {
-    val activeBg = MaterialTheme.colorScheme.primary.copy(alpha = ActiveTabBackgroundAlpha)
+    val activeBg = MaterialTheme.colorScheme.primary.copy(alpha = ACTIVE_TAB_BACKGROUND_ALPHA)
 
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
-        modifier = Modifier
-            .clip(RoundedCornerShape(8.dp))
-            .background(if (isActive) activeBg else Color.Transparent)
-            .clickable(onClick = onClick)
-            .padding(
-                horizontal = if (compact) CompactTabPaddingH else SiteDimens.NavTabPaddingH,
-                vertical = if (compact) CompactTabPaddingV else SiteDimens.NavTabPaddingV,
-            ),
+        modifier =
+            Modifier
+                .clip(RoundedCornerShape(8.dp))
+                .background(if (isActive) activeBg else Color.Transparent)
+                .clickable(onClick = onClick)
+                .padding(
+                    horizontal = if (compact) CompactTabPaddingH else SiteDimens.NavTabPaddingH,
+                    vertical = if (compact) CompactTabPaddingV else SiteDimens.NavTabPaddingV,
+                ),
     ) {
         Text(
             text = label,
-            style = if (compact) {
-                MaterialTheme.typography.bodySmall.copy(fontSize = CompactTabFontSize)
-            } else {
-                MaterialTheme.typography.bodyMedium
-            },
+            style =
+                if (compact) {
+                    MaterialTheme.typography.bodySmall.copy(fontSize = CompactTabFontSize)
+                } else {
+                    MaterialTheme.typography.bodyMedium
+                },
             fontWeight = if (isActive) FontWeight.SemiBold else FontWeight.Normal,
-            color = if (isActive) MaterialTheme.colorScheme.primary
-            else MaterialTheme.colorScheme.onSurfaceVariant,
+            color =
+                if (isActive) {
+                    MaterialTheme.colorScheme.primary
+                } else {
+                    MaterialTheme.colorScheme.onSurfaceVariant
+                },
         )
         Spacer(Modifier.height(IndicatorSpacerHeight))
         Box(

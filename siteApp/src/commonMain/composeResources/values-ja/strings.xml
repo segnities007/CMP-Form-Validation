@@ -81,7 +81,7 @@
     <string name="integration_modifier_desc">Modifier.validation(field) で既存テキストフィールドにブラートリガーバリデーションを追加。既存フィールドへの最小限の変更に便利。</string>
     <string name="integration_wrapper">ラッパーコンポーネント</string>
     <string name="integration_wrapper_desc">ValidatedOutlinedTextField でフィールド、バリデーション、エラー表示を一つのコンポーザブルにまとめる。ボイラープレート削減に最適。</string>
-    <string name="tips_title">Tips</string>
+    <string name="tips_title">ヒント</string>
     <string name="tip_immutable">ルールとフィールドのリストには kotlinx-collections-immutable の persistentListOf() と persistentMapOf() を使用してください。不要な再コンポジションを防ぎます。</string>
     <string name="tip_cross_field">クロスフィールドルールは form.submit() 中にのみ実行されます。個別フィールドの変更では発火しません。</string>
     <string name="tip_error_codes">プログラム的なエラー処理には、意味のある ErrorCode 文字列（例: \"password_too_weak\"）を使用してください。</string>

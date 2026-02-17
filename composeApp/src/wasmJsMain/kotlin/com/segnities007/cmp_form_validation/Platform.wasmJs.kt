@@ -1,6 +1,6 @@
 package com.segnities007.cmp_form_validation
 
-class WasmPlatform: Platform {
+class WasmPlatform : Platform {
     override val name: String = "Web with Kotlin/Wasm"
 }
 

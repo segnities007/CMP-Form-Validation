@@ -1,6 +1,7 @@
 package com.segnities007.cmp_form_validation.site.pages.sections
 
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.tooling.preview.Preview
 import com.segnities007.cmp_form_validation.site.SitePreviewTheme
 import com.segnities007.cmp_form_validation.site.components.ApiRow
 import com.segnities007.cmp_form_validation.site.pages.ApiSection
@@ -14,7 +15,6 @@ import com.segnities007.cmp_form_validation.site.resources.api_remember_form_des
 import com.segnities007.cmp_form_validation.site.resources.api_supporting_text_desc
 import com.segnities007.cmp_form_validation.site.resources.api_validated_tf_desc
 import org.jetbrains.compose.resources.stringResource
-import androidx.compose.ui.tooling.preview.Preview
 
 @Composable
 fun ApiComposeSection() {

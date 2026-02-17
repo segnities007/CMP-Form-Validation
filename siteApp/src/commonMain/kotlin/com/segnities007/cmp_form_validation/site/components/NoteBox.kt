@@ -4,8 +4,8 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Info
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
-import com.segnities007.cmp_form_validation.site.SitePreviewTheme
 import androidx.compose.ui.tooling.preview.Preview
+import com.segnities007.cmp_form_validation.site.SitePreviewTheme
 
 @Composable
 fun NoteBox(text: String) {

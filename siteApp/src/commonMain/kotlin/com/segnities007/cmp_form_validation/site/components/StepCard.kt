@@ -16,13 +16,12 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.segnities007.cmp_form_validation.site.LocalExtraColors
 import com.segnities007.cmp_form_validation.site.SiteDimens
 import com.segnities007.cmp_form_validation.site.SitePreviewTheme
-import androidx.compose.ui.tooling.preview.Preview
 
 /**
  * A documentation step card with a left accent bar.
@@ -51,20 +50,23 @@ fun StepCard(
         Row(modifier = Modifier.height(IntrinsicSize.Min)) {
             // Left accent bar — background AFTER sizing
             Surface(
-                modifier = Modifier
-                    .fillMaxHeight()
-                    .width(4.dp),
+                modifier =
+                    Modifier
+                        .fillMaxHeight()
+                        .width(4.dp),
                 color = extra.accentBar,
-                shape = RoundedCornerShape(
-                    topStart = SiteDimens.CardCorner,
-                    bottomStart = SiteDimens.CardCorner,
-                ),
+                shape =
+                    RoundedCornerShape(
+                        topStart = SiteDimens.CardCorner,
+                        bottomStart = SiteDimens.CardCorner,
+                    ),
             ) {}
 
             Column(
-                modifier = Modifier
-                    .weight(1f)
-                    .padding(SiteDimens.CardPadding),
+                modifier =
+                    Modifier
+                        .weight(1f)
+                        .padding(SiteDimens.CardPadding),
                 verticalArrangement = Arrangement.spacedBy(SiteDimens.CardItemSpacing),
             ) {
                 SectionHeader(stepTitle)

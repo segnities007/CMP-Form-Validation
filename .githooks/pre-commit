@@ -1,0 +1,106 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+ROOT_DIR="$(git rev-parse --show-toplevel)"
+cd "$ROOT_DIR"
+export GRADLE_USER_HOME="${GRADLE_USER_HOME:-$ROOT_DIR/.gradle-local}"
+HAS_RG=0
+if command -v rg >/dev/null 2>&1; then
+  HAS_RG=1
+fi
+
+echo "[pre-commit] Running local checks..."
+
+STAGED_FILES="$(git diff --cached --name-only --diff-filter=ACMR)"
+if [[ -z "$STAGED_FILES" ]]; then
+  echo "[pre-commit] No staged files."
+  exit 0
+fi
+
+# 1) Block unresolved merge conflict markers in staged content.
+while IFS= read -r file; do
+  [[ -z "$file" ]] && continue
+  if [[ "$HAS_RG" -eq 1 ]]; then
+    if git show ":$file" | rg -n "^(<<<<<<<|=======|>>>>>>>)" >/dev/null 2>&1; then
+      echo "[pre-commit] ERROR: Merge conflict markers found in staged file: $file"
+      exit 1
+    fi
+  elif git show ":$file" | grep -nE "^(<<<<<<<|=======|>>>>>>>)" >/dev/null 2>&1; then
+    echo "[pre-commit] ERROR: Merge conflict markers found in staged file: $file"
+    exit 1
+  fi
+done <<<"$STAGED_FILES"
+
+# 2) Block common secret patterns in added lines.
+SECRET_REGEX="^\+.*(AKIA[0-9A-Z]{16}|AIza[0-9A-Za-z_-]{35}|ghp_[0-9A-Za-z]{36}|github_pat_[0-9A-Za-z_]{20,}|-----BEGIN (RSA|OPENSSH|EC|DSA) PRIVATE KEY-----|xox[baprs]-[0-9A-Za-z-]{10,})"
+if [[ "$HAS_RG" -eq 1 ]]; then
+  if git diff --cached -U0 | rg -n "$SECRET_REGEX" >/dev/null 2>&1; then
+    echo "[pre-commit] ERROR: Possible secret detected in staged diff."
+    echo "[pre-commit] Remove the secret and rotate credentials if needed."
+    exit 1
+  fi
+elif git diff --cached -U0 | grep -nE "$SECRET_REGEX" >/dev/null 2>&1; then
+  echo "[pre-commit] ERROR: Possible secret detected in staged diff."
+  echo "[pre-commit] Remove the secret and rotate credentials if needed."
+  exit 1
+fi
+
+# 3) Warn when committing key-like files.
+if [[ "$HAS_RG" -eq 1 ]]; then
+  if echo "$STAGED_FILES" | rg -n "\.(pem|p12|pfx|jks|keystore)$" >/dev/null 2>&1; then
+    echo "[pre-commit] ERROR: Key/certificate-like file detected in commit."
+    echo "[pre-commit] If intentional, use secure secret handling instead of committing it."
+    exit 1
+  fi
+elif echo "$STAGED_FILES" | grep -nE "\.(pem|p12|pfx|jks|keystore)$" >/dev/null 2>&1; then
+  echo "[pre-commit] ERROR: Key/certificate-like file detected in commit."
+  echo "[pre-commit] If intentional, use secure secret handling instead of committing it."
+  exit 1
+fi
+
+# 4) Run ktlint checks for affected modules (fast gate).
+if [[ "$HAS_RG" -eq 1 ]]; then
+  KOTLIN_STAGED="$(echo "$STAGED_FILES" | rg '\.(kt|kts)$' || true)"
+else
+  KOTLIN_STAGED="$(echo "$STAGED_FILES" | grep -E '\.(kt|kts)$' || true)"
+fi
+if [[ -n "$KOTLIN_STAGED" ]]; then
+  if [[ ! -x "./gradlew" ]]; then
+    echo "[pre-commit] WARN: ./gradlew not found. Skipping ktlint."
+  else
+    tasks=""
+    run_full_check=0
+
+    while IFS= read -r file; do
+      [[ -z "$file" ]] && continue
+      top_dir="${file%%/*}"
+      case "$top_dir" in
+      composeApp|validation-core|validation-compose|siteApp|iosApp)
+        candidate=":$top_dir:ktlintCheck"
+        case " $tasks " in
+        *" $candidate "*) ;;
+        *) tasks="$tasks $candidate" ;;
+        esac
+        ;;
+      *)
+        # Root-level Kotlin/Gradle scripts can affect global style config.
+        run_full_check=1
+        ;;
+      esac
+    done <<<"$KOTLIN_STAGED"
+
+    if [[ "$run_full_check" -eq 1 ]]; then
+      echo "[pre-commit] Running ktlintCheckAll (root-level Kotlin script changed)"
+      ./gradlew --no-daemon -g "$GRADLE_USER_HOME" ktlintCheckAll
+    else
+      if [[ -n "${tasks// }" ]]; then
+        # shellcheck disable=SC2086
+        set -- $tasks
+        echo "[pre-commit] Running ktlint for affected modules: $*"
+        ./gradlew --no-daemon -g "$GRADLE_USER_HOME" "$@"
+      fi
+    fi
+  fi
+fi
+
+echo "[pre-commit] OK"

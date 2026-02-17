@@ -1,0 +1,43 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+ROOT_DIR="$(git rev-parse --show-toplevel)"
+cd "$ROOT_DIR"
+export GRADLE_USER_HOME="${GRADLE_USER_HOME:-$ROOT_DIR/.gradle-local}"
+
+echo "[pre-push] Running local checks..."
+
+if [[ "${SKIP_GIT_HOOKS:-}" == "1" ]]; then
+  echo "[pre-push] SKIP_GIT_HOOKS=1 set. Skipping."
+  exit 0
+fi
+
+# 1) Secret scan (full repository) using gitleaks when available.
+if command -v gitleaks >/dev/null 2>&1; then
+  echo "[pre-push] Secret scan: gitleaks"
+  gitleaks detect --no-banner --redact --source . --log-level warn
+else
+  if [[ "${ALLOW_MISSING_GITLEAKS:-0}" == "1" ]]; then
+    echo "[pre-push] WARN: gitleaks not found (ALLOW_MISSING_GITLEAKS=1)."
+  else
+    echo "[pre-push] ERROR: gitleaks not found."
+    echo "[pre-push] Install gitleaks or set ALLOW_MISSING_GITLEAKS=1 to bypass temporarily."
+    exit 1
+  fi
+fi
+
+# 2) Quality gates (same baseline as CI).
+if [[ -x "./gradlew" ]]; then
+  echo "[pre-push] Quality checks: ktlint + detekt + core tests + compile checks"
+  ./gradlew --no-daemon -g "$GRADLE_USER_HOME" \
+    ktlintCheckAll \
+    detektAll \
+    :validation-core:jvmTest \
+    :validation-compose:compileKotlinJvm \
+    :siteApp:compileKotlinJs \
+    :siteApp:compileKotlinWasmJs
+else
+  echo "[pre-push] WARN: ./gradlew not found. Skipping Gradle checks."
+fi
+
+echo "[pre-push] OK"

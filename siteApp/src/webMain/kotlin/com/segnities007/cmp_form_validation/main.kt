@@ -7,8 +7,9 @@ import kotlinx.browser.window
 
 @OptIn(ExperimentalComposeUiApi::class)
 fun main() {
-    val currentLang = window.localStorage.getItem("site_locale")
-        ?: window.navigator.language.take(2)
+    val currentLang =
+        window.localStorage.getItem("site_locale")
+            ?: window.navigator.language.take(2)
 
     ComposeViewport {
         DocsSiteApp(

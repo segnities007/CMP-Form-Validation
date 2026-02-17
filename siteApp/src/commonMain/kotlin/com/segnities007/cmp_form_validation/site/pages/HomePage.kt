@@ -2,6 +2,7 @@ package com.segnities007.cmp_form_validation.site.pages
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.tooling.preview.Preview
 import com.segnities007.cmp_form_validation.site.LocalExtraColors
 import com.segnities007.cmp_form_validation.site.SitePreviewTheme
 import com.segnities007.cmp_form_validation.site.components.CtaSection
@@ -10,7 +11,6 @@ import com.segnities007.cmp_form_validation.site.pages.sections.HomeArchitecture
 import com.segnities007.cmp_form_validation.site.pages.sections.HomePlatformSection
 import com.segnities007.cmp_form_validation.site.pages.sections.HomeQuickStartSection
 import com.segnities007.cmp_form_validation.site.pages.sections.HomeWhySection
-import androidx.compose.ui.tooling.preview.Preview
 
 @Composable
 fun HomePage(onNavigateToDocs: () -> Unit) {

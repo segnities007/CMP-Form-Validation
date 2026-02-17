@@ -37,10 +37,11 @@ fun WrapperPatternSection(field: ComposeValidatedField<String>) {
 @Preview
 @Composable
 private fun WrapperPatternSectionPreview() {
-    val field = rememberValidatedField(
-        initialValue = "",
-        rules = persistentListOf(required(), minLength(8)),
-    )
+    val field =
+        rememberValidatedField(
+            initialValue = "",
+            rules = persistentListOf(required(), minLength(8)),
+        )
     MaterialTheme {
         WrapperPatternSection(field = field)
     }

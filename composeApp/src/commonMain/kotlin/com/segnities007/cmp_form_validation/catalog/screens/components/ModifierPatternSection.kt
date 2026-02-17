@@ -25,8 +25,9 @@ fun ModifierPatternSection(field: ComposeValidatedField<String>) {
             label = "Password",
             idleText = "Blur to trigger validation",
             field = field,
-            modifier = Modifier
-                .validation(field),
+            modifier =
+                Modifier
+                    .validation(field),
             visualTransformation = PasswordVisualTransformation(),
         )
     }
@@ -35,10 +36,11 @@ fun ModifierPatternSection(field: ComposeValidatedField<String>) {
 @Preview
 @Composable
 private fun ModifierPatternSectionPreview() {
-    val field = rememberValidatedField(
-        initialValue = "",
-        rules = persistentListOf(required(), minLength(8)),
-    )
+    val field =
+        rememberValidatedField(
+            initialValue = "",
+            rules = persistentListOf(required(), minLength(8)),
+        )
     MaterialTheme {
         ModifierPatternSection(field = field)
     }

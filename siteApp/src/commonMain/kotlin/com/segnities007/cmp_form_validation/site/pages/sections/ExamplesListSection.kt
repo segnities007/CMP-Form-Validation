@@ -6,6 +6,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.LayoutCoordinates
 import androidx.compose.ui.layout.onGloballyPositioned
+import androidx.compose.ui.tooling.preview.Preview
 import com.segnities007.cmp_form_validation.site.SiteDimens
 import com.segnities007.cmp_form_validation.site.SitePreviewTheme
 import com.segnities007.cmp_form_validation.site.pages.CodeSamples
@@ -24,12 +25,9 @@ import com.segnities007.cmp_form_validation.site.resources.ex_signup_title
 import com.segnities007.cmp_form_validation.site.resources.ex_wrapper_desc
 import com.segnities007.cmp_form_validation.site.resources.ex_wrapper_title
 import org.jetbrains.compose.resources.stringResource
-import androidx.compose.ui.tooling.preview.Preview
 
 @Composable
-fun ExamplesListSection(
-    sectionCoords: MutableMap<Int, LayoutCoordinates>? = null,
-) {
+fun ExamplesListSection(sectionCoords: MutableMap<Int, LayoutCoordinates>? = null) {
     Column(verticalArrangement = Arrangement.spacedBy(SiteDimens.ExampleSectionSpacing)) {
         Column(Modifier.onGloballyPositioned { sectionCoords?.set(0, it) }) {
             ExampleSection(stringResource(Res.string.ex_email_title), stringResource(Res.string.ex_email_desc), CodeSamples.EMAIL)

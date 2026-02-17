@@ -13,8 +13,8 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import com.segnities007.cmp_form_validation.site.components.NavBar
 import androidx.compose.ui.tooling.preview.Preview
+import com.segnities007.cmp_form_validation.site.components.NavBar
 
 enum class SiteTab(
     val showsBottomCta: Boolean = false,
@@ -41,9 +41,10 @@ fun DocsSiteApp(
     CompositionLocalProvider(LocalExtraColors provides extraColors) {
         MaterialTheme(colorScheme = colorScheme, typography = typography) {
             Scaffold(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .background(MaterialTheme.colorScheme.background),
+                modifier =
+                    Modifier
+                        .fillMaxSize()
+                        .background(MaterialTheme.colorScheme.background),
                 topBar = {
                     NavBar(
                         selectedTab = selectedTab,
@@ -56,9 +57,10 @@ fun DocsSiteApp(
                 },
             ) { innerPadding ->
                 SitePageContent(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .padding(innerPadding),
+                    modifier =
+                        Modifier
+                            .fillMaxSize()
+                            .padding(innerPadding),
                     selectedTab = selectedTab,
                     onNavigateToDocs = { selectedTab = SiteTab.Docs },
                 )
@@ -73,11 +75,8 @@ private fun DocsSiteAppPreview() {
     DocsSiteApp()
 }
 
-private fun themeModeForSystem(systemDark: Boolean): ThemeMode =
-    if (systemDark) ThemeMode.DARK else ThemeMode.LIGHT
+private fun themeModeForSystem(systemDark: Boolean): ThemeMode = if (systemDark) ThemeMode.DARK else ThemeMode.LIGHT
 
-private fun localeLabelFor(currentLocaleCode: String): String =
-    if (currentLocaleCode.startsWith("ja")) "JA" else "EN"
+private fun localeLabelFor(currentLocaleCode: String): String = if (currentLocaleCode.startsWith("ja")) "JA" else "EN"
 
-private fun ThemeMode.toggled(): ThemeMode =
-    if (this == ThemeMode.DARK) ThemeMode.LIGHT else ThemeMode.DARK
+private fun ThemeMode.toggled(): ThemeMode = if (this == ThemeMode.DARK) ThemeMode.LIGHT else ThemeMode.DARK

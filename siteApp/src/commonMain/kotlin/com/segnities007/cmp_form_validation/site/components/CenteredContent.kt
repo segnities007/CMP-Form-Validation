@@ -10,10 +10,10 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.segnities007.cmp_form_validation.site.SiteDimens
 import com.segnities007.cmp_form_validation.site.SitePreviewTheme
-import androidx.compose.ui.tooling.preview.Preview
 
 @Composable
 fun CenteredContent(
@@ -28,10 +28,11 @@ fun CenteredContent(
             contentAlignment = Alignment.TopCenter,
         ) {
             Column(
-                modifier = Modifier
-                    .widthIn(max = SiteDimens.MaxContentWidth)
-                    .fillMaxWidth()
-                    .padding(horizontal = horizontalPadding),
+                modifier =
+                    Modifier
+                        .widthIn(max = SiteDimens.MaxContentWidth)
+                        .fillMaxWidth()
+                        .padding(horizontal = horizontalPadding),
             ) {
                 content()
             }

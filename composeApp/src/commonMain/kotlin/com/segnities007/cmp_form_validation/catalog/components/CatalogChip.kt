@@ -24,10 +24,11 @@ internal fun CatalogChip(
     ) {
         Text(
             text = label,
-            modifier = Modifier.padding(
-                horizontal = CatalogTokens.ChipHorizontalPadding,
-                vertical = CatalogTokens.ChipVerticalPadding,
-            ),
+            modifier =
+                Modifier.padding(
+                    horizontal = CatalogTokens.ChipHorizontalPadding,
+                    vertical = CatalogTokens.ChipVerticalPadding,
+                ),
             style = textStyle,
             color = contentColor,
         )

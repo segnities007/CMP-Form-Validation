@@ -5,12 +5,12 @@
 
 ## Context
 
-利用者は「既存TextFieldコードを保ちながら簡単にValidationを追加したい」。  
-一方で、Composeの思想としては状態を明示する設計が保守しやすい。
+Users want to add validation easily while keeping existing TextField code.  
+At the same time, explicit state modeling is more maintainable in Compose.
 
 ## Decision
 
-Compose向けAPIは階層化する。
+Tier the Compose-facing APIs as follows:
 
 1. Primary:
 - `rememberValidatedField` + native `OutlinedTextField` / `TextField`
@@ -25,11 +25,11 @@ Compose向けAPIは階層化する。
 
 ## Rationale
 
-- Primary方式は状態遷移と検証タイミングが追跡しやすい
-- Modifier方式は導入コストを下げる補助として有効
-- Wrapper方式は記述量削減に有効だが抽象化コストがある
+- Primary approach makes state transitions and validation timing easy to trace
+- Modifier approach is useful as a low-adoption-cost supplement
+- Wrapper approach reduces boilerplate but introduces abstraction cost
 
 ## Consequences
 
-- ドキュメントとカタログはPrimary方式を主戦力として説明する
-- 補助方式も正式サポートし、用途別に使い分け可能にする
+- Documentation and catalog prioritize the Primary approach
+- Supplementary approaches remain officially supported for use-case-based selection

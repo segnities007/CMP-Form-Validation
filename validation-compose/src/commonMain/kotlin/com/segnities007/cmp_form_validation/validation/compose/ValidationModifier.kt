@@ -25,12 +25,13 @@ import androidx.compose.ui.focus.onFocusChanged
 fun Modifier.validation(
     field: ComposeValidatedField<*>,
     validateOnBlur: Boolean = true,
-): Modifier = composed {
-    var wasFocused by remember { mutableStateOf(false) }
-    this.onFocusChanged { focusState ->
-        if (validateOnBlur && wasFocused && !focusState.isFocused) {
-            field.onBlur()
+): Modifier =
+    composed {
+        var wasFocused by remember { mutableStateOf(false) }
+        this.onFocusChanged { focusState ->
+            if (validateOnBlur && wasFocused && !focusState.isFocused) {
+                field.onBlur()
+            }
+            wasFocused = focusState.isFocused
         }
-        wasFocused = focusState.isFocused
     }
-}

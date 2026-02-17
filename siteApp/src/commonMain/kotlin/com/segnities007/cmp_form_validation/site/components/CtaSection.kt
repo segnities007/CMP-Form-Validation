@@ -24,6 +24,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.segnities007.cmp_form_validation.site.LocalExtraColors
@@ -36,47 +37,51 @@ import com.segnities007.cmp_form_validation.site.resources.cta_start
 import com.segnities007.cmp_form_validation.site.resources.cta_subtitle
 import com.segnities007.cmp_form_validation.site.resources.cta_title
 import org.jetbrains.compose.resources.stringResource
-import androidx.compose.ui.tooling.preview.Preview
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
-fun CtaSection(
-    onGetStarted: () -> Unit,
-) {
+fun CtaSection(onGetStarted: () -> Unit) {
     val extra = LocalExtraColors.current
     val uriHandler = LocalUriHandler.current
 
     BoxWithConstraints(
-        modifier = Modifier
-            .fillMaxWidth()
-            .background(
-                Brush.verticalGradient(
-                    listOf(extra.ctaGradientStart, extra.ctaGradientEnd),
+        modifier =
+            Modifier
+                .fillMaxWidth()
+                .background(
+                    Brush.verticalGradient(
+                        listOf(extra.ctaGradientStart, extra.ctaGradientEnd),
+                    ),
                 ),
-            ),
     ) {
         val compact = maxWidth < 760.dp
         val horizontalPadding = if (compact) SiteDimens.CompactContentPaddingH else SiteDimens.ContentPaddingH
         val verticalPadding = if (compact) SiteDimens.CompactCtaPaddingV else SiteDimens.CtaPaddingV
 
         Box(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(vertical = verticalPadding),
+            modifier =
+                Modifier
+                    .fillMaxWidth()
+                    .padding(vertical = verticalPadding),
             contentAlignment = Alignment.Center,
         ) {
             Column(
-                modifier = Modifier
-                    .widthIn(max = SiteDimens.MaxContentWidth)
-                    .fillMaxWidth()
-                    .padding(horizontal = horizontalPadding),
+                modifier =
+                    Modifier
+                        .widthIn(max = SiteDimens.MaxContentWidth)
+                        .fillMaxWidth()
+                        .padding(horizontal = horizontalPadding),
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.spacedBy(16.dp),
             ) {
                 Text(
                     text = stringResource(Res.string.cta_title),
-                    style = if (compact) MaterialTheme.typography.headlineSmall
-                    else MaterialTheme.typography.headlineMedium,
+                    style =
+                        if (compact) {
+                            MaterialTheme.typography.headlineSmall
+                        } else {
+                            MaterialTheme.typography.headlineMedium
+                        },
                     fontWeight = FontWeight.Bold,
                     color = MaterialTheme.colorScheme.onSurface,
                     textAlign = TextAlign.Center,
@@ -93,9 +98,10 @@ fun CtaSection(
                 FlowRow(
                     horizontalArrangement = Arrangement.spacedBy(SiteDimens.HeroButtonSpacing, Alignment.CenterHorizontally),
                     verticalArrangement = Arrangement.spacedBy(SiteDimens.HeroButtonSpacing),
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(top = 8.dp),
+                    modifier =
+                        Modifier
+                            .fillMaxWidth()
+                            .padding(top = 8.dp),
                 ) {
                     Surface(
                         color = MaterialTheme.colorScheme.primary,
@@ -108,10 +114,11 @@ fun CtaSection(
                             color = Color.White,
                             style = MaterialTheme.typography.labelLarge,
                             fontWeight = FontWeight.SemiBold,
-                            modifier = Modifier.padding(
-                                horizontal = SiteDimens.HeroButtonPaddingH,
-                                vertical = SiteDimens.HeroButtonPaddingV,
-                            ),
+                            modifier =
+                                Modifier.padding(
+                                    horizontal = SiteDimens.HeroButtonPaddingH,
+                                    vertical = SiteDimens.HeroButtonPaddingV,
+                                ),
                         )
                     }
                     Surface(
@@ -125,10 +132,11 @@ fun CtaSection(
                             color = MaterialTheme.colorScheme.primary,
                             style = MaterialTheme.typography.labelLarge,
                             fontWeight = FontWeight.SemiBold,
-                            modifier = Modifier.padding(
-                                horizontal = SiteDimens.HeroButtonPaddingH,
-                                vertical = SiteDimens.HeroButtonPaddingV,
-                            ),
+                            modifier =
+                                Modifier.padding(
+                                    horizontal = SiteDimens.HeroButtonPaddingH,
+                                    vertical = SiteDimens.HeroButtonPaddingV,
+                                ),
                         )
                     }
                 }

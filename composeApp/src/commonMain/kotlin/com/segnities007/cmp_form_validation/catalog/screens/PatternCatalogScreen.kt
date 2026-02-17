@@ -9,28 +9,31 @@ import com.segnities007.cmp_form_validation.catalog.components.CatalogLazyColumn
 import com.segnities007.cmp_form_validation.catalog.screens.components.ModifierPatternSection
 import com.segnities007.cmp_form_validation.catalog.screens.components.PrimaryPatternSection
 import com.segnities007.cmp_form_validation.catalog.screens.components.WrapperPatternSection
+import com.segnities007.cmp_form_validation.validation.compose.rememberValidatedField
 import com.segnities007.cmp_form_validation.validation.email
 import com.segnities007.cmp_form_validation.validation.minLength
 import com.segnities007.cmp_form_validation.validation.required
-import com.segnities007.cmp_form_validation.validation.compose.rememberValidatedField
 import kotlinx.collections.immutable.persistentListOf
 
 /** Catalog screen comparing the three integration styles (primary + supplementary). */
 @Composable
 fun PatternCatalogScreen(innerPadding: PaddingValues) {
     val passwordRules = persistentListOf(required(), minLength(8))
-    val primaryField = rememberValidatedField(
-        initialValue = "",
-        rules = persistentListOf(required(), email()),
-    )
-    val modifierField = rememberValidatedField(
-        initialValue = "",
-        rules = passwordRules,
-    )
-    val wrapperField = rememberValidatedField(
-        initialValue = "",
-        rules = passwordRules,
-    )
+    val primaryField =
+        rememberValidatedField(
+            initialValue = "",
+            rules = persistentListOf(required(), email()),
+        )
+    val modifierField =
+        rememberValidatedField(
+            initialValue = "",
+            rules = passwordRules,
+        )
+    val wrapperField =
+        rememberValidatedField(
+            initialValue = "",
+            rules = passwordRules,
+        )
 
     CatalogLazyColumn(innerPadding = innerPadding) {
         item {
