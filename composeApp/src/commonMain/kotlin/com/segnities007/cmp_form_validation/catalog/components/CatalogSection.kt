@@ -22,21 +22,25 @@ fun CatalogSection(
     content: @Composable () -> Unit,
 ) {
     Card(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(vertical = CatalogTokens.CardVerticalPadding),
-        colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.surface,
-        ),
-        border = BorderStroke(
-            width = 1.dp,
-            color = MaterialTheme.colorScheme.outlineVariant,
-        ),
+        modifier =
+            Modifier
+                .fillMaxWidth()
+                .padding(vertical = CatalogTokens.CardVerticalPadding),
+        colors =
+            CardDefaults.cardColors(
+                containerColor = MaterialTheme.colorScheme.surface,
+            ),
+        border =
+            BorderStroke(
+                width = 1.dp,
+                color = MaterialTheme.colorScheme.outlineVariant,
+            ),
     ) {
         Column(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(CatalogTokens.CardContentPadding),
+            modifier =
+                Modifier
+                    .fillMaxWidth()
+                    .padding(CatalogTokens.CardContentPadding),
             verticalArrangement = Arrangement.spacedBy(CatalogTokens.SectionContentSpacing),
         ) {
             Text(title, style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.SemiBold)

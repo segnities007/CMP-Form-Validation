@@ -16,6 +16,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.LayoutCoordinates
 import androidx.compose.ui.layout.onGloballyPositioned
+import androidx.compose.ui.tooling.preview.Preview
 import com.segnities007.cmp_form_validation.site.SiteDimens
 import com.segnities007.cmp_form_validation.site.SitePreviewTheme
 import com.segnities007.cmp_form_validation.site.components.OverviewCard
@@ -29,10 +30,8 @@ import com.segnities007.cmp_form_validation.site.pages.sections.ApiCoreSection
 import com.segnities007.cmp_form_validation.site.pages.sections.ApiFieldSection
 import com.segnities007.cmp_form_validation.site.pages.sections.ApiRulesSection
 import com.segnities007.cmp_form_validation.site.resources.Res
-import com.segnities007.cmp_form_validation.site.resources.*
 import kotlinx.coroutines.launch
 import org.jetbrains.compose.resources.stringResource
-import androidx.compose.ui.tooling.preview.Preview
 
 @Composable
 fun ApiPage(onScrollRequested: ((LayoutCoordinates) -> Unit)? = null) {
@@ -40,12 +39,13 @@ fun ApiPage(onScrollRequested: ((LayoutCoordinates) -> Unit)? = null) {
     val sectionCoords = remember { mutableMapOf<Int, LayoutCoordinates>() }
     val scope = rememberCoroutineScope()
 
-    val sectionLabels = listOf(
-        stringResource(Res.string.api_core_title),
-        stringResource(Res.string.api_rules_title),
-        stringResource(Res.string.api_field_title),
-        stringResource(Res.string.api_compose_title),
-    )
+    val sectionLabels =
+        listOf(
+            stringResource(Res.string.api_core_title),
+            stringResource(Res.string.api_rules_title),
+            stringResource(Res.string.api_field_title),
+            stringResource(Res.string.api_compose_title),
+        )
 
     fun handleSectionClick(index: Int) {
         activeSection = index
@@ -92,10 +92,19 @@ fun ApiPage(onScrollRequested: ((LayoutCoordinates) -> Unit)? = null) {
                 OverviewCard(
                     title = stringResource(Res.string.overview_title),
                     description = stringResource(Res.string.overview_api_desc),
-                    metaItems = listOf(
-                        OverviewMeta(Icons.Rounded.Layers, stringResource(Res.string.overview_modules), stringResource(Res.string.overview_two_modules)),
-                        OverviewMeta(Icons.Rounded.Api, stringResource(Res.string.overview_sections), stringResource(Res.string.overview_api_types)),
-                    ),
+                    metaItems =
+                        listOf(
+                            OverviewMeta(
+                                Icons.Rounded.Layers,
+                                stringResource(Res.string.overview_modules),
+                                stringResource(Res.string.overview_two_modules),
+                            ),
+                            OverviewMeta(
+                                Icons.Rounded.Api,
+                                stringResource(Res.string.overview_sections),
+                                stringResource(Res.string.overview_api_types),
+                            ),
+                        ),
                 )
             },
             mainContent = {

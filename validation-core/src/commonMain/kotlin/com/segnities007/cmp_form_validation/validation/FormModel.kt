@@ -68,11 +68,12 @@ class ValidatedField<T>(
      * This follows [trigger] and interaction state.
      */
     val showErrors: Boolean
-        get() = when (trigger) {
-            ValidationTrigger.OnChange -> touched || dirty
-            ValidationTrigger.OnBlur -> blurred
-            ValidationTrigger.OnSubmitThenChange -> submitted
-        }
+        get() =
+            when (trigger) {
+                ValidationTrigger.OnChange -> touched || dirty
+                ValidationTrigger.OnBlur -> blurred
+                ValidationTrigger.OnSubmitThenChange -> submitted
+            }
 
     /** Updates value and validates depending on [trigger]. */
     fun onValueChange(next: T) {
@@ -115,17 +116,19 @@ class ValidatedField<T>(
         result = ValidationResult.valid()
     }
 
-    private fun shouldValidateOnValueChange(): Boolean = when (trigger) {
-        ValidationTrigger.OnChange -> true
-        ValidationTrigger.OnBlur -> false
-        ValidationTrigger.OnSubmitThenChange -> submitted
-    }
+    private fun shouldValidateOnValueChange(): Boolean =
+        when (trigger) {
+            ValidationTrigger.OnChange -> true
+            ValidationTrigger.OnBlur -> false
+            ValidationTrigger.OnSubmitThenChange -> submitted
+        }
 
-    private fun shouldValidateOnBlur(): Boolean = when (trigger) {
-        ValidationTrigger.OnChange -> false
-        ValidationTrigger.OnBlur -> true
-        ValidationTrigger.OnSubmitThenChange -> submitted
-    }
+    private fun shouldValidateOnBlur(): Boolean =
+        when (trigger) {
+            ValidationTrigger.OnChange -> false
+            ValidationTrigger.OnBlur -> true
+            ValidationTrigger.OnSubmitThenChange -> submitted
+        }
 }
 
 /**
@@ -219,21 +222,24 @@ fun fieldsMatchRule(
     rightField: String,
     code: String = "field_mismatch",
     message: String = "Fields do not match.",
-): FormRule = FormRule { values ->
-    val left = requireNotNull(values[leftField]) {
-        "fieldsMatchRule: field '$leftField' not found. Available fields: ${values.keys}"
+): FormRule =
+    FormRule { values ->
+        val left =
+            requireNotNull(values[leftField]) {
+                "fieldsMatchRule: field '$leftField' not found. Available fields: ${values.keys}"
+            }
+        val right =
+            requireNotNull(values[rightField]) {
+                "fieldsMatchRule: field '$rightField' not found. Available fields: ${values.keys}"
+            }
+        if (left == right) {
+            null
+        } else {
+            ValidationError(
+                code = code,
+                defaultMessage = message,
+                path = leftField,
+                meta = mapOf("leftField" to leftField, "rightField" to rightField).toImmutableMap(),
+            )
+        }
     }
-    val right = requireNotNull(values[rightField]) {
-        "fieldsMatchRule: field '$rightField' not found. Available fields: ${values.keys}"
-    }
-    if (left == right) {
-        null
-    } else {
-        ValidationError(
-            code = code,
-            defaultMessage = message,
-            path = leftField,
-            meta = mapOf("leftField" to leftField, "rightField" to rightField).toImmutableMap(),
-        )
-    }
-}

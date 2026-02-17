@@ -9,6 +9,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
 import com.segnities007.cmp_form_validation.site.SiteDimens
 import com.segnities007.cmp_form_validation.site.SitePreviewTheme
@@ -19,7 +20,6 @@ import com.segnities007.cmp_form_validation.site.resources.docs_subtitle
 import com.segnities007.cmp_form_validation.site.resources.docs_time
 import com.segnities007.cmp_form_validation.site.resources.docs_title
 import org.jetbrains.compose.resources.stringResource
-import androidx.compose.ui.tooling.preview.Preview
 
 @Composable
 fun DocsIntroSection() {

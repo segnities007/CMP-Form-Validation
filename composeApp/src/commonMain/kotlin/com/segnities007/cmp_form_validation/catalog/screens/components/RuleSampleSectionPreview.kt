@@ -12,9 +12,10 @@ import kotlinx.collections.immutable.persistentListOf
 @Preview
 @Composable
 private fun RuleSampleSectionPreview() {
-    val field = rememberValidatedField(
-        rules = persistentListOf(required(), minLength(3), maxLength(20)),
-    )
+    val field =
+        rememberValidatedField(
+            rules = persistentListOf(required(), minLength(3), maxLength(20)),
+        )
     MaterialTheme {
         RuleSampleSection(
             title = "Nickname",

@@ -1,5 +1,6 @@
 package com.segnities007.cmp_form_validation.catalog
 
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
@@ -14,7 +15,6 @@ import com.segnities007.cmp_form_validation.catalog.components.CatalogTopBar
 import com.segnities007.cmp_form_validation.catalog.screens.FormCatalogScreen
 import com.segnities007.cmp_form_validation.catalog.screens.PatternCatalogScreen
 import com.segnities007.cmp_form_validation.catalog.screens.RuleCatalogScreen
-import androidx.compose.foundation.layout.PaddingValues
 
 enum class CatalogTab(
     val label: String,

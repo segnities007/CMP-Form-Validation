@@ -9,7 +9,6 @@ import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.FlowRow
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -27,6 +26,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.segnities007.cmp_form_validation.site.LocalExtraColors
@@ -40,7 +40,6 @@ import com.segnities007.cmp_form_validation.site.resources.hero_github
 import com.segnities007.cmp_form_validation.site.resources.hero_subtitle
 import com.segnities007.cmp_form_validation.site.resources.hero_title
 import org.jetbrains.compose.resources.stringResource
-import androidx.compose.ui.tooling.preview.Preview
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
@@ -49,9 +48,10 @@ internal fun HeroSection(onGetStarted: () -> Unit) {
     val uriHandler = LocalUriHandler.current
 
     BoxWithConstraints(
-        modifier = Modifier
-            .fillMaxWidth()
-            .background(Brush.verticalGradient(listOf(extra.hero.gradientStart, extra.hero.gradientEnd))),
+        modifier =
+            Modifier
+                .fillMaxWidth()
+                .background(Brush.verticalGradient(listOf(extra.hero.gradientStart, extra.hero.gradientEnd))),
     ) {
         val compact = maxWidth < 760.dp
         val horizontalPadding = if (compact) SiteDimens.CompactContentPaddingH else SiteDimens.ContentPaddingH
@@ -59,16 +59,18 @@ internal fun HeroSection(onGetStarted: () -> Unit) {
         val itemSpacing = if (compact) SiteDimens.CompactHeroItemSpacing else SiteDimens.HeroItemSpacing
 
         Box(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(vertical = verticalPadding),
+            modifier =
+                Modifier
+                    .fillMaxWidth()
+                    .padding(vertical = verticalPadding),
             contentAlignment = Alignment.Center,
         ) {
             Column(
-                modifier = Modifier
-                    .widthIn(max = SiteDimens.MaxContentWidth)
-                    .fillMaxWidth()
-                    .padding(horizontal = horizontalPadding),
+                modifier =
+                    Modifier
+                        .widthIn(max = SiteDimens.MaxContentWidth)
+                        .fillMaxWidth()
+                        .padding(horizontal = horizontalPadding),
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.spacedBy(itemSpacing),
             ) {
@@ -78,16 +80,21 @@ internal fun HeroSection(onGetStarted: () -> Unit) {
                         color = extra.hero.badgeText,
                         style = MaterialTheme.typography.labelSmall,
                         fontWeight = FontWeight.SemiBold,
-                        modifier = Modifier.padding(
-                            horizontal = SiteDimens.HeroBadgePaddingH,
-                            vertical = SiteDimens.HeroBadgePaddingV,
-                        ),
+                        modifier =
+                            Modifier.padding(
+                                horizontal = SiteDimens.HeroBadgePaddingH,
+                                vertical = SiteDimens.HeroBadgePaddingV,
+                            ),
                     )
                 }
                 Text(
                     stringResource(Res.string.hero_title),
-                    style = if (compact) MaterialTheme.typography.displaySmall
-                    else MaterialTheme.typography.displayMedium,
+                    style =
+                        if (compact) {
+                            MaterialTheme.typography.displaySmall
+                        } else {
+                            MaterialTheme.typography.displayMedium
+                        },
                     fontWeight = FontWeight.ExtraBold,
                     color = extra.hero.title,
                     textAlign = TextAlign.Center,
@@ -120,10 +127,11 @@ internal fun HeroSection(onGetStarted: () -> Unit) {
                             color = Color.White,
                             style = MaterialTheme.typography.labelLarge,
                             fontWeight = FontWeight.SemiBold,
-                            modifier = Modifier.padding(
-                                horizontal = SiteDimens.HeroButtonPaddingH,
-                                vertical = SiteDimens.HeroButtonPaddingV,
-                            ),
+                            modifier =
+                                Modifier.padding(
+                                    horizontal = SiteDimens.HeroButtonPaddingH,
+                                    vertical = SiteDimens.HeroButtonPaddingV,
+                                ),
                         )
                     }
                     Surface(
@@ -137,10 +145,11 @@ internal fun HeroSection(onGetStarted: () -> Unit) {
                             color = MaterialTheme.colorScheme.primary,
                             style = MaterialTheme.typography.labelLarge,
                             fontWeight = FontWeight.SemiBold,
-                            modifier = Modifier.padding(
-                                horizontal = SiteDimens.HeroButtonPaddingH,
-                                vertical = SiteDimens.HeroButtonPaddingV,
-                            ),
+                            modifier =
+                                Modifier.padding(
+                                    horizontal = SiteDimens.HeroButtonPaddingH,
+                                    vertical = SiteDimens.HeroButtonPaddingV,
+                                ),
                         )
                     }
                 }

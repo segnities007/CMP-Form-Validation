@@ -19,10 +19,11 @@ fun CatalogHero(
     subtitle: String,
 ) {
     Box(
-        modifier = Modifier
-            .fillMaxWidth()
-            .background(MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.5f))
-            .padding(CatalogTokens.CardContentPadding),
+        modifier =
+            Modifier
+                .fillMaxWidth()
+                .background(MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.5f))
+                .padding(CatalogTokens.CardContentPadding),
     ) {
         Column(
             verticalArrangement = Arrangement.spacedBy(CatalogTokens.HeroContentSpacing),

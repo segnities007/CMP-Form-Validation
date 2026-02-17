@@ -109,9 +109,10 @@ fun <T> rememberValidatedField(
     initialValue: T,
     validator: Validator<T>,
     trigger: ValidationTrigger = ValidationTrigger.OnSubmitThenChange,
-): ComposeValidatedField<T> = remember(initialValue, validator, trigger) {
-    ComposeValidatedField(ValidatedField(initialValue, validator, trigger))
-}
+): ComposeValidatedField<T> =
+    remember(initialValue, validator, trigger) {
+        ComposeValidatedField(ValidatedField(initialValue, validator, trigger))
+    }
 
 /**
  * Remembers a compose-aware string field from inline [rules].
@@ -142,9 +143,10 @@ fun rememberValidatedField(
     trigger: ValidationTrigger = ValidationTrigger.OnSubmitThenChange,
     strategy: ValidationStrategy = ValidationStrategy.CollectAll,
     rules: ImmutableList<Rule<String>>,
-): ComposeValidatedField<String> = rememberValidatedField(
-    initialValue = initialValue,
-    trigger = trigger,
-    strategy = strategy,
-    *rules.toTypedArray(),
-)
+): ComposeValidatedField<String> =
+    rememberValidatedField(
+        initialValue = initialValue,
+        trigger = trigger,
+        strategy = strategy,
+        *rules.toTypedArray(),
+    )

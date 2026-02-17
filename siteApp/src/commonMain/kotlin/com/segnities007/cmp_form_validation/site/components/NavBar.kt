@@ -1,10 +1,10 @@
 package com.segnities007.cmp_form_validation.site.components
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.BoxWithConstraints
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxWithConstraints
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Row
@@ -20,6 +20,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.segnities007.cmp_form_validation.site.LocalExtraColors
 import com.segnities007.cmp_form_validation.site.SiteDimens
@@ -32,7 +33,6 @@ import com.segnities007.cmp_form_validation.site.resources.nav_docs
 import com.segnities007.cmp_form_validation.site.resources.nav_examples
 import com.segnities007.cmp_form_validation.site.resources.nav_home
 import org.jetbrains.compose.resources.stringResource
-import androidx.compose.ui.tooling.preview.Preview
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
@@ -46,26 +46,28 @@ fun NavBar(
 ) {
     val extra = LocalExtraColors.current
     val borderColor = MaterialTheme.colorScheme.surfaceVariant
-    val tabs = listOf(
-        SiteTab.Home to stringResource(Res.string.nav_home),
-        SiteTab.Docs to stringResource(Res.string.nav_docs),
-        SiteTab.Api to stringResource(Res.string.nav_api),
-        SiteTab.Examples to stringResource(Res.string.nav_examples),
-    )
+    val tabs =
+        listOf(
+            SiteTab.Home to stringResource(Res.string.nav_home),
+            SiteTab.Docs to stringResource(Res.string.nav_docs),
+            SiteTab.Api to stringResource(Res.string.nav_api),
+            SiteTab.Examples to stringResource(Res.string.nav_examples),
+        )
 
     BoxWithConstraints(
-        modifier = Modifier
-            .fillMaxWidth()
-            .background(extra.navBarBg)
-            .drawBehind {
-                // Bottom border line
-                drawLine(
-                    color = borderColor,
-                    start = Offset(0f, size.height),
-                    end = Offset(size.width, size.height),
-                    strokeWidth = 1.dp.toPx(),
-                )
-            },
+        modifier =
+            Modifier
+                .fillMaxWidth()
+                .background(extra.navBarBg)
+                .drawBehind {
+                    // Bottom border line
+                    drawLine(
+                        color = borderColor,
+                        start = Offset(0f, size.height),
+                        end = Offset(size.width, size.height),
+                        strokeWidth = 1.dp.toPx(),
+                    )
+                },
         contentAlignment = Alignment.Center,
     ) {
         val compact = maxWidth < 860.dp
@@ -73,11 +75,12 @@ fun NavBar(
 
         if (!compact) {
             Row(
-                modifier = Modifier
-                    .widthIn(max = SiteDimens.MaxContentWidth)
-                    .fillMaxWidth()
-                    .height(SiteDimens.NavHeight)
-                    .padding(horizontal = horizontalPadding),
+                modifier =
+                    Modifier
+                        .widthIn(max = SiteDimens.MaxContentWidth)
+                        .fillMaxWidth()
+                        .height(SiteDimens.NavHeight)
+                        .padding(horizontal = horizontalPadding),
                 verticalAlignment = Alignment.CenterVertically,
             ) {
                 NavBrand(compact = false)
@@ -112,11 +115,12 @@ fun NavBar(
             }
         } else {
             Column(
-                modifier = Modifier
-                    .widthIn(max = SiteDimens.MaxContentWidth)
-                    .fillMaxWidth()
-                    .height(SiteDimens.CompactNavHeight)
-                    .padding(horizontal = horizontalPadding, vertical = 8.dp),
+                modifier =
+                    Modifier
+                        .widthIn(max = SiteDimens.MaxContentWidth)
+                        .fillMaxWidth()
+                        .height(SiteDimens.CompactNavHeight)
+                        .padding(horizontal = horizontalPadding, vertical = 8.dp),
                 verticalArrangement = Arrangement.SpaceBetween,
             ) {
                 Row(

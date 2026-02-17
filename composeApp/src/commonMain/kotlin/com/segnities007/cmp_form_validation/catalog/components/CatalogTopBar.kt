@@ -20,9 +20,10 @@ fun CatalogTopBar(
     onTabSelected: (CatalogTab) -> Unit,
 ) {
     Column(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(top = CatalogTokens.TopBarTopPadding),
+        modifier =
+            Modifier
+                .fillMaxWidth()
+                .padding(top = CatalogTokens.TopBarTopPadding),
     ) {
         Text(
             text = CATALOG_TITLE,
@@ -32,10 +33,11 @@ fun CatalogTopBar(
         Text(
             text = tabDescription,
             style = MaterialTheme.typography.bodySmall,
-            modifier = Modifier.padding(
-                horizontal = CatalogTokens.TopBarHorizontalPadding,
-                vertical = CatalogTokens.TopBarSubtitleVerticalPadding,
-            ),
+            modifier =
+                Modifier.padding(
+                    horizontal = CatalogTokens.TopBarHorizontalPadding,
+                    vertical = CatalogTokens.TopBarSubtitleVerticalPadding,
+                ),
         )
         PrimaryTabRow(selectedTabIndex = selectedTab.ordinal) {
             CatalogTab.entries.forEach { tab ->

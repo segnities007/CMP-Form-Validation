@@ -14,6 +14,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.LayoutCoordinates
+import androidx.compose.ui.tooling.preview.Preview
 import com.segnities007.cmp_form_validation.site.SiteDimens
 import com.segnities007.cmp_form_validation.site.SitePreviewTheme
 import com.segnities007.cmp_form_validation.site.components.OverviewCard
@@ -24,23 +25,22 @@ import com.segnities007.cmp_form_validation.site.components.SidebarNavItem
 import com.segnities007.cmp_form_validation.site.components.SidebarSectionLabel
 import com.segnities007.cmp_form_validation.site.pages.sections.ExamplesListSection
 import com.segnities007.cmp_form_validation.site.resources.Res
-import com.segnities007.cmp_form_validation.site.resources.*
 import org.jetbrains.compose.resources.stringResource
-import androidx.compose.ui.tooling.preview.Preview
 
 @Composable
 fun ExamplesPage(onScrollRequested: ((LayoutCoordinates) -> Unit)? = null) {
     var activeSection by remember { mutableIntStateOf(0) }
     val sectionCoords = remember { mutableMapOf<Int, LayoutCoordinates>() }
 
-    val exampleLabels = listOf(
-        stringResource(Res.string.ex_email_title),
-        stringResource(Res.string.ex_login_title),
-        stringResource(Res.string.ex_signup_title),
-        stringResource(Res.string.ex_custom_title),
-        stringResource(Res.string.ex_modifier_title),
-        stringResource(Res.string.ex_wrapper_title),
-    )
+    val exampleLabels =
+        listOf(
+            stringResource(Res.string.ex_email_title),
+            stringResource(Res.string.ex_login_title),
+            stringResource(Res.string.ex_signup_title),
+            stringResource(Res.string.ex_custom_title),
+            stringResource(Res.string.ex_modifier_title),
+            stringResource(Res.string.ex_wrapper_title),
+        )
 
     Column {
         PageHeader(
@@ -68,11 +68,20 @@ fun ExamplesPage(onScrollRequested: ((LayoutCoordinates) -> Unit)? = null) {
                 OverviewCard(
                     title = stringResource(Res.string.overview_title),
                     description = stringResource(Res.string.overview_examples_desc),
-                    metaItems = listOf(
-                        OverviewMeta(Icons.Rounded.Code, stringResource(Res.string.overview_count), "6"),
-                        OverviewMeta(Icons.Rounded.Star, stringResource(Res.string.overview_difficulty), stringResource(Res.string.overview_beginner)),
-                        OverviewMeta(Icons.Rounded.Layers, stringResource(Res.string.overview_modules), stringResource(Res.string.overview_two_modules)),
-                    ),
+                    metaItems =
+                        listOf(
+                            OverviewMeta(Icons.Rounded.Code, stringResource(Res.string.overview_count), "6"),
+                            OverviewMeta(
+                                Icons.Rounded.Star,
+                                stringResource(Res.string.overview_difficulty),
+                                stringResource(Res.string.overview_beginner),
+                            ),
+                            OverviewMeta(
+                                Icons.Rounded.Layers,
+                                stringResource(Res.string.overview_modules),
+                                stringResource(Res.string.overview_two_modules),
+                            ),
+                        ),
                 )
             },
             mainContent = {

@@ -11,10 +11,11 @@ import kotlinx.collections.immutable.persistentListOf
 @Preview
 @Composable
 private fun PrimaryPatternSectionPreview() {
-    val field = rememberValidatedField(
-        initialValue = "",
-        rules = persistentListOf(required(), email()),
-    )
+    val field =
+        rememberValidatedField(
+            initialValue = "",
+            rules = persistentListOf(required(), email()),
+        )
     MaterialTheme {
         PrimaryPatternSection(field = field)
     }

@@ -14,21 +14,22 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.segnities007.cmp_form_validation.site.LocalExtraColors
 import com.segnities007.cmp_form_validation.site.SiteDimens
 import com.segnities007.cmp_form_validation.site.SitePreviewTheme
-import androidx.compose.ui.tooling.preview.Preview
 
 @Composable
 fun SectionHeader(title: String) {
     val extra = LocalExtraColors.current
     Row(
         verticalAlignment = Alignment.CenterVertically,
-        modifier = Modifier.padding(
-            top = SiteDimens.SectionHeaderTopPadding,
-            bottom = SiteDimens.SectionHeaderBottomPadding,
-        ),
+        modifier =
+            Modifier.padding(
+                top = SiteDimens.SectionHeaderTopPadding,
+                bottom = SiteDimens.SectionHeaderBottomPadding,
+            ),
     ) {
         Box(
             Modifier

@@ -46,8 +46,7 @@ data class ValidationResult(
         fun valid(): ValidationResult = ValidationResult(EmptyValidationErrors)
 
         /** Creates a failed result from the provided [errors]. */
-        fun invalid(errors: Iterable<ValidationError>): ValidationResult =
-            ValidationResult(errors.toList().toImmutableList())
+        fun invalid(errors: Iterable<ValidationError>): ValidationResult = ValidationResult(errors.toList().toImmutableList())
     }
 }
 
@@ -93,8 +92,10 @@ class Validator<T>(
 fun <T> validatorOf(vararg rules: Rule<T>): Validator<T> = Validator(rules.toList())
 
 /** Builds a [Validator] using an explicit [strategy]. */
-fun <T> validatorOf(strategy: ValidationStrategy, vararg rules: Rule<T>): Validator<T> =
-    Validator(rules.toList(), strategy)
+fun <T> validatorOf(
+    strategy: ValidationStrategy,
+    vararg rules: Rule<T>,
+): Validator<T> = Validator(rules.toList(), strategy)
 
 /**
  * Execution strategy used by [Validator].
@@ -121,12 +122,13 @@ private fun validationError(
     defaultMessage: String,
     path: String? = null,
     meta: Map<String, String> = emptyMap(),
-): ValidationError = ValidationError(
-    code = code,
-    defaultMessage = defaultMessage,
-    path = path,
-    meta = meta.toImmutableMap(),
-)
+): ValidationError =
+    ValidationError(
+        code = code,
+        defaultMessage = defaultMessage,
+        path = path,
+        meta = meta.toImmutableMap(),
+    )
 
 /**
  * Validates that a string is not blank.
@@ -137,17 +139,18 @@ private fun validationError(
 fun required(
     trim: Boolean = true,
     message: String = "This field is required.",
-): Rule<String> = Rule { value ->
-    val candidate = if (trim) value.trim() else value
-    if (candidate.isEmpty()) {
-        validationError(
-            code = ErrorCode.REQUIRED,
-            defaultMessage = message,
-        )
-    } else {
-        null
+): Rule<String> =
+    Rule { value ->
+        val candidate = if (trim) value.trim() else value
+        if (candidate.isEmpty()) {
+            validationError(
+                code = ErrorCode.REQUIRED,
+                defaultMessage = message,
+            )
+        } else {
+            null
+        }
     }
-}
 
 /**
  * Validates that string length is greater than or equal to [min].
@@ -209,17 +212,18 @@ fun pattern(
     regex: Regex,
     code: String = ErrorCode.PATTERN,
     message: String = "Invalid format.",
-): Rule<String> = Rule { value ->
-    if (regex.matches(value)) {
-        null
-    } else {
-        validationError(
-            code = code,
-            defaultMessage = message,
-            meta = mapOf("regex" to regex.pattern),
-        )
+): Rule<String> =
+    Rule { value ->
+        if (regex.matches(value)) {
+            null
+        } else {
+            validationError(
+                code = code,
+                defaultMessage = message,
+                meta = mapOf("regex" to regex.pattern),
+            )
+        }
     }
-}
 
 /**
  * Maximum input length accepted by [email]. Inputs exceeding this length are
@@ -248,15 +252,14 @@ private val safeEmailRegex = Regex("^[A-Za-z0-9+_.-]+@[A-Za-z0-9-]+(?:\\.[A-Za-z
  *
  * Products with stricter requirements can provide a custom [pattern] rule.
  */
-fun email(
-    message: String = "Invalid email address.",
-): Rule<String> = Rule { value ->
-    if (value.length <= EMAIL_MAX_LENGTH && safeEmailRegex.matches(value)) {
-        null
-    } else {
-        validationError(
-            code = ErrorCode.EMAIL,
-            defaultMessage = message,
-        )
+fun email(message: String = "Invalid email address."): Rule<String> =
+    Rule { value ->
+        if (value.length <= EMAIL_MAX_LENGTH && safeEmailRegex.matches(value)) {
+            null
+        } else {
+            validationError(
+                code = ErrorCode.EMAIL,
+                defaultMessage = message,
+            )
+        }
     }
-}

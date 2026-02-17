@@ -16,6 +16,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.segnities007.cmp_form_validation.site.SiteDimens
@@ -34,7 +35,6 @@ import com.segnities007.cmp_form_validation.site.resources.platform_title
 import com.segnities007.cmp_form_validation.site.resources.platform_web
 import com.segnities007.cmp_form_validation.site.resources.platform_web_desc
 import org.jetbrains.compose.resources.stringResource
-import androidx.compose.ui.tooling.preview.Preview
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
@@ -53,10 +53,30 @@ fun HomePlatformSection() {
         verticalArrangement = Arrangement.spacedBy(SiteDimens.FlowRowItemSpacing),
         modifier = Modifier.fillMaxWidth(),
     ) {
-        PlatformCard(Icons.Rounded.PhoneAndroid, stringResource(Res.string.platform_android), stringResource(Res.string.platform_android_desc), Modifier.weight(1f).widthIn(min = 180.dp))
-        PlatformCard(Icons.Rounded.PhoneIphone, stringResource(Res.string.platform_ios), stringResource(Res.string.platform_ios_desc), Modifier.weight(1f).widthIn(min = 180.dp))
-        PlatformCard(Icons.Rounded.Computer, stringResource(Res.string.platform_desktop), stringResource(Res.string.platform_desktop_desc), Modifier.weight(1f).widthIn(min = 180.dp))
-        PlatformCard(Icons.Rounded.Language, stringResource(Res.string.platform_web), stringResource(Res.string.platform_web_desc), Modifier.weight(1f).widthIn(min = 180.dp))
+        PlatformCard(
+            Icons.Rounded.PhoneAndroid,
+            stringResource(Res.string.platform_android),
+            stringResource(Res.string.platform_android_desc),
+            Modifier.weight(1f).widthIn(min = 180.dp),
+        )
+        PlatformCard(
+            Icons.Rounded.PhoneIphone,
+            stringResource(Res.string.platform_ios),
+            stringResource(Res.string.platform_ios_desc),
+            Modifier.weight(1f).widthIn(min = 180.dp),
+        )
+        PlatformCard(
+            Icons.Rounded.Computer,
+            stringResource(Res.string.platform_desktop),
+            stringResource(Res.string.platform_desktop_desc),
+            Modifier.weight(1f).widthIn(min = 180.dp),
+        )
+        PlatformCard(
+            Icons.Rounded.Language,
+            stringResource(Res.string.platform_web),
+            stringResource(Res.string.platform_web_desc),
+            Modifier.weight(1f).widthIn(min = 180.dp),
+        )
     }
 }
 

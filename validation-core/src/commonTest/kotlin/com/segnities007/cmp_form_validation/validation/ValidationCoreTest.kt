@@ -1,13 +1,12 @@
 package com.segnities007.cmp_form_validation.validation
 
+import kotlinx.collections.immutable.persistentMapOf
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertFalse
 import kotlin.test.assertTrue
-import kotlinx.collections.immutable.persistentMapOf
 
 class ValidationCoreTest {
-
     @Test
     fun requiredRuleFailsOnBlank() {
         val validator = validatorOf(required())
@@ -42,10 +41,14 @@ class ValidationCoreTest {
 
     @Test
     fun customRuleCanBeComposed() {
-        val containsNumber = Rule<String> { value ->
-            if (value.any(Char::isDigit)) null
-            else ValidationError("missing_number", "Number required.")
-        }
+        val containsNumber =
+            Rule<String> { value ->
+                if (value.any(Char::isDigit)) {
+                    null
+                } else {
+                    ValidationError("missing_number", "Number required.")
+                }
+            }
 
         val validator = validatorOf(required(), minLength(4), containsNumber)
         val result = validator.validate("abcd")
@@ -56,11 +59,12 @@ class ValidationCoreTest {
 
     @Test
     fun firstErrorStrategyStopsAfterFirstFailure() {
-        val validator = validatorOf(
-            ValidationStrategy.FirstError,
-            required(),
-            minLength(5),
-        )
+        val validator =
+            validatorOf(
+                ValidationStrategy.FirstError,
+                required(),
+                minLength(5),
+            )
 
         val result = validator.validate("")
 
@@ -71,11 +75,12 @@ class ValidationCoreTest {
 
     @Test
     fun fieldOnSubmitThenChangeValidatesAfterSubmit() {
-        val field = ValidatedField(
-            initialValue = "",
-            validator = validatorOf(required(), minLength(3)),
-            trigger = ValidationTrigger.OnSubmitThenChange,
-        )
+        val field =
+            ValidatedField(
+                initialValue = "",
+                validator = validatorOf(required(), minLength(3)),
+                trigger = ValidationTrigger.OnSubmitThenChange,
+            )
 
         field.onValueChange("ab")
         assertTrue(field.result.isValid)
@@ -89,29 +94,34 @@ class ValidationCoreTest {
 
     @Test
     fun formRuleDetectsMismatchedFields() {
-        val passwordField = ValidatedField(
-            initialValue = "",
-            validator = validatorOf(required(), minLength(8)),
-            trigger = ValidationTrigger.OnSubmitThenChange,
-        )
-        val confirmField = ValidatedField(
-            initialValue = "",
-            validator = validatorOf(required()),
-            trigger = ValidationTrigger.OnSubmitThenChange,
-        )
+        val passwordField =
+            ValidatedField(
+                initialValue = "",
+                validator = validatorOf(required(), minLength(8)),
+                trigger = ValidationTrigger.OnSubmitThenChange,
+            )
+        val confirmField =
+            ValidatedField(
+                initialValue = "",
+                validator = validatorOf(required()),
+                trigger = ValidationTrigger.OnSubmitThenChange,
+            )
 
         passwordField.onValueChange("password1")
         confirmField.onValueChange("password2")
 
-        val form = ValidatedStringForm(
-            fields = persistentMapOf(
-                "password" to passwordField,
-                "confirmPassword" to confirmField,
-            ),
-            formRules = listOf(
-                fieldsMatchRule("confirmPassword", "password", code = "password_mismatch"),
-            ),
-        )
+        val form =
+            ValidatedStringForm(
+                fields =
+                    persistentMapOf(
+                        "password" to passwordField,
+                        "confirmPassword" to confirmField,
+                    ),
+                formRules =
+                    listOf(
+                        fieldsMatchRule("confirmPassword", "password", code = "password_mismatch"),
+                    ),
+            )
 
         val snapshot = form.submit()
 
@@ -121,11 +131,12 @@ class ValidationCoreTest {
 
     @Test
     fun onBlurTriggerShowsErrorsOnlyAfterBlur() {
-        val field = ValidatedField(
-            initialValue = "",
-            validator = validatorOf(required()),
-            trigger = ValidationTrigger.OnBlur,
-        )
+        val field =
+            ValidatedField(
+                initialValue = "",
+                validator = validatorOf(required()),
+                trigger = ValidationTrigger.OnBlur,
+            )
 
         field.onValueChange("")
         assertFalse(field.showErrors)
