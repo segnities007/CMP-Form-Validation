@@ -6,6 +6,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.runtime.snapshots.Snapshot
 import com.segnities007.cmp_form_validation.validation.Rule
 import com.segnities007.cmp_form_validation.validation.ValidatedField
 import com.segnities007.cmp_form_validation.validation.ValidationResult
@@ -21,6 +22,10 @@ import kotlinx.collections.immutable.ImmutableList
  * Why this exists:
  * - [ValidatedField] is platform-agnostic and mutable, but not directly observable by Compose.
  * - This wrapper mirrors state via `mutableStateOf` so recomposition works naturally.
+ *
+ * State synchronization:
+ * - All mutable state properties are updated atomically inside [Snapshot.withMutableSnapshot]
+ *   to prevent recomposition from reading a partially-updated intermediate state.
  */
 @Stable
 class ComposeValidatedField<T> internal constructor(
@@ -60,18 +65,10 @@ class ComposeValidatedField<T> internal constructor(
     }
 
     /** Runs validation immediately. */
-    fun validate(): ValidationResult {
-        val validated = delegate.validate()
-        sync()
-        return validated
-    }
+    fun validate(): ValidationResult = runAndSync(delegate::validate)
 
     /** Marks submit interaction and validates immediately. */
-    fun submit(): ValidationResult {
-        val validated = delegate.submit()
-        sync()
-        return validated
-    }
+    fun submit(): ValidationResult = runAndSync(delegate::submit)
 
     /** Resets value and interaction flags. */
     fun reset() {
@@ -79,12 +76,26 @@ class ComposeValidatedField<T> internal constructor(
         sync()
     }
 
+    /**
+     * Atomically synchronizes all observable state from the delegate.
+     *
+     * Using [Snapshot.withMutableSnapshot] ensures that Compose never observes
+     * a half-updated state (e.g. `value` changed but `result` not yet).
+     */
     private fun sync() {
-        value = delegate.value
-        result = delegate.result
-        touched = delegate.touched
-        blurred = delegate.blurred
-        submitted = delegate.submitted
+        Snapshot.withMutableSnapshot {
+            value = delegate.value
+            result = delegate.result
+            touched = delegate.touched
+            blurred = delegate.blurred
+            submitted = delegate.submitted
+        }
+    }
+
+    private inline fun runAndSync(action: () -> ValidationResult): ValidationResult {
+        val validated = action()
+        sync()
+        return validated
     }
 }
 

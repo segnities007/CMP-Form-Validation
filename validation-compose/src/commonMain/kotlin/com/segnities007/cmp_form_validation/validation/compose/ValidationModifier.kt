@@ -17,6 +17,10 @@ import androidx.compose.ui.focus.onFocusChanged
  * How to use:
  * - Attach to `modifier` of a text field-like composable.
  * - Keep this as a supplementary integration style; primary style is explicit field wiring.
+ *
+ * **Note**: This uses [Modifier.composed] which has known performance overhead.
+ * A future version may migrate to `Modifier.Node` for better performance.
+ * See: https://developer.android.com/reference/kotlin/androidx/compose/ui/Modifier#(androidx.compose.ui.Modifier).composed(kotlin.Function1,kotlin.Function3)
  */
 fun Modifier.validation(
     field: ComposeValidatedField<*>,

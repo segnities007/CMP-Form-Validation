@@ -1,28 +1,39 @@
-# cmpformvalidation
+<div align="center">
+  <h1>CMP Form Validation</h1>
+  <p>A Kotlin Multiplatform form validation library for Compose Multiplatform.</p>
+</div>
 
-A Kotlin Multiplatform form validation library for Compose Multiplatform.
+[![Kotlin](https://img.shields.io/badge/kotlin-2.3.0-blue.svg?logo=kotlin)](https://kotlinlang.org)
+[![Compose Multiplatform](https://img.shields.io/badge/compose%20multiplatform-1.10.0-4285F4.svg)](https://www.jetbrains.com/compose-multiplatform/)
+[![Maven](https://img.shields.io/badge/maven-not%20published-lightgrey.svg)](#installation)
+[![GitHub License](https://img.shields.io/badge/license-Apache%202.0-blue.svg)](LICENSE)
+[![Status](https://img.shields.io/badge/status-early%20stage-orange.svg)](#status)
+
+CMP Form Validation is a KMP library to share form-validation logic across Android, iOS, Desktop, and Web while keeping the validation core UI-agnostic and testable.
 
 ## Status
 
-- Early stage (template -> library implementation in progress)
+- Early stage (library implementation in progress)
 - API is not stable yet
-- Maven publishing is not started yet
+- Maven publishing has not started yet
 
 ## Why
 
-- Reuse the same validation logic across Android, iOS, Desktop, and Web
-- Keep validation engine UI-agnostic and highly testable
-- Provide Compose-friendly APIs for state and error handling
+- Reuse the same validation rules across all KMP targets
+- Keep business validation independent from UI framework details
+- Provide Compose-friendly primitives for field/form state handling
 
-## Planned Features
+## Modules
 
-- Built-in rules: `required`, `minLength`, `maxLength`, `pattern`, `email`
-- Rule composition (chain, short-circuit, custom predicates)
-- Field-level and form-level validation
-- Typed validation result and error model
-- Kotlin Multiplatform common tests
+- `validation-core/`: publishable KMP core (rules, validator, form model)
+- `validation-compose/`: publishable Compose integration APIs
+- `composeApp/`: catalog app for manual validation checks
+- `siteApp/`: docs website app built with Compose Multiplatform Web
+- `iosApp/`: iOS entry app for running the catalog
 
-## Current API (v1)
+Only `validation-core` and `validation-compose` are intended for OSS artifact publishing.
+
+## Current API Example
 
 ```kotlin
 val field = rememberValidatedField(
@@ -36,14 +47,12 @@ field.submit() // invalid
 field.onValueChange("abc12345") // revalidated after submit
 ```
 
-## Compose Integration (Recommended Order)
+## Compose Integration Strategy
 
 1. Primary: `rememberValidatedField` + native `OutlinedTextField` / `TextField`
 2. Supplementary: `Modifier.validation(field)` for blur-trigger integration
-3. Supplementary: `ValidatedOutlinedTextField` for compact UI construction
-4. Core-only: `ValidatedField` / `ValidatedStringForm` for non-UI or framework-level integration
-
-The library provides all methods above, but documentation and catalog prioritize the primary approach.
+3. Supplementary: `ValidatedOutlinedTextField` for compact UI assembly
+4. Core-only: `ValidatedField` / `ValidatedStringForm` for non-UI integration
 
 ## Targets
 
@@ -56,9 +65,9 @@ The library provides all methods above, but documentation and catalog prioritize
 
 Not published to Maven Central yet.
 
-Until publishing starts, use this repository as local source dependency in your project.
+Use this repository as a local source dependency until publishing starts.
 
-## Quick Start (Current Project Commands)
+## Run Locally
 
 ```bash
 # validation-core tests
@@ -67,83 +76,53 @@ Until publishing starts, use this repository as local source dependency in your 
 # validation-compose compile check
 ./gradlew :validation-compose:compileKotlinJvm
 
-# Android
+# Android catalog app
 ./gradlew :composeApp:assembleDebug
 
-# Desktop
+# Desktop catalog app
 ./gradlew :composeApp:run
 
-# Web (Wasm)
+# Catalog web app (Wasm / JS)
 ./gradlew :composeApp:wasmJsBrowserDevelopmentRun
-
-# Web (JS)
 ./gradlew :composeApp:jsBrowserDevelopmentRun
 
-# Website (Wasm, dedicated module)
+# Docs website (Wasm / JS)
 ./gradlew :siteApp:wasmJsBrowserDevelopmentRun
-
-# Website (JS, dedicated module)
 ./gradlew :siteApp:jsBrowserDevelopmentRun
 ```
 
-`App()` はカタログアプリとして実装されており、以下を確認できます。
+The catalog `App()` currently demonstrates:
 
-- Rule Catalog: 単体ルールの挙動確認
-- Patterns: Primary / Modifier / Wrapper の使い分け
-- Sign-up Form: submit時検証 + 再入力時再検証フロー
+- Rule Catalog: behavior of individual rules
+- Patterns: Primary / Modifier / Wrapper usage styles
+- Sign-up Form: submit validation + revalidation flow
 
-## Website
+## Documentation
 
-The website is implemented with Compose Multiplatform in a dedicated module.
+Design decisions and logs are in `docs/`.
 
-- Module: `siteApp/`
-- Entry point: `siteApp/src/webMain/kotlin/com/segnities007/cmp_form_validation/main.kt`
-- Site composable: `siteApp/src/commonMain/kotlin/com/segnities007/cmp_form_validation/site/DocsSiteApp.kt`
-
-## Project Structure
-
-- `validation-core/`: publishable KMP core library (rules, validator, form model)
-- `validation-compose/`: publishable Compose integration library (remember/Modifier/wrapper APIs)
-- `composeApp/`: non-publish catalog app for manual verification
-- `siteApp/`: non-publish website app (CMP web target)
-- `iosApp/`: iOS app entry (SwiftUI) for catalog execution
-
-Only `validation-core` and `validation-compose` are intended for OSS artifact publishing.
-
-## Design Docs
-
-Design decisions and discussion logs are kept in `docs/`.
-
-- Decision log index: `docs/README.md`
-- Initial architecture decision: `docs/adr/0001-validation-core-shape.md`
-- React-inspired principles: `docs/adr/0002-react-inspired-design-principles.md`
-- Form model decision: `docs/adr/0003-form-model-and-catalog-app.md`
-- Compose API tiering decision: `docs/adr/0004-compose-integration-api-tiering.md`
-- Module split for publishing: `docs/adr/0005-module-split-for-publishing.md`
-- Backlog and open questions: `docs/form-validation-plan.md`
-- Research notes: `docs/research/react-form-libraries.md`
+- Index: `docs/README.md`
+- ADR-0001: `docs/adr/0001-validation-core-shape.md`
+- ADR-0002: `docs/adr/0002-react-inspired-design-principles.md`
+- ADR-0003: `docs/adr/0003-form-model-and-catalog-app.md`
+- ADR-0004: `docs/adr/0004-compose-integration-api-tiering.md`
+- ADR-0005: `docs/adr/0005-module-split-for-publishing.md`
+- Plan: `docs/form-validation-plan.md`
+- Research: `docs/research/react-form-libraries.md`
 - Usage guide: `docs/compose-validation-usage.md`
-- KDoc style guide: `docs/kdoc-style-guide.md`
-
-## Research Attribution
-
-This project documents external references used for design decisions.
-
-- Source links are recorded in each research document.
-- Adopted principles are written in ADRs.
-- We do not copy implementation code from other libraries.
+- KDoc guide: `docs/kdoc-style-guide.md`
 
 ## Roadmap
 
 - Prepare publishing setup (group/artifact/versioning)
-- Add typed form model on top of current string-keyed immutable form core
+- Add typed form model on top of the current string-keyed immutable form core
 - Add async validation model (post-v1)
 
 ## Contributing
 
 Issues and pull requests are welcome.
 
-For design-impacting changes, please add/update a doc under `docs/` first, then implement.
+For design-impacting changes, add or update relevant docs under `docs/` before implementation.
 
 ## License
 

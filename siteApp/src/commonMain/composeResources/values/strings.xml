@@ -81,6 +81,7 @@
     <string name="integration_modifier_desc">Modifier.validation(field) adds blur-trigger validation to any text field. Useful when you need minimal changes to existing fields.</string>
     <string name="integration_wrapper">Wrapper Component</string>
     <string name="integration_wrapper_desc">ValidatedOutlinedTextField combines field, validation, and error display in a single composable. Best for rapid prototyping with less boilerplate.</string>
+    <string name="tips_title">Tips</string>
     <string name="tip_immutable">Use persistentListOf() and persistentMapOf() from kotlinx-collections-immutable for rule and field lists. This prevents unnecessary recompositions.</string>
     <string name="tip_cross_field">Cross-field rules run only during form.submit(). They do not trigger on individual field changes.</string>
     <string name="tip_error_codes">Use meaningful ErrorCode strings (e.g., "password_too_weak") for programmatic error handling and custom error message rendering.</string>
@@ -137,4 +138,36 @@
     <string name="footer_tagline">Compose Multiplatform form validation library</string>
     <string name="footer_copyright">\u00A9 2025 segnities007. All rights reserved.</string>
     <string name="footer_license">Apache License 2.0</string>
+
+    <!-- CTA Section -->
+    <string name="cta_title">Ready to Get Started?</string>
+    <string name="cta_subtitle">Add type-safe form validation to your Kotlin Multiplatform project in minutes.</string>
+    <string name="cta_start">Read the Docs</string>
+    <string name="cta_github">View on GitHub</string>
+    <string name="switch_to_light_theme">Switch to light theme</string>
+    <string name="switch_to_dark_theme">Switch to dark theme</string>
+
+    <!-- Sidebar Labels -->
+    <string name="sidebar_guide">GUIDE</string>
+    <string name="sidebar_config">CONFIGURATION</string>
+    <string name="sidebar_advanced">ADVANCED</string>
+    <string name="sidebar_core_types">CORE TYPES</string>
+    <string name="sidebar_rules">RULES</string>
+    <string name="sidebar_field_form">FIELD &amp; FORM</string>
+    <string name="sidebar_compose_api">COMPOSE API</string>
+    <string name="sidebar_examples">EXAMPLES</string>
+
+    <!-- Overview Card -->
+    <string name="overview_title">Overview</string>
+    <string name="overview_reading_time">Reading Time</string>
+    <string name="overview_sections">Sections</string>
+    <string name="overview_difficulty">Difficulty</string>
+    <string name="overview_modules">Modules</string>
+    <string name="overview_count">Count</string>
+    <string name="overview_docs_desc">Step-by-step guide to adding form validation to your Kotlin Multiplatform project.</string>
+    <string name="overview_api_desc">Complete reference for validation-core and validation-compose modules.</string>
+    <string name="overview_examples_desc">Ready-to-use code snippets for common validation patterns.</string>
+    <string name="overview_beginner">Beginner</string>
+    <string name="overview_two_modules">2</string>
+    <string name="overview_api_types">19 types</string>
 </resources>

@@ -6,6 +6,8 @@ import kotlinx.collections.immutable.persistentListOf
 import kotlinx.collections.immutable.toImmutableList
 import kotlinx.collections.immutable.toImmutableMap
 
+private val EmptyFormErrors = persistentListOf<ValidationError>()
+
 /**
  * Defines when a field should run validation and reveal errors.
  *
@@ -31,6 +33,11 @@ enum class ValidationTrigger {
  * 2. Call [onBlur] from focus-loss callbacks when needed.
  * 3. Call [submit] when the form is submitted.
  * 4. Read [showErrors] and [result] to render UI.
+ *
+ * **Thread safety**: This class is **not** thread-safe. All methods must be called
+ * from the same thread (typically the main/UI thread). If you need to access
+ * a [ValidatedField] from a background thread, use appropriate synchronization
+ * or wrap access in a `Dispatchers.Main` coroutine.
  */
 class ValidatedField<T>(
     private val initialValue: T,
@@ -71,7 +78,7 @@ class ValidatedField<T>(
     fun onValueChange(next: T) {
         value = next
         touched = true
-        if (trigger == ValidationTrigger.OnChange || (trigger == ValidationTrigger.OnSubmitThenChange && submitted)) {
+        if (shouldValidateOnValueChange()) {
             validate()
         }
     }
@@ -80,7 +87,7 @@ class ValidatedField<T>(
     fun onBlur() {
         touched = true
         blurred = true
-        if (trigger == ValidationTrigger.OnBlur || (trigger == ValidationTrigger.OnSubmitThenChange && submitted)) {
+        if (shouldValidateOnBlur()) {
             validate()
         }
     }
@@ -107,6 +114,18 @@ class ValidatedField<T>(
         submitted = false
         result = ValidationResult.valid()
     }
+
+    private fun shouldValidateOnValueChange(): Boolean = when (trigger) {
+        ValidationTrigger.OnChange -> true
+        ValidationTrigger.OnBlur -> false
+        ValidationTrigger.OnSubmitThenChange -> submitted
+    }
+
+    private fun shouldValidateOnBlur(): Boolean = when (trigger) {
+        ValidationTrigger.OnChange -> false
+        ValidationTrigger.OnBlur -> true
+        ValidationTrigger.OnSubmitThenChange -> submitted
+    }
 }
 
 /**
@@ -131,17 +150,19 @@ data class FormValidationSnapshot(
  * Why string-based:
  * - Most UI inputs are strings at the entry boundary.
  * - It keeps v1 simple while leaving room for typed form models later.
+ *
+ * **Thread safety**: This class is **not** thread-safe. See [ValidatedField] for details.
  */
 class ValidatedStringForm(
     private val fields: ImmutableMap<String, ValidatedField<String>>,
     private val formRules: List<FormRule> = emptyList(),
 ) {
     /** Latest cross-field validation errors. */
-    var formErrors: ImmutableList<ValidationError> = persistentListOf()
+    var formErrors: ImmutableList<ValidationError> = EmptyFormErrors
         private set
 
     /** Current field values keyed by field name. */
-    fun values(): ImmutableMap<String, String> = fields.mapValues { (_, field) -> field.value }.toImmutableMap()
+    fun values(): ImmutableMap<String, String> = fields.currentValues()
 
     /** Returns the latest result for a named field. */
     fun fieldResult(name: String): ValidationResult = fields.getValue(name).result
@@ -169,21 +190,29 @@ class ValidatedStringForm(
     /** Resets all fields and clears form-level errors. */
     fun reset() {
         fields.values.forEach { it.reset() }
-        formErrors = persistentListOf()
+        formErrors = EmptyFormErrors
     }
 
     private fun evaluateFormRules(): ImmutableList<ValidationError> {
-        val crossFieldErrors = formRules.mapNotNull { it.validate(values()) }.toImmutableList()
+        val currentValues = values()
+        val crossFieldErrors = formRules.mapNotNull { it.validate(currentValues) }.toImmutableList()
         formErrors = crossFieldErrors
         return crossFieldErrors
     }
 }
+
+private fun ImmutableMap<String, ValidatedField<String>>.currentValues(): ImmutableMap<String, String> =
+    mapValues { (_, field) -> field.value }.toImmutableMap()
 
 /**
  * Creates a simple cross-field equality rule.
  *
  * Common use case:
  * - password and password-confirmation matching.
+ *
+ * @param leftField name of the first field to compare.
+ * @param rightField name of the second field to compare.
+ * @throws IllegalArgumentException if either field name is not present in the values map.
  */
 fun fieldsMatchRule(
     leftField: String,
@@ -191,8 +220,12 @@ fun fieldsMatchRule(
     code: String = "field_mismatch",
     message: String = "Fields do not match.",
 ): FormRule = FormRule { values ->
-    val left = values[leftField].orEmpty()
-    val right = values[rightField].orEmpty()
+    val left = requireNotNull(values[leftField]) {
+        "fieldsMatchRule: field '$leftField' not found. Available fields: ${values.keys}"
+    }
+    val right = requireNotNull(values[rightField]) {
+        "fieldsMatchRule: field '$rightField' not found. Available fields: ${values.keys}"
+    }
     if (left == right) {
         null
     } else {
