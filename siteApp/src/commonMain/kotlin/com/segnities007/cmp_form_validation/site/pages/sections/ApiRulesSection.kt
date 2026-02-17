@@ -12,7 +12,7 @@ import com.segnities007.cmp_form_validation.site.resources.api_pattern_desc
 import com.segnities007.cmp_form_validation.site.resources.api_required_desc
 import com.segnities007.cmp_form_validation.site.resources.api_rules_title
 import org.jetbrains.compose.resources.stringResource
-import org.jetbrains.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.Preview
 
 @Composable
 fun ApiRulesSection() {

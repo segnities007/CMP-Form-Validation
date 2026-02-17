@@ -13,13 +13,12 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
-import androidx.compose.runtime.mutableStateMapOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.layout.LayoutCoordinates
 import androidx.compose.ui.layout.onGloballyPositioned
-import androidx.compose.ui.layout.positionInParent
 import androidx.compose.ui.unit.sp
 import com.segnities007.cmp_form_validation.site.SiteDimens
 import com.segnities007.cmp_form_validation.site.SitePreviewTheme
@@ -40,16 +39,16 @@ import com.segnities007.cmp_form_validation.site.resources.Res
 import com.segnities007.cmp_form_validation.site.resources.*
 import kotlinx.coroutines.launch
 import org.jetbrains.compose.resources.stringResource
-import org.jetbrains.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.Preview
 
 /**
  * Getting Started documentation page with sidebar navigation and overview card.
  * All sections use a consistent flat layout: SectionHeader → description → code/content.
  */
 @Composable
-fun DocsPage(onScrollRequested: ((Int) -> Unit)? = null) {
+fun DocsPage(onScrollRequested: ((LayoutCoordinates) -> Unit)? = null) {
     var activeSection by remember { mutableIntStateOf(0) }
-    val sectionOffsets = remember { mutableStateMapOf<Int, Int>() }
+    val sectionCoords = remember { mutableMapOf<Int, LayoutCoordinates>() }
     val scope = rememberCoroutineScope()
 
     val sectionLabels = listOf(
@@ -61,14 +60,14 @@ fun DocsPage(onScrollRequested: ((Int) -> Unit)? = null) {
         stringResource(Res.string.step6_title),
         stringResource(Res.string.step7_title),
         stringResource(Res.string.integration_title),
-        "Tips",
+        stringResource(Res.string.tips_title),
     )
 
     fun handleSectionClick(index: Int) {
         activeSection = index
-        val offset = sectionOffsets[index]
-        if (offset != null && onScrollRequested != null) {
-            scope.launch { onScrollRequested(offset) }
+        val coords = sectionCoords[index]
+        if (coords != null && onScrollRequested != null) {
+            scope.launch { onScrollRequested(coords) }
         }
     }
 
@@ -132,7 +131,7 @@ fun DocsPage(onScrollRequested: ((Int) -> Unit)? = null) {
                     // Step 1: Add Dependencies
                     DocsStepSection(
                         index = 0,
-                        sectionOffsets = sectionOffsets,
+                        sectionCoords = sectionCoords,
                         title = stringResource(Res.string.step1_title),
                         description = stringResource(Res.string.step1_desc),
                         code = CodeSamples.ADD_DEPS,
@@ -141,7 +140,7 @@ fun DocsPage(onScrollRequested: ((Int) -> Unit)? = null) {
                     // Step 2: Create a Validated Field
                     DocsStepSection(
                         index = 1,
-                        sectionOffsets = sectionOffsets,
+                        sectionCoords = sectionCoords,
                         title = stringResource(Res.string.step2_title),
                         description = stringResource(Res.string.step2_desc),
                         code = CodeSamples.CREATE_FIELD,
@@ -150,24 +149,24 @@ fun DocsPage(onScrollRequested: ((Int) -> Unit)? = null) {
                     // Step 3: Connect to UI
                     DocsStepSection(
                         index = 2,
-                        sectionOffsets = sectionOffsets,
+                        sectionCoords = sectionCoords,
                         title = stringResource(Res.string.step3_title),
                         description = stringResource(Res.string.step3_desc),
                         code = CodeSamples.BIND_UI,
                         explanation = stringResource(Res.string.step3_explain),
                     )
                     // Step 4: Validation Triggers
-                    Column(Modifier.onGloballyPositioned { sectionOffsets[3] = it.positionInParent().y.toInt() }) {
+                    Column(Modifier.onGloballyPositioned { sectionCoords[3] = it }) {
                         DocsTriggersSection()
                     }
                     // Step 5: Validation Strategies
-                    Column(Modifier.onGloballyPositioned { sectionOffsets[4] = it.positionInParent().y.toInt() }) {
+                    Column(Modifier.onGloballyPositioned { sectionCoords[4] = it }) {
                         DocsStrategiesSection()
                     }
                     // Step 6: Build a Multi-Field Form
                     DocsStepSection(
                         index = 5,
-                        sectionOffsets = sectionOffsets,
+                        sectionCoords = sectionCoords,
                         title = stringResource(Res.string.step6_title),
                         description = stringResource(Res.string.step6_desc),
                         code = CodeSamples.FORM,
@@ -176,18 +175,18 @@ fun DocsPage(onScrollRequested: ((Int) -> Unit)? = null) {
                     // Step 7: Create Custom Rules
                     DocsStepSection(
                         index = 6,
-                        sectionOffsets = sectionOffsets,
+                        sectionCoords = sectionCoords,
                         title = stringResource(Res.string.step7_title),
                         description = stringResource(Res.string.step7_desc),
                         code = CodeSamples.CUSTOM_RULE,
                         explanation = stringResource(Res.string.step7_explain),
                     )
                     // Integration Styles
-                    Column(Modifier.onGloballyPositioned { sectionOffsets[7] = it.positionInParent().y.toInt() }) {
+                    Column(Modifier.onGloballyPositioned { sectionCoords[7] = it }) {
                         DocsIntegrationSection()
                     }
                     // Tips
-                    Column(Modifier.onGloballyPositioned { sectionOffsets[8] = it.positionInParent().y.toInt() }) {
+                    Column(Modifier.onGloballyPositioned { sectionCoords[8] = it }) {
                         DocsTipsSection()
                     }
                 }
@@ -204,7 +203,7 @@ fun DocsPage(onScrollRequested: ((Int) -> Unit)? = null) {
 @Composable
 private fun DocsStepSection(
     index: Int,
-    sectionOffsets: MutableMap<Int, Int>,
+    sectionCoords: MutableMap<Int, LayoutCoordinates>,
     title: String,
     description: String,
     code: String? = null,
@@ -213,7 +212,7 @@ private fun DocsStepSection(
 ) {
     Column(
         modifier = Modifier.onGloballyPositioned {
-            sectionOffsets[index] = it.positionInParent().y.toInt()
+            sectionCoords[index] = it
         },
         verticalArrangement = Arrangement.spacedBy(SiteDimens.CardItemSpacing),
     ) {

@@ -23,7 +23,7 @@ import androidx.compose.ui.unit.dp
 import com.segnities007.cmp_form_validation.site.LocalExtraColors
 import com.segnities007.cmp_form_validation.site.SiteDimens
 import com.segnities007.cmp_form_validation.site.SitePreviewTheme
-import org.jetbrains.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.Preview
 
 @Composable
 fun SidebarSectionLabel(label: String) {
@@ -63,15 +63,16 @@ fun SidebarNavItem(
             ),
         verticalAlignment = Alignment.CenterVertically,
     ) {
-        if (isActive) {
-            Box(
-                Modifier
-                    .width(SiteDimens.SidebarActiveBarWidth)
-                    .height(SiteDimens.SidebarActiveBarHeight)
-                    .background(extra.sidebarActiveBar, RoundedCornerShape(2.dp)),
-            )
-            Spacer(Modifier.width(10.dp))
-        }
+        Box(
+            Modifier
+                .width(SiteDimens.SidebarActiveBarWidth)
+                .height(SiteDimens.SidebarActiveBarHeight)
+                .background(
+                    color = if (isActive) extra.sidebarActiveBar else Color.Transparent,
+                    shape = RoundedCornerShape(2.dp),
+                ),
+        )
+        Spacer(Modifier.width(10.dp))
         Text(
             text = label,
             style = MaterialTheme.typography.bodyMedium,

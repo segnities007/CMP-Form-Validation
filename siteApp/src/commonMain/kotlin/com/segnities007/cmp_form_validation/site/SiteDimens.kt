@@ -122,6 +122,7 @@ object SiteDimens {
     val SidebarSectionLabelPaddingTop = 16.dp
     val SidebarSectionLabelPaddingBottom = 6.dp
     val SidebarBreakpoint = 1000.dp
+    val SidebarScrollTargetInset = 28.dp
 
     // Overview card
     val OverviewCardWidth = 260.dp

@@ -6,6 +6,8 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.rounded.Info
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
@@ -18,7 +20,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.sp
 import com.segnities007.cmp_form_validation.site.SiteDimens
 import com.segnities007.cmp_form_validation.site.SitePreviewTheme
-import org.jetbrains.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.Preview
 
 @Composable
 internal fun CalloutContainer(
@@ -51,6 +53,10 @@ internal fun CalloutContainer(
 @Composable
 private fun CalloutContainerPreview() {
     SitePreviewTheme {
-        NoteBox("Shared callout container preview.")
+        CalloutContainer(
+            text = "Shared callout container preview.",
+            icon = Icons.Rounded.Info,
+            tint = MaterialTheme.colorScheme.primary,
+        )
     }
 }

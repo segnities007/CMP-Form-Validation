@@ -17,7 +17,7 @@ import com.segnities007.cmp_form_validation.site.resources.step5_title
 import com.segnities007.cmp_form_validation.site.resources.strategy_collect_all_desc
 import com.segnities007.cmp_form_validation.site.resources.strategy_first_error_desc
 import org.jetbrains.compose.resources.stringResource
-import org.jetbrains.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.Preview
 
 @Composable
 fun DocsStrategiesSection() {

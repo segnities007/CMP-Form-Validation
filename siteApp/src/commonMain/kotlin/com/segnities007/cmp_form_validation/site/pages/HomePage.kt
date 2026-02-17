@@ -10,7 +10,7 @@ import com.segnities007.cmp_form_validation.site.pages.sections.HomeArchitecture
 import com.segnities007.cmp_form_validation.site.pages.sections.HomePlatformSection
 import com.segnities007.cmp_form_validation.site.pages.sections.HomeQuickStartSection
 import com.segnities007.cmp_form_validation.site.pages.sections.HomeWhySection
-import org.jetbrains.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.Preview
 
 @Composable
 fun HomePage(onNavigateToDocs: () -> Unit) {

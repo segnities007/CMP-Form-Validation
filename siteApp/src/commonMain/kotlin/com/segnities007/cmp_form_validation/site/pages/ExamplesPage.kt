@@ -10,13 +10,10 @@ import androidx.compose.material.icons.rounded.Star
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
-import androidx.compose.runtime.mutableStateMapOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.layout.onGloballyPositioned
-import androidx.compose.ui.layout.positionInParent
+import androidx.compose.ui.layout.LayoutCoordinates
 import com.segnities007.cmp_form_validation.site.SiteDimens
 import com.segnities007.cmp_form_validation.site.SitePreviewTheme
 import com.segnities007.cmp_form_validation.site.components.OverviewCard
@@ -28,13 +25,13 @@ import com.segnities007.cmp_form_validation.site.components.SidebarSectionLabel
 import com.segnities007.cmp_form_validation.site.pages.sections.ExamplesListSection
 import com.segnities007.cmp_form_validation.site.resources.Res
 import com.segnities007.cmp_form_validation.site.resources.*
-import kotlinx.coroutines.launch
 import org.jetbrains.compose.resources.stringResource
-import org.jetbrains.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.Preview
 
 @Composable
-fun ExamplesPage(onScrollRequested: ((Int) -> Unit)? = null) {
+fun ExamplesPage(onScrollRequested: ((LayoutCoordinates) -> Unit)? = null) {
     var activeSection by remember { mutableIntStateOf(0) }
+    val sectionCoords = remember { mutableMapOf<Int, LayoutCoordinates>() }
 
     val exampleLabels = listOf(
         stringResource(Res.string.ex_email_title),
@@ -58,7 +55,12 @@ fun ExamplesPage(onScrollRequested: ((Int) -> Unit)? = null) {
                     SidebarNavItem(
                         label = label,
                         isActive = activeSection == index,
-                        onClick = { activeSection = index },
+                        onClick = {
+                            activeSection = index
+                            sectionCoords[index]?.let { coords ->
+                                onScrollRequested?.invoke(coords)
+                            }
+                        },
                     )
                 }
             },
@@ -75,7 +77,7 @@ fun ExamplesPage(onScrollRequested: ((Int) -> Unit)? = null) {
             },
             mainContent = {
                 Spacer(Modifier.height(SiteDimens.SubSection))
-                ExamplesListSection()
+                ExamplesListSection(sectionCoords = sectionCoords)
                 Spacer(Modifier.height(SiteDimens.PageBottom))
             },
         )

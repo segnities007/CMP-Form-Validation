@@ -12,7 +12,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 
 /** Simple section container used by catalog screens for visual grouping. */
@@ -43,19 +42,6 @@ fun CatalogSection(
             Text(title, style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.SemiBold)
             Text(description, style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
             content()
-        }
-    }
-}
-
-@Preview
-@Composable
-private fun CatalogSectionPreview() {
-    MaterialTheme {
-        CatalogSection(
-            title = "Sample Section",
-            description = "Section description",
-        ) {
-            Text("Section content")
         }
     }
 }

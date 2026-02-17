@@ -10,13 +10,12 @@ import androidx.compose.material.icons.rounded.Layers
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
-import androidx.compose.runtime.mutableStateMapOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.layout.LayoutCoordinates
 import androidx.compose.ui.layout.onGloballyPositioned
-import androidx.compose.ui.layout.positionInParent
 import com.segnities007.cmp_form_validation.site.SiteDimens
 import com.segnities007.cmp_form_validation.site.SitePreviewTheme
 import com.segnities007.cmp_form_validation.site.components.OverviewCard
@@ -33,12 +32,12 @@ import com.segnities007.cmp_form_validation.site.resources.Res
 import com.segnities007.cmp_form_validation.site.resources.*
 import kotlinx.coroutines.launch
 import org.jetbrains.compose.resources.stringResource
-import org.jetbrains.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.Preview
 
 @Composable
-fun ApiPage(onScrollRequested: ((Int) -> Unit)? = null) {
+fun ApiPage(onScrollRequested: ((LayoutCoordinates) -> Unit)? = null) {
     var activeSection by remember { mutableIntStateOf(0) }
-    val sectionOffsets = remember { mutableStateMapOf<Int, Int>() }
+    val sectionCoords = remember { mutableMapOf<Int, LayoutCoordinates>() }
     val scope = rememberCoroutineScope()
 
     val sectionLabels = listOf(
@@ -50,9 +49,9 @@ fun ApiPage(onScrollRequested: ((Int) -> Unit)? = null) {
 
     fun handleSectionClick(index: Int) {
         activeSection = index
-        val offset = sectionOffsets[index]
-        if (offset != null && onScrollRequested != null) {
-            scope.launch { onScrollRequested(offset) }
+        val coords = sectionCoords[index]
+        if (coords != null && onScrollRequested != null) {
+            scope.launch { onScrollRequested(coords) }
         }
     }
 
@@ -102,16 +101,16 @@ fun ApiPage(onScrollRequested: ((Int) -> Unit)? = null) {
             mainContent = {
                 Spacer(Modifier.height(SiteDimens.SubSection))
                 Column(verticalArrangement = Arrangement.spacedBy(SiteDimens.ApiSectionSpacing)) {
-                    Column(Modifier.onGloballyPositioned { sectionOffsets[0] = it.positionInParent().y.toInt() }) {
+                    Column(Modifier.onGloballyPositioned { sectionCoords[0] = it }) {
                         ApiCoreSection()
                     }
-                    Column(Modifier.onGloballyPositioned { sectionOffsets[1] = it.positionInParent().y.toInt() }) {
+                    Column(Modifier.onGloballyPositioned { sectionCoords[1] = it }) {
                         ApiRulesSection()
                     }
-                    Column(Modifier.onGloballyPositioned { sectionOffsets[2] = it.positionInParent().y.toInt() }) {
+                    Column(Modifier.onGloballyPositioned { sectionCoords[2] = it }) {
                         ApiFieldSection()
                     }
-                    Column(Modifier.onGloballyPositioned { sectionOffsets[3] = it.positionInParent().y.toInt() }) {
+                    Column(Modifier.onGloballyPositioned { sectionCoords[3] = it }) {
                         ApiComposeSection()
                     }
                 }

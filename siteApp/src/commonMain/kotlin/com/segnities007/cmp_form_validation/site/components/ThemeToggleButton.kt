@@ -17,10 +17,20 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.segnities007.cmp_form_validation.site.SitePreviewTheme
 import com.segnities007.cmp_form_validation.site.ThemeMode
-import org.jetbrains.compose.ui.tooling.preview.Preview
+import com.segnities007.cmp_form_validation.site.resources.Res
+import com.segnities007.cmp_form_validation.site.resources.switch_to_dark_theme
+import com.segnities007.cmp_form_validation.site.resources.switch_to_light_theme
+import org.jetbrains.compose.resources.stringResource
+import androidx.compose.ui.tooling.preview.Preview
 
 @Composable
 internal fun ThemeToggleButton(themeMode: ThemeMode, onClick: () -> Unit) {
+    val contentDescription = if (themeMode == ThemeMode.DARK) {
+        stringResource(Res.string.switch_to_light_theme)
+    } else {
+        stringResource(Res.string.switch_to_dark_theme)
+    }
+
     Surface(
         color = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f),
         shape = CircleShape,
@@ -32,7 +42,7 @@ internal fun ThemeToggleButton(themeMode: ThemeMode, onClick: () -> Unit) {
             Icon(
                 imageVector = if (themeMode == ThemeMode.DARK) Icons.Rounded.LightMode
                 else Icons.Rounded.DarkMode,
-                contentDescription = null,
+                contentDescription = contentDescription,
                 modifier = Modifier.size(18.dp),
                 tint = MaterialTheme.colorScheme.onSurfaceVariant,
             )

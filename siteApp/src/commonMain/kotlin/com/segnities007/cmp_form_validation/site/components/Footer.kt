@@ -35,7 +35,7 @@ import com.segnities007.cmp_form_validation.site.resources.footer_tagline
 import com.segnities007.cmp_form_validation.site.resources.hero_github
 import com.segnities007.cmp_form_validation.site.resources.nav_docs
 import org.jetbrains.compose.resources.stringResource
-import org.jetbrains.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.Preview
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable

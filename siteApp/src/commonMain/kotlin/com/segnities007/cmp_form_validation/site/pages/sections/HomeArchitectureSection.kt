@@ -15,7 +15,7 @@ import com.segnities007.cmp_form_validation.site.resources.architecture_title
 import com.segnities007.cmp_form_validation.site.resources.module_compose_desc
 import com.segnities007.cmp_form_validation.site.resources.module_core_desc
 import org.jetbrains.compose.resources.stringResource
-import org.jetbrains.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.Preview
 
 @Composable
 fun HomeArchitectureSection() {

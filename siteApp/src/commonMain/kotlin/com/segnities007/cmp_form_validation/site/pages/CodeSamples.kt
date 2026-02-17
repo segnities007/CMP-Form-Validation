@@ -160,7 +160,7 @@ val password = rememberValidatedField(
     // ── ExamplesPage ─────────────────────────────────────────────────────────
 
     val EMAIL = """
-    @Composable
+@Composable
 fun EmailFieldExample() {
     val email = rememberValidatedField(
         rules = persistentListOf(required(), email())
@@ -178,7 +178,7 @@ fun EmailFieldExample() {
 """.trimIndent()
 
     val LOGIN = """
-    @Composable
+@Composable
 fun LoginFormExample() {
     val emailField = rememberValidatedField(
         rules = persistentListOf(required(), email())
@@ -228,7 +228,7 @@ fun LoginFormExample() {
 """.trimIndent()
 
     val SIGNUP = """
-    @Composable
+@Composable
 fun SignUpFormExample() {
     val emailField = rememberValidatedField(
         rules = persistentListOf(required(), email())
@@ -302,7 +302,7 @@ val password = rememberValidatedField(
 """.trimIndent()
 
     val MODIFIER = """
-    @Composable
+@Composable
 fun ModifierExample() {
     val name = rememberValidatedField(
         trigger = ValidationTrigger.OnBlur,
@@ -323,7 +323,7 @@ fun ModifierExample() {
 """.trimIndent()
 
     val WRAPPER = """
-    @Composable
+@Composable
 fun WrapperExample() {
     val email = rememberValidatedField(
         rules = persistentListOf(required(), email())

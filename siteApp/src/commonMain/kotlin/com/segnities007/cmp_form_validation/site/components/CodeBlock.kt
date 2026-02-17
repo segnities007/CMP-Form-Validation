@@ -29,7 +29,7 @@ import androidx.compose.ui.unit.sp
 import com.segnities007.cmp_form_validation.site.LocalExtraColors
 import com.segnities007.cmp_form_validation.site.SiteDimens
 import com.segnities007.cmp_form_validation.site.SitePreviewTheme
-import org.jetbrains.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.Preview
 
 @Composable
 fun CodeBlock(code: String, label: String? = null) {

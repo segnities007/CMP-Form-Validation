@@ -9,7 +9,6 @@ import androidx.compose.material3.Tab
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import com.segnities007.cmp_form_validation.catalog.CatalogTab
 
 private const val CATALOG_TITLE = "cmpformvalidation catalog"
@@ -47,17 +46,5 @@ fun CatalogTopBar(
                 )
             }
         }
-    }
-}
-
-@Preview
-@Composable
-private fun CatalogTopBarPreview() {
-    MaterialTheme {
-        CatalogTopBar(
-            selectedTab = CatalogTab.Rules,
-            tabDescription = "Inspect core validation rules independently.",
-            onTabSelected = {},
-        )
     }
 }

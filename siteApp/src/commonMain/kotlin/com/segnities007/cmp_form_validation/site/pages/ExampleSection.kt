@@ -18,7 +18,7 @@ import com.segnities007.cmp_form_validation.site.SiteDimens
 import com.segnities007.cmp_form_validation.site.SitePreviewTheme
 import com.segnities007.cmp_form_validation.site.components.CodeBlock
 import com.segnities007.cmp_form_validation.site.components.SectionHeader
-import org.jetbrains.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.Preview
 
 @Composable
 internal fun ExampleSection(title: String, description: String, code: String) {

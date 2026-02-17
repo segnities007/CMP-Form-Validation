@@ -12,7 +12,7 @@ import com.segnities007.cmp_form_validation.site.resources.tip_cross_field
 import com.segnities007.cmp_form_validation.site.resources.tip_error_codes
 import com.segnities007.cmp_form_validation.site.resources.tip_immutable
 import org.jetbrains.compose.resources.stringResource
-import org.jetbrains.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.Preview
 
 @Composable
 fun DocsTipsSection() {

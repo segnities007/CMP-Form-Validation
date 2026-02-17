@@ -19,7 +19,7 @@ import com.segnities007.cmp_form_validation.site.resources.docs_subtitle
 import com.segnities007.cmp_form_validation.site.resources.docs_time
 import com.segnities007.cmp_form_validation.site.resources.docs_title
 import org.jetbrains.compose.resources.stringResource
-import org.jetbrains.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.Preview
 
 @Composable
 fun DocsIntroSection() {

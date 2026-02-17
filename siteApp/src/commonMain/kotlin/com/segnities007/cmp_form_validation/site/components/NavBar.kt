@@ -32,7 +32,7 @@ import com.segnities007.cmp_form_validation.site.resources.nav_docs
 import com.segnities007.cmp_form_validation.site.resources.nav_examples
 import com.segnities007.cmp_form_validation.site.resources.nav_home
 import org.jetbrains.compose.resources.stringResource
-import org.jetbrains.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.Preview
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable

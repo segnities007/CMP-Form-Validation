@@ -14,7 +14,7 @@ import com.segnities007.cmp_form_validation.site.resources.api_strategy_desc
 import com.segnities007.cmp_form_validation.site.resources.api_validator_desc
 import com.segnities007.cmp_form_validation.site.resources.api_validator_of_desc
 import org.jetbrains.compose.resources.stringResource
-import org.jetbrains.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.Preview
 
 @Composable
 fun ApiCoreSection() {

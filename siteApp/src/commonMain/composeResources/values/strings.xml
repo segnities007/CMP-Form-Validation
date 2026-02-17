@@ -81,6 +81,7 @@
     <string name="integration_modifier_desc">Modifier.validation(field) adds blur-trigger validation to any text field. Useful when you need minimal changes to existing fields.</string>
     <string name="integration_wrapper">Wrapper Component</string>
     <string name="integration_wrapper_desc">ValidatedOutlinedTextField combines field, validation, and error display in a single composable. Best for rapid prototyping with less boilerplate.</string>
+    <string name="tips_title">Tips</string>
     <string name="tip_immutable">Use persistentListOf() and persistentMapOf() from kotlinx-collections-immutable for rule and field lists. This prevents unnecessary recompositions.</string>
     <string name="tip_cross_field">Cross-field rules run only during form.submit(). They do not trigger on individual field changes.</string>
     <string name="tip_error_codes">Use meaningful ErrorCode strings (e.g., "password_too_weak") for programmatic error handling and custom error message rendering.</string>
@@ -143,6 +144,8 @@
     <string name="cta_subtitle">Add type-safe form validation to your Kotlin Multiplatform project in minutes.</string>
     <string name="cta_start">Read the Docs</string>
     <string name="cta_github">View on GitHub</string>
+    <string name="switch_to_light_theme">Switch to light theme</string>
+    <string name="switch_to_dark_theme">Switch to dark theme</string>
 
     <!-- Sidebar Labels -->
     <string name="sidebar_guide">GUIDE</string>

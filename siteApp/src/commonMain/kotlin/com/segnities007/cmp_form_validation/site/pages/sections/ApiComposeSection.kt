@@ -14,7 +14,7 @@ import com.segnities007.cmp_form_validation.site.resources.api_remember_form_des
 import com.segnities007.cmp_form_validation.site.resources.api_supporting_text_desc
 import com.segnities007.cmp_form_validation.site.resources.api_validated_tf_desc
 import org.jetbrains.compose.resources.stringResource
-import org.jetbrains.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.Preview
 
 @Composable
 fun ApiComposeSection() {

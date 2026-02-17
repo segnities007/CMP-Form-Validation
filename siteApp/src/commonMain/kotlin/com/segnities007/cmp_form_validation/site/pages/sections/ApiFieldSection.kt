@@ -12,7 +12,7 @@ import com.segnities007.cmp_form_validation.site.resources.api_form_rule_desc
 import com.segnities007.cmp_form_validation.site.resources.api_trigger_desc
 import com.segnities007.cmp_form_validation.site.resources.api_validated_field_desc
 import org.jetbrains.compose.resources.stringResource
-import org.jetbrains.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.Preview
 
 @Composable
 fun ApiFieldSection() {

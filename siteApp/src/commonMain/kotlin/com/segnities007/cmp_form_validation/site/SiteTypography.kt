@@ -9,7 +9,7 @@ import androidx.compose.ui.text.font.FontFamily
 import com.segnities007.cmp_form_validation.site.resources.Res
 import com.segnities007.cmp_form_validation.site.resources.noto_sans_jp
 import org.jetbrains.compose.resources.Font
-import org.jetbrains.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.Preview
 
 @Composable
 fun siteTypography(): Typography {
