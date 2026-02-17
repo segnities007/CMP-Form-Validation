@@ -25,6 +25,22 @@ import com.segnities007.cmp_form_validation.site.components.SidebarNavItem
 import com.segnities007.cmp_form_validation.site.components.SidebarSectionLabel
 import com.segnities007.cmp_form_validation.site.pages.sections.ExamplesListSection
 import com.segnities007.cmp_form_validation.site.resources.Res
+import com.segnities007.cmp_form_validation.site.resources.ex_custom_title
+import com.segnities007.cmp_form_validation.site.resources.ex_email_title
+import com.segnities007.cmp_form_validation.site.resources.ex_login_title
+import com.segnities007.cmp_form_validation.site.resources.ex_modifier_title
+import com.segnities007.cmp_form_validation.site.resources.ex_signup_title
+import com.segnities007.cmp_form_validation.site.resources.ex_wrapper_title
+import com.segnities007.cmp_form_validation.site.resources.examples_subtitle
+import com.segnities007.cmp_form_validation.site.resources.examples_title
+import com.segnities007.cmp_form_validation.site.resources.overview_beginner
+import com.segnities007.cmp_form_validation.site.resources.overview_count
+import com.segnities007.cmp_form_validation.site.resources.overview_difficulty
+import com.segnities007.cmp_form_validation.site.resources.overview_examples_desc
+import com.segnities007.cmp_form_validation.site.resources.overview_modules
+import com.segnities007.cmp_form_validation.site.resources.overview_title
+import com.segnities007.cmp_form_validation.site.resources.overview_two_modules
+import com.segnities007.cmp_form_validation.site.resources.sidebar_examples
 import org.jetbrains.compose.resources.stringResource
 
 @Composable

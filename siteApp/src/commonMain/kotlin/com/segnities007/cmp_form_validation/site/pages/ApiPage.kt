@@ -30,6 +30,22 @@ import com.segnities007.cmp_form_validation.site.pages.sections.ApiCoreSection
 import com.segnities007.cmp_form_validation.site.pages.sections.ApiFieldSection
 import com.segnities007.cmp_form_validation.site.pages.sections.ApiRulesSection
 import com.segnities007.cmp_form_validation.site.resources.Res
+import com.segnities007.cmp_form_validation.site.resources.api_compose_title
+import com.segnities007.cmp_form_validation.site.resources.api_core_title
+import com.segnities007.cmp_form_validation.site.resources.api_field_title
+import com.segnities007.cmp_form_validation.site.resources.api_rules_title
+import com.segnities007.cmp_form_validation.site.resources.api_subtitle
+import com.segnities007.cmp_form_validation.site.resources.api_title
+import com.segnities007.cmp_form_validation.site.resources.overview_api_desc
+import com.segnities007.cmp_form_validation.site.resources.overview_api_types
+import com.segnities007.cmp_form_validation.site.resources.overview_modules
+import com.segnities007.cmp_form_validation.site.resources.overview_sections
+import com.segnities007.cmp_form_validation.site.resources.overview_title
+import com.segnities007.cmp_form_validation.site.resources.overview_two_modules
+import com.segnities007.cmp_form_validation.site.resources.sidebar_compose_api
+import com.segnities007.cmp_form_validation.site.resources.sidebar_core_types
+import com.segnities007.cmp_form_validation.site.resources.sidebar_field_form
+import com.segnities007.cmp_form_validation.site.resources.sidebar_rules
 import kotlinx.coroutines.launch
 import org.jetbrains.compose.resources.stringResource
 

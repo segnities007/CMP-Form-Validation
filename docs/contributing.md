@@ -25,12 +25,18 @@ Install local hooks once:
 Installed hooks:
 
 - `pre-commit`: conflict markers, common secret patterns, key/certificate file extensions, and `ktlint` for affected modules
-- `pre-push`: `gitleaks` (if installed) + Gradle quality/test/compile checks
+- `pre-push`: required `gitleaks` scan + Gradle quality/test/compile checks
 
 Temporary bypass (not recommended):
 
 ```bash
 SKIP_GIT_HOOKS=1 git push
+```
+
+Temporary bypass only for missing `gitleaks` (not recommended):
+
+```bash
+ALLOW_MISSING_GITLEAKS=1 git push
 ```
 
 Minimum checks:

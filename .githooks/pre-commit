@@ -3,6 +3,7 @@ set -euo pipefail
 
 ROOT_DIR="$(git rev-parse --show-toplevel)"
 cd "$ROOT_DIR"
+export GRADLE_USER_HOME="${GRADLE_USER_HOME:-$ROOT_DIR/.gradle-local}"
 
 echo "[pre-commit] Running local checks..."
 
@@ -60,7 +61,7 @@ if [[ -n "$KOTLIN_STAGED" ]]; then
 
     if [[ "$run_full_check" -eq 1 ]]; then
       echo "[pre-commit] Running ktlintCheckAll (root-level Kotlin script changed)"
-      ./gradlew --no-daemon ktlintCheckAll
+      ./gradlew --no-daemon -g "$GRADLE_USER_HOME" ktlintCheckAll
     else
       tasks=()
       for t in "${!task_set[@]}"; do
@@ -68,7 +69,7 @@ if [[ -n "$KOTLIN_STAGED" ]]; then
       done
       if [[ "${#tasks[@]}" -gt 0 ]]; then
         echo "[pre-commit] Running ktlint for affected modules: ${tasks[*]}"
-        ./gradlew --no-daemon "${tasks[@]}"
+        ./gradlew --no-daemon -g "$GRADLE_USER_HOME" "${tasks[@]}"
       fi
     fi
   fi
