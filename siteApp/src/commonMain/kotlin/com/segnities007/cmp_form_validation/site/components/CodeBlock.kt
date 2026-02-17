@@ -6,9 +6,12 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.horizontalScroll
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Code
@@ -81,7 +84,12 @@ fun CodeBlock(code: String, label: String? = null) {
                     fontFamily = FontFamily.Monospace,
                     color = extra.codeBlock.text,
                     lineHeight = 20.sp,
-                    modifier = Modifier.fillMaxWidth().padding(SiteDimens.CodeBlockPadding),
+                    softWrap = false,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .heightIn(min = 44.dp)
+                        .horizontalScroll(rememberScrollState())
+                        .padding(SiteDimens.CodeBlockPadding),
                 )
             }
         }

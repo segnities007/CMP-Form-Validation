@@ -1,7 +1,9 @@
 package com.segnities007.cmp_form_validation.site.components
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -15,12 +17,23 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.segnities007.cmp_form_validation.site.LocalExtraColors
 import com.segnities007.cmp_form_validation.site.SiteDimens
 import com.segnities007.cmp_form_validation.site.SitePreviewTheme
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
+/**
+ * Feature highlight card used in "Why CMP Form Validation?" section.
+ *
+ * Previously wrapped in BoxWithConstraints, which broke the FlowRow weight()
+ * modifier — the weight was applied to the inner Surface instead of the
+ * BoxWithConstraints, causing the Surface to not fill its cell and leaving
+ * a visible gap with the wrong background color.
+ *
+ * Fix: Apply modifier directly to Surface so weight()/widthIn() work correctly.
+ */
 @Composable
 fun FeatureCard(
     icon: ImageVector,
@@ -29,17 +42,20 @@ fun FeatureCard(
     modifier: Modifier = Modifier,
 ) {
     val extra = LocalExtraColors.current
+
     Surface(
-        modifier = modifier,
-        color = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f),
+        modifier = modifier.fillMaxWidth(),
+        color = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.45f),
         shape = RoundedCornerShape(SiteDimens.CardCorner),
+        border = BorderStroke(SiteDimens.CardBorderWidth, extra.cardBorder),
+        shadowElevation = 2.dp,
     ) {
         Column(
             modifier = Modifier.padding(SiteDimens.CardPadding),
             verticalArrangement = Arrangement.spacedBy(SiteDimens.CardItemSpacing),
         ) {
             Surface(
-                color = extra.accentBar.copy(alpha = 0.15f),
+                color = extra.accentBar.copy(alpha = 0.12f),
                 shape = RoundedCornerShape(SiteDimens.FeatureIconBgCorner),
             ) {
                 Icon(

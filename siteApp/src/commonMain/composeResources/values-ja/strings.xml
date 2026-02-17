@@ -137,4 +137,35 @@
     <string name="footer_tagline">Compose Multiplatform フォームバリデーションライブラリ</string>
     <string name="footer_copyright">\u00A9 2025 segnities007. All rights reserved.</string>
     <string name="footer_license">Apache License 2.0</string>
+
+    <!-- CTA Section -->
+    <string name="cta_title">使い始めましょう</string>
+    <string name="cta_subtitle">Kotlin Multiplatform プロジェクトに型安全なフォームバリデーションを数分で追加できます。</string>
+    <string name="cta_start">ドキュメントを読む</string>
+    <string name="cta_github">GitHub で見る</string>
+
+    <!-- Sidebar Labels -->
+    <string name="sidebar_guide">ガイド</string>
+    <string name="sidebar_config">設定</string>
+    <string name="sidebar_advanced">応用</string>
+    <string name="sidebar_core_types">コア型</string>
+    <string name="sidebar_rules">ルール</string>
+    <string name="sidebar_field_form">フィールド・フォーム</string>
+    <string name="sidebar_compose_api">COMPOSE API</string>
+    <string name="sidebar_examples">サンプル</string>
+
+    <!-- Overview Card -->
+    <string name="overview_title">概要</string>
+    <string name="overview_reading_time">読了時間</string>
+    <string name="overview_sections">セクション数</string>
+    <string name="overview_difficulty">難易度</string>
+    <string name="overview_modules">モジュール</string>
+    <string name="overview_count">件数</string>
+    <string name="overview_docs_desc">Kotlin Multiplatform プロジェクトへのフォームバリデーション追加ガイド。</string>
+    <string name="overview_api_desc">validation-core と validation-compose モジュールの完全リファレンス。</string>
+    <string name="overview_examples_desc">よくあるバリデーションパターンのすぐに使えるコードスニペット。</string>
+    <string name="overview_beginner">初級</string>
+    <string name="overview_two_modules">2</string>
+    <string name="overview_api_types">19 型</string>
 </resources>
+

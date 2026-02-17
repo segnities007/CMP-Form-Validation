@@ -73,6 +73,18 @@ data class SiteExtraColors(
     val footerBg: Color,
     val accentBar: Color,
     val tipColor: Color,
+    val sectionAltBg: Color,
+    val cardBorder: Color,
+    val pageHeaderGradientStart: Color,
+    val pageHeaderGradientEnd: Color,
+    val ctaGradientStart: Color,
+    val ctaGradientEnd: Color,
+    val sidebarBg: Color,
+    val sidebarActiveBg: Color,
+    val sidebarActiveBar: Color,
+    val overviewCardBg: Color,
+    val overviewCardBorder: Color,
+    val navBarBg: Color,
 )
 
 val DarkExtraColors = SiteExtraColors(
@@ -82,16 +94,28 @@ val DarkExtraColors = SiteExtraColors(
         border = Teal600,
     ),
     hero = HeroColors(
-        gradientStart = Teal900,
+        gradientStart = Color(0xFF003330),
         gradientEnd = Color(0xFF0B1219),
         badgeBg = Teal700.copy(alpha = 0.6f),
         badgeText = Teal100,
         subtitle = Teal200,
         title = Color.White,
     ),
-    footerBg = Color(0xFF0A0F14),
+    footerBg = Color(0xFF060A0E),
     accentBar = Teal400,
     tipColor = Color(0xFF4CAF50),
+    sectionAltBg = Color(0xFF0D1520),
+    cardBorder = Color(0xFF1E2D3D),
+    pageHeaderGradientStart = Teal900.copy(alpha = 0.7f),
+    pageHeaderGradientEnd = Color(0xFF0B1219),
+    ctaGradientStart = Teal900,
+    ctaGradientEnd = Color(0xFF0B1219),
+    sidebarBg = Color(0xFF0D1520),
+    sidebarActiveBg = Teal800.copy(alpha = 0.2f),
+    sidebarActiveBar = Teal400,
+    overviewCardBg = Color(0xFF111D2B),
+    overviewCardBorder = Color(0xFF1E2D3D),
+    navBarBg = Color(0xFF0F1923).copy(alpha = 0.85f),
 )
 
 val LightExtraColors = SiteExtraColors(
@@ -111,6 +135,18 @@ val LightExtraColors = SiteExtraColors(
     footerBg = Color(0xFFE8ECF0),
     accentBar = Teal600,
     tipColor = Color(0xFF4CAF50),
+    sectionAltBg = Color(0xFFF0F5F4),
+    cardBorder = Color(0xFFE0E6EB),
+    pageHeaderGradientStart = Teal50,
+    pageHeaderGradientEnd = Color(0xFFF8FAFB),
+    ctaGradientStart = Teal50,
+    ctaGradientEnd = Color(0xFFF8FAFB),
+    sidebarBg = Color(0xFFF5F7F9),
+    sidebarActiveBg = Teal50,
+    sidebarActiveBar = Teal600,
+    overviewCardBg = Color(0xFFFFFFFF),
+    overviewCardBorder = Color(0xFFE0E6EB),
+    navBarBg = Color(0xFFFFFFFF).copy(alpha = 0.9f),
 )
 
 val LocalExtraColors = compositionLocalOf { DarkExtraColors }

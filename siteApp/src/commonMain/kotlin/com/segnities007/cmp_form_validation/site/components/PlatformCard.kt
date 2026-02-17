@@ -1,7 +1,9 @@
 package com.segnities007.cmp_form_validation.site.components
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
@@ -19,10 +21,16 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.sp
+import com.segnities007.cmp_form_validation.site.LocalExtraColors
 import com.segnities007.cmp_form_validation.site.SiteDimens
 import com.segnities007.cmp_form_validation.site.SitePreviewTheme
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
+/**
+ * Card showing a supported platform (Android, iOS, Desktop, Web).
+ * Use with `Modifier.weight(1f)` in a FlowRow for equal widths.
+ * Uses `fillMaxWidth` to stretch to match siblings within a weighted row.
+ */
 @Composable
 fun PlatformCard(
     icon: ImageVector,
@@ -30,10 +38,13 @@ fun PlatformCard(
     description: String,
     modifier: Modifier = Modifier,
 ) {
+    val extra = LocalExtraColors.current
+
     Surface(
-        modifier = modifier,
-        color = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f),
+        modifier = modifier.fillMaxWidth(),
+        color = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.45f),
         shape = RoundedCornerShape(SiteDimens.CardCorner),
+        border = BorderStroke(SiteDimens.CardBorderWidth, extra.cardBorder),
     ) {
         Column(
             modifier = Modifier.padding(SiteDimens.CardPadding),

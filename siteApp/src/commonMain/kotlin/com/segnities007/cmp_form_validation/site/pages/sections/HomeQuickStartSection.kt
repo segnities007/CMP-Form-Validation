@@ -8,7 +8,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import com.segnities007.cmp_form_validation.site.SiteDimens
 import com.segnities007.cmp_form_validation.site.SitePreviewTheme
-import com.segnities007.cmp_form_validation.site.components.CenteredContent
 import com.segnities007.cmp_form_validation.site.components.CodeBlock
 import com.segnities007.cmp_form_validation.site.components.SectionHeader
 import com.segnities007.cmp_form_validation.site.pages.CodeSamples
@@ -20,17 +19,15 @@ import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable
 fun HomeQuickStartSection() {
-    CenteredContent {
-        SectionHeader(stringResource(Res.string.quick_start_title))
-        Spacer(Modifier.height(SiteDimens.SubSectionContentGap))
-        Text(
-            text = stringResource(Res.string.quick_start_desc),
-            style = MaterialTheme.typography.bodyLarge,
-            color = MaterialTheme.colorScheme.onSurfaceVariant,
-        )
-        Spacer(Modifier.height(SiteDimens.CardPadding))
-        CodeBlock(CodeSamples.QUICK_START, label = "Kotlin")
-    }
+    SectionHeader(stringResource(Res.string.quick_start_title))
+    Spacer(Modifier.height(SiteDimens.SubSectionContentGap))
+    Text(
+        text = stringResource(Res.string.quick_start_desc),
+        style = MaterialTheme.typography.bodyLarge,
+        color = MaterialTheme.colorScheme.onSurfaceVariant,
+    )
+    Spacer(Modifier.height(SiteDimens.CardPadding))
+    CodeBlock(CodeSamples.QUICK_START, label = "Kotlin")
 }
 
 @Preview

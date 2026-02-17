@@ -1,12 +1,11 @@
 package com.segnities007.cmp_form_validation.site.pages
 
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.height
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import com.segnities007.cmp_form_validation.site.SiteDimens
+import com.segnities007.cmp_form_validation.site.LocalExtraColors
 import com.segnities007.cmp_form_validation.site.SitePreviewTheme
+import com.segnities007.cmp_form_validation.site.components.CtaSection
+import com.segnities007.cmp_form_validation.site.components.SectionContainer
 import com.segnities007.cmp_form_validation.site.pages.sections.HomeArchitectureSection
 import com.segnities007.cmp_form_validation.site.pages.sections.HomePlatformSection
 import com.segnities007.cmp_form_validation.site.pages.sections.HomeQuickStartSection
@@ -15,21 +14,28 @@ import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable
 fun HomePage(onNavigateToDocs: () -> Unit) {
+    val extra = LocalExtraColors.current
+
     Column {
         HeroSection(onGetStarted = onNavigateToDocs)
 
-        Spacer(Modifier.height(SiteDimens.Section))
-        HomeWhySection()
+        SectionContainer {
+            HomeWhySection()
+        }
 
-        Spacer(Modifier.height(SiteDimens.Section))
-        HomePlatformSection()
+        SectionContainer(backgroundColor = extra.sectionAltBg) {
+            HomePlatformSection()
+        }
 
-        Spacer(Modifier.height(SiteDimens.Section))
-        HomeQuickStartSection()
+        SectionContainer {
+            HomeQuickStartSection()
+        }
 
-        Spacer(Modifier.height(SiteDimens.Section))
-        HomeArchitectureSection()
-        Spacer(Modifier.height(SiteDimens.PageBottom))
+        SectionContainer(backgroundColor = extra.sectionAltBg) {
+            HomeArchitectureSection()
+        }
+
+        CtaSection(onGetStarted = onNavigateToDocs)
     }
 }
 

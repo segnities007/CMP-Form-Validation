@@ -20,7 +20,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.segnities007.cmp_form_validation.site.SiteDimens
 import com.segnities007.cmp_form_validation.site.SitePreviewTheme
-import com.segnities007.cmp_form_validation.site.components.CenteredContent
 import com.segnities007.cmp_form_validation.site.components.PlatformCard
 import com.segnities007.cmp_form_validation.site.components.SectionHeader
 import com.segnities007.cmp_form_validation.site.resources.Res
@@ -40,26 +39,24 @@ import org.jetbrains.compose.ui.tooling.preview.Preview
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
 fun HomePlatformSection() {
-    CenteredContent {
-        SectionHeader(stringResource(Res.string.platform_title))
-        Spacer(Modifier.height(SiteDimens.SubSectionContentGap))
-        Text(
-            text = stringResource(Res.string.platform_subtitle),
-            style = MaterialTheme.typography.bodyLarge,
-            color = MaterialTheme.colorScheme.onSurfaceVariant,
-            lineHeight = 24.sp,
-        )
-        Spacer(Modifier.height(SiteDimens.SectionContentGap))
-        FlowRow(
-            horizontalArrangement = Arrangement.spacedBy(SiteDimens.FlowRowItemSpacing),
-            verticalArrangement = Arrangement.spacedBy(SiteDimens.FlowRowItemSpacing),
-            modifier = Modifier.fillMaxWidth(),
-        ) {
-            PlatformCard(Icons.Rounded.PhoneAndroid, stringResource(Res.string.platform_android), stringResource(Res.string.platform_android_desc), Modifier.weight(1f).widthIn(min = 180.dp))
-            PlatformCard(Icons.Rounded.PhoneIphone, stringResource(Res.string.platform_ios), stringResource(Res.string.platform_ios_desc), Modifier.weight(1f).widthIn(min = 180.dp))
-            PlatformCard(Icons.Rounded.Computer, stringResource(Res.string.platform_desktop), stringResource(Res.string.platform_desktop_desc), Modifier.weight(1f).widthIn(min = 180.dp))
-            PlatformCard(Icons.Rounded.Language, stringResource(Res.string.platform_web), stringResource(Res.string.platform_web_desc), Modifier.weight(1f).widthIn(min = 180.dp))
-        }
+    SectionHeader(stringResource(Res.string.platform_title))
+    Spacer(Modifier.height(SiteDimens.SubSectionContentGap))
+    Text(
+        text = stringResource(Res.string.platform_subtitle),
+        style = MaterialTheme.typography.bodyLarge,
+        color = MaterialTheme.colorScheme.onSurfaceVariant,
+        lineHeight = 24.sp,
+    )
+    Spacer(Modifier.height(SiteDimens.SectionContentGap))
+    FlowRow(
+        horizontalArrangement = Arrangement.spacedBy(SiteDimens.FlowRowItemSpacing),
+        verticalArrangement = Arrangement.spacedBy(SiteDimens.FlowRowItemSpacing),
+        modifier = Modifier.fillMaxWidth(),
+    ) {
+        PlatformCard(Icons.Rounded.PhoneAndroid, stringResource(Res.string.platform_android), stringResource(Res.string.platform_android_desc), Modifier.weight(1f).widthIn(min = 180.dp))
+        PlatformCard(Icons.Rounded.PhoneIphone, stringResource(Res.string.platform_ios), stringResource(Res.string.platform_ios_desc), Modifier.weight(1f).widthIn(min = 180.dp))
+        PlatformCard(Icons.Rounded.Computer, stringResource(Res.string.platform_desktop), stringResource(Res.string.platform_desktop_desc), Modifier.weight(1f).widthIn(min = 180.dp))
+        PlatformCard(Icons.Rounded.Language, stringResource(Res.string.platform_web), stringResource(Res.string.platform_web_desc), Modifier.weight(1f).widthIn(min = 180.dp))
     }
 }
 

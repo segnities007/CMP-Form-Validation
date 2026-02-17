@@ -1,4 +1,4 @@
-package com.segnities007.cmp_form_validation.site.pages
+package com.segnities007.cmp_form_validation.site.components
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
@@ -9,10 +9,7 @@ import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.FlowRow
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -34,29 +31,33 @@ import com.segnities007.cmp_form_validation.site.SiteDimens
 import com.segnities007.cmp_form_validation.site.SitePreviewTheme
 import com.segnities007.cmp_form_validation.site.SiteUrls
 import com.segnities007.cmp_form_validation.site.resources.Res
-import com.segnities007.cmp_form_validation.site.resources.hero_badge
-import com.segnities007.cmp_form_validation.site.resources.hero_get_started
-import com.segnities007.cmp_form_validation.site.resources.hero_github
-import com.segnities007.cmp_form_validation.site.resources.hero_subtitle
-import com.segnities007.cmp_form_validation.site.resources.hero_title
+import com.segnities007.cmp_form_validation.site.resources.cta_github
+import com.segnities007.cmp_form_validation.site.resources.cta_start
+import com.segnities007.cmp_form_validation.site.resources.cta_subtitle
+import com.segnities007.cmp_form_validation.site.resources.cta_title
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
-internal fun HeroSection(onGetStarted: () -> Unit) {
+fun CtaSection(
+    onGetStarted: () -> Unit,
+) {
     val extra = LocalExtraColors.current
     val uriHandler = LocalUriHandler.current
 
     BoxWithConstraints(
         modifier = Modifier
             .fillMaxWidth()
-            .background(Brush.verticalGradient(listOf(extra.hero.gradientStart, extra.hero.gradientEnd))),
+            .background(
+                Brush.verticalGradient(
+                    listOf(extra.ctaGradientStart, extra.ctaGradientEnd),
+                ),
+            ),
     ) {
         val compact = maxWidth < 760.dp
         val horizontalPadding = if (compact) SiteDimens.CompactContentPaddingH else SiteDimens.ContentPaddingH
-        val verticalPadding = if (compact) SiteDimens.CompactHeroPaddingV else SiteDimens.HeroPaddingV
-        val itemSpacing = if (compact) SiteDimens.CompactHeroItemSpacing else SiteDimens.HeroItemSpacing
+        val verticalPadding = if (compact) SiteDimens.CompactCtaPaddingV else SiteDimens.CtaPaddingV
 
         Box(
             modifier = Modifier
@@ -70,53 +71,40 @@ internal fun HeroSection(onGetStarted: () -> Unit) {
                     .fillMaxWidth()
                     .padding(horizontal = horizontalPadding),
                 horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.spacedBy(itemSpacing),
+                verticalArrangement = Arrangement.spacedBy(16.dp),
             ) {
-                Surface(color = extra.hero.badgeBg, shape = RoundedCornerShape(SiteDimens.HeroBadgeCorner)) {
-                    Text(
-                        text = stringResource(Res.string.hero_badge),
-                        color = extra.hero.badgeText,
-                        style = MaterialTheme.typography.labelSmall,
-                        fontWeight = FontWeight.SemiBold,
-                        modifier = Modifier.padding(
-                            horizontal = SiteDimens.HeroBadgePaddingH,
-                            vertical = SiteDimens.HeroBadgePaddingV,
-                        ),
-                    )
-                }
                 Text(
-                    stringResource(Res.string.hero_title),
-                    style = if (compact) MaterialTheme.typography.displaySmall
-                    else MaterialTheme.typography.displayMedium,
-                    fontWeight = FontWeight.ExtraBold,
-                    color = extra.hero.title,
+                    text = stringResource(Res.string.cta_title),
+                    style = if (compact) MaterialTheme.typography.headlineSmall
+                    else MaterialTheme.typography.headlineMedium,
+                    fontWeight = FontWeight.Bold,
+                    color = MaterialTheme.colorScheme.onSurface,
                     textAlign = TextAlign.Center,
-                    lineHeight = if (compact) 44.sp else 60.sp,
-                    letterSpacing = (-0.5).sp,
-                    modifier = Modifier.widthIn(max = 800.dp),
                 )
                 Text(
-                    stringResource(Res.string.hero_subtitle),
-                    style = if (compact) MaterialTheme.typography.titleMedium else MaterialTheme.typography.titleLarge,
-                    color = extra.hero.subtitle,
+                    text = stringResource(Res.string.cta_subtitle),
+                    style = MaterialTheme.typography.bodyLarge,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
                     textAlign = TextAlign.Center,
-                    lineHeight = if (compact) 28.sp else 34.sp,
-                    modifier = Modifier.widthIn(max = 680.dp),
+                    lineHeight = 24.sp,
+                    modifier = Modifier.widthIn(max = 560.dp),
                 )
-                Spacer(Modifier.height(SiteDimens.HeroButtonSpacer))
+
                 FlowRow(
                     horizontalArrangement = Arrangement.spacedBy(SiteDimens.HeroButtonSpacing, Alignment.CenterHorizontally),
                     verticalArrangement = Arrangement.spacedBy(SiteDimens.HeroButtonSpacing),
-                    modifier = Modifier.fillMaxWidth(),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(top = 8.dp),
                 ) {
                     Surface(
                         color = MaterialTheme.colorScheme.primary,
                         shape = RoundedCornerShape(SiteDimens.HeroButtonCorner),
-                        shadowElevation = 4.dp,
+                        shadowElevation = 2.dp,
                         modifier = Modifier.clickable(onClick = onGetStarted),
                     ) {
                         Text(
-                            stringResource(Res.string.hero_get_started),
+                            stringResource(Res.string.cta_start),
                             color = Color.White,
                             style = MaterialTheme.typography.labelLarge,
                             fontWeight = FontWeight.SemiBold,
@@ -129,11 +117,11 @@ internal fun HeroSection(onGetStarted: () -> Unit) {
                     Surface(
                         color = Color.Transparent,
                         shape = RoundedCornerShape(SiteDimens.HeroButtonCorner),
-                        border = BorderStroke(1.5.dp, MaterialTheme.colorScheme.primary),
+                        border = BorderStroke(1.dp, MaterialTheme.colorScheme.primary),
                         modifier = Modifier.clickable { uriHandler.openUri(SiteUrls.GITHUB) },
                     ) {
                         Text(
-                            stringResource(Res.string.hero_github),
+                            stringResource(Res.string.cta_github),
                             color = MaterialTheme.colorScheme.primary,
                             style = MaterialTheme.typography.labelLarge,
                             fontWeight = FontWeight.SemiBold,
@@ -151,8 +139,8 @@ internal fun HeroSection(onGetStarted: () -> Unit) {
 
 @Preview
 @Composable
-private fun HeroSectionPreview() {
+private fun CtaSectionPreview() {
     SitePreviewTheme {
-        HeroSection(onGetStarted = {})
+        CtaSection(onGetStarted = {})
     }
 }

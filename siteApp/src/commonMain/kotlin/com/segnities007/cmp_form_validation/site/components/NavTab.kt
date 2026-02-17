@@ -19,22 +19,38 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.segnities007.cmp_form_validation.site.SiteDimens
 import com.segnities007.cmp_form_validation.site.SitePreviewTheme
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable
-internal fun NavTab(label: String, isActive: Boolean, onClick: () -> Unit) {
+internal fun NavTab(
+    label: String,
+    isActive: Boolean,
+    compact: Boolean = false,
+    onClick: () -> Unit,
+) {
+    val activeBg = MaterialTheme.colorScheme.primary.copy(alpha = 0.08f)
+
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier
-            .clip(RoundedCornerShape(6.dp))
+            .clip(RoundedCornerShape(8.dp))
+            .background(if (isActive) activeBg else Color.Transparent)
             .clickable(onClick = onClick)
-            .padding(horizontal = SiteDimens.NavTabPaddingH, vertical = SiteDimens.NavTabPaddingV),
+            .padding(
+                horizontal = if (compact) 12.dp else SiteDimens.NavTabPaddingH,
+                vertical = if (compact) 6.dp else SiteDimens.NavTabPaddingV,
+            ),
     ) {
         Text(
             text = label,
-            style = MaterialTheme.typography.bodyMedium,
+            style = if (compact) {
+                MaterialTheme.typography.bodySmall.copy(fontSize = 13.sp)
+            } else {
+                MaterialTheme.typography.bodyMedium
+            },
             fontWeight = if (isActive) FontWeight.SemiBold else FontWeight.Normal,
             color = if (isActive) MaterialTheme.colorScheme.primary
             else MaterialTheme.colorScheme.onSurfaceVariant,
@@ -42,8 +58,8 @@ internal fun NavTab(label: String, isActive: Boolean, onClick: () -> Unit) {
         Spacer(Modifier.height(4.dp))
         Box(
             Modifier
-                .width(24.dp)
-                .height(2.dp)
+                .width(if (isActive) 32.dp else 0.dp)
+                .height(2.5.dp)
                 .background(
                     if (isActive) MaterialTheme.colorScheme.primary else Color.Transparent,
                     RoundedCornerShape(1.dp),
@@ -58,7 +74,7 @@ private fun NavTabPreview() {
     SitePreviewTheme {
         Row {
             NavTab(label = "Home", isActive = true, onClick = {})
-            NavTab(label = "Docs", isActive = false, onClick = {})
+            NavTab(label = "Examples", isActive = false, compact = true, onClick = {})
         }
     }
 }
