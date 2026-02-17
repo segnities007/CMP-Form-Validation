@@ -2,28 +2,25 @@ package com.segnities007.cmp_form_validation.catalog.screens
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedTextField
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.segnities007.cmp_form_validation.catalog.components.CatalogHero
 import com.segnities007.cmp_form_validation.catalog.components.CatalogSection
 import com.segnities007.cmp_form_validation.catalog.components.RuleChips
+import com.segnities007.cmp_form_validation.catalog.screens.components.FormActionButtons
+import com.segnities007.cmp_form_validation.catalog.screens.components.FormCrossFieldErrors
+import com.segnities007.cmp_form_validation.catalog.screens.components.FormSubmissionStatus
+import com.segnities007.cmp_form_validation.catalog.screens.components.FormValidatedField
 import com.segnities007.cmp_form_validation.validation.Rule
 import com.segnities007.cmp_form_validation.validation.ValidationError
 import com.segnities007.cmp_form_validation.validation.email
@@ -31,7 +28,6 @@ import com.segnities007.cmp_form_validation.validation.fieldsMatchRule
 import com.segnities007.cmp_form_validation.validation.maxLength
 import com.segnities007.cmp_form_validation.validation.minLength
 import com.segnities007.cmp_form_validation.validation.required
-import com.segnities007.cmp_form_validation.validation.compose.ValidationSupportingText
 import com.segnities007.cmp_form_validation.validation.compose.rememberValidatedField
 import com.segnities007.cmp_form_validation.validation.compose.rememberValidatedStringForm
 import kotlinx.collections.immutable.persistentListOf
@@ -104,97 +100,60 @@ fun FormCatalogScreen(innerPadding: PaddingValues) {
                 description = "Submit-first validation, then validate as user edits.",
             ) {
                 RuleChips("onSubmitThenChange", "fieldsMatchRule")
-                OutlinedTextField(
-                    value = nameField.value,
-                    onValueChange = {
-                        nameField.onValueChange(it)
+                FormValidatedField(
+                    label = "Name",
+                    idleText = "2 to 30 chars",
+                    field = nameField,
+                    onEdited = {
                         if (submitted) form.revalidateCrossField()
                     },
-                    modifier = Modifier.fillMaxWidth(),
-                    singleLine = true,
-                    shape = RoundedCornerShape(12.dp),
-                    label = { Text("Name") },
-                    isError = nameField.showErrors && !nameField.result.isValid,
-                    supportingText = { ValidationSupportingText(nameField, idleText = "2 to 30 chars") },
                 )
 
-                OutlinedTextField(
-                    value = emailField.value,
-                    onValueChange = {
-                        emailField.onValueChange(it)
+                FormValidatedField(
+                    label = "Email",
+                    idleText = "name@example.com",
+                    field = emailField,
+                    onEdited = {
                         if (submitted) form.revalidateCrossField()
                     },
-                    modifier = Modifier.fillMaxWidth(),
-                    singleLine = true,
-                    shape = RoundedCornerShape(12.dp),
-                    label = { Text("Email") },
-                    isError = emailField.showErrors && !emailField.result.isValid,
-                    supportingText = { ValidationSupportingText(emailField, idleText = "name@example.com") },
                 )
 
-                OutlinedTextField(
-                    value = passwordField.value,
-                    onValueChange = {
-                        passwordField.onValueChange(it)
+                FormValidatedField(
+                    label = "Password",
+                    idleText = "At least 8 chars + number",
+                    field = passwordField,
+                    onEdited = {
                         if (submitted) form.revalidateCrossField()
                     },
-                    modifier = Modifier.fillMaxWidth(),
-                    singleLine = true,
-                    shape = RoundedCornerShape(12.dp),
-                    label = { Text("Password") },
-                    isError = passwordField.showErrors && !passwordField.result.isValid,
-                    supportingText = { ValidationSupportingText(passwordField, idleText = "At least 8 chars + number") },
                 )
 
-                OutlinedTextField(
-                    value = confirmField.value,
-                    onValueChange = {
-                        confirmField.onValueChange(it)
+                FormValidatedField(
+                    label = "Confirm password",
+                    idleText = "Must match password",
+                    field = confirmField,
+                    onEdited = {
                         if (submitted) form.revalidateCrossField()
                     },
-                    modifier = Modifier.fillMaxWidth(),
-                    singleLine = true,
-                    shape = RoundedCornerShape(12.dp),
-                    label = { Text("Confirm password") },
-                    isError = confirmField.showErrors && !confirmField.result.isValid,
-                    supportingText = { ValidationSupportingText(confirmField, idleText = "Must match password") },
                 )
 
                 if (submitted && form.formErrors.isNotEmpty()) {
-                    form.formErrors.forEach { error ->
-                        Text(
-                            text = error.defaultMessage,
-                            color = MaterialTheme.colorScheme.error,
-                            style = MaterialTheme.typography.bodySmall,
-                        )
-                    }
+                    FormCrossFieldErrors(errors = form.formErrors)
                 }
 
-                Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                    Button(
-                        onClick = {
-                            submitted = true
-                            isFormValid = form.submit()
-                        },
-                    ) {
-                        Text("Validate")
-                    }
-                    Button(
-                        onClick = {
-                            form.reset()
-                            submitted = false
-                            isFormValid = false
-                        },
-                    ) {
-                        Text("Reset")
-                    }
-                }
+                FormActionButtons(
+                    onValidate = {
+                        submitted = true
+                        isFormValid = form.submit()
+                    },
+                    onReset = {
+                        form.reset()
+                        submitted = false
+                        isFormValid = false
+                    },
+                )
 
                 if (submitted) {
-                    Text(
-                        text = if (isFormValid) "Form is valid. Ready to submit." else "Form has validation errors.",
-                        color = if (isFormValid) Color(0xFF1B5E20) else MaterialTheme.colorScheme.error,
-                    )
+                    FormSubmissionStatus(isFormValid = isFormValid)
                 }
             }
         }

@@ -52,46 +52,65 @@ val LightSiteColors: ColorScheme = lightColorScheme(
 
 // ── Extra colors not covered by MaterialTheme ────────────────────────────────
 
+data class CodeBlockColors(
+    val background: Color,
+    val text: Color,
+    val border: Color,
+)
+
+data class HeroColors(
+    val gradientStart: Color,
+    val gradientEnd: Color,
+    val badgeBg: Color,
+    val badgeText: Color,
+    val subtitle: Color,
+    val title: Color,
+)
+
 data class SiteExtraColors(
-    val codeBlockBg: Color,
-    val codeBlockText: Color,
-    val codeBlockBorder: Color,
+    val codeBlock: CodeBlockColors,
+    val hero: HeroColors,
     val footerBg: Color,
-    val heroGradientStart: Color,
-    val heroGradientEnd: Color,
-    val heroBadgeBg: Color,
-    val heroBadgeText: Color,
-    val heroSubtitle: Color,
-    val heroTitle: Color,
     val accentBar: Color,
+    val tipColor: Color,
 )
 
 val DarkExtraColors = SiteExtraColors(
-    codeBlockBg = Color(0xFF0D1117),
-    codeBlockText = Color(0xFFE6EDF3),
-    codeBlockBorder = Teal600,
+    codeBlock = CodeBlockColors(
+        background = Color(0xFF0D1117),
+        text = Color(0xFFE6EDF3),
+        border = Teal600,
+    ),
+    hero = HeroColors(
+        gradientStart = Teal900,
+        gradientEnd = Color(0xFF0B1219),
+        badgeBg = Teal700.copy(alpha = 0.6f),
+        badgeText = Teal100,
+        subtitle = Teal200,
+        title = Color.White,
+    ),
     footerBg = Color(0xFF0A0F14),
-    heroGradientStart = Teal900,
-    heroGradientEnd = Color(0xFF0B1219),
-    heroBadgeBg = Teal700.copy(alpha = 0.6f),
-    heroBadgeText = Teal100,
-    heroSubtitle = Teal200,
-    heroTitle = Color.White,
     accentBar = Teal400,
+    tipColor = Color(0xFF4CAF50),
 )
 
 val LightExtraColors = SiteExtraColors(
-    codeBlockBg = Color(0xFFF6F8FA),
-    codeBlockText = Color(0xFF24292F),
-    codeBlockBorder = Teal500,
+    codeBlock = CodeBlockColors(
+        background = Color(0xFFF6F8FA),
+        text = Color(0xFF24292F),
+        border = Teal500,
+    ),
+    hero = HeroColors(
+        gradientStart = Teal700,
+        gradientEnd = Teal50,
+        badgeBg = Teal100,
+        badgeText = Teal800,
+        subtitle = Color.White,
+        title = Color.White,
+    ),
     footerBg = Color(0xFFE8ECF0),
-    heroGradientStart = Teal700,
-    heroGradientEnd = Teal50,
-    heroBadgeBg = Teal100,
-    heroBadgeText = Teal800,
-    heroSubtitle = Color.White,
-    heroTitle = Color.White,
     accentBar = Teal600,
+    tipColor = Color(0xFF4CAF50),
 )
 
 val LocalExtraColors = compositionLocalOf { DarkExtraColors }
