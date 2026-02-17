@@ -6,7 +6,7 @@ Please do not open public issues for security vulnerabilities.
 
 Report vulnerabilities via GitHub Security Advisories:
 
-- https://github.com/segnities007/cmpformvalidation/security/advisories/new
+- https://github.com/segnities007/CMP-Form-Validation/security/advisories/new
 
 ## Response Process
 
