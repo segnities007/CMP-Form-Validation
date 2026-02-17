@@ -27,7 +27,7 @@ This repository uses GitHub Actions for the following workflows:
 
 ## Security Baseline
 
-- GitHub Actions are pinned to commit SHA (`uses: owner/repo@<sha>`)
+- GitHub Actions are pinned to stable major tags (`uses: owner/repo@vN`)
 - Workflow permissions follow least privilege
 - `persist-credentials: false` is enabled
 - `timeout-minutes` is set to avoid hanging jobs
@@ -44,5 +44,5 @@ This repository uses GitHub Actions for the following workflows:
 ## Update Policy
 
 - Action updates are merged via Dependabot PRs
-- Because actions are SHA-pinned, update `uses:` SHAs when upgrading
+- Keep major versions updated and verify CI after each action upgrade
 - Require all CI checks to pass before merge

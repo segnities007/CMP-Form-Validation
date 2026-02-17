@@ -21,18 +21,18 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@de0fac2e4504108322c05c4f009e8fba97dc00dd # v6
+        uses: actions/checkout@v4
         with:
           persist-credentials: false
 
       - name: Set up JDK 21
-        uses: actions/setup-java@c1e323688fd81a25caa38c78aa6df2d33d3e20d9 # v4
+        uses: actions/setup-java@v4
         with:
           distribution: temurin
           java-version: "21"
 
       - name: Set up Gradle
-        uses: gradle/actions/setup-gradle@ac638b04984b7f21e8d36526a0fb81ecb0d4b0bb # v4
+        uses: gradle/actions/setup-gradle@v4
 
       - name: Run validation-core tests
         run: ./gradlew --no-daemon :validation-core:jvmTest
