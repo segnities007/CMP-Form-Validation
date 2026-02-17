@@ -9,6 +9,10 @@ import com.segnities007.cmp_form_validation.validation.ValidationError
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.persistentListOf
 
+private const val FORM_VALID_MESSAGE = "Form is valid. Ready to submit."
+private const val FORM_INVALID_MESSAGE = "Form has validation errors."
+private val FormValidColor = Color(0xFF1B5E20)
+
 @Composable
 fun FormCrossFieldErrors(errors: ImmutableList<ValidationError>) {
     errors.forEach { error ->
@@ -23,8 +27,8 @@ fun FormCrossFieldErrors(errors: ImmutableList<ValidationError>) {
 @Composable
 fun FormSubmissionStatus(isFormValid: Boolean) {
     Text(
-        text = if (isFormValid) "Form is valid. Ready to submit." else "Form has validation errors.",
-        color = if (isFormValid) Color(0xFF1B5E20) else MaterialTheme.colorScheme.error,
+        text = if (isFormValid) FORM_VALID_MESSAGE else FORM_INVALID_MESSAGE,
+        color = if (isFormValid) FormValidColor else MaterialTheme.colorScheme.error,
     )
 }
 

@@ -1,7 +1,7 @@
 package com.segnities007.cmp_form_validation.validation.compose
 
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.MaterialTheme
@@ -22,6 +22,7 @@ import androidx.compose.ui.unit.dp
  *
  * @param maxErrors limits how many errors are shown.
  * @param idleText optional helper text shown before errors become visible.
+ * @param validText text shown when the field is valid. Defaults to null (no text shown).
  */
 @Composable
 fun ValidationSupportingText(
@@ -29,25 +30,26 @@ fun ValidationSupportingText(
     modifier: Modifier = Modifier,
     maxErrors: Int = 1,
     idleText: String? = null,
+    validText: String? = null,
 ) {
     if (!field.showErrors) {
         if (idleText != null) {
-            Text(
+            SupportingMessage(
                 text = idleText,
                 modifier = modifier,
-                style = MaterialTheme.typography.bodySmall,
             )
         }
         return
     }
 
     if (field.result.isValid) {
-        Text(
-            text = "Valid",
-            modifier = modifier,
-            color = Color(0xFF1B5E20),
-            style = MaterialTheme.typography.bodySmall,
-        )
+        if (validText != null) {
+            SupportingMessage(
+                text = validText,
+                modifier = modifier,
+                color = MaterialTheme.colorScheme.primary,
+            )
+        }
         return
     }
 
@@ -56,13 +58,26 @@ fun ValidationSupportingText(
         verticalArrangement = Arrangement.spacedBy(2.dp),
     ) {
         field.result.errors.take(maxErrors).forEach { error ->
-            Text(
+            SupportingMessage(
                 text = error.defaultMessage,
                 color = MaterialTheme.colorScheme.error,
-                style = MaterialTheme.typography.bodySmall,
             )
         }
     }
+}
+
+@Composable
+private fun SupportingMessage(
+    text: String,
+    modifier: Modifier = Modifier,
+    color: Color = Color.Unspecified,
+) {
+    Text(
+        text = text,
+        modifier = modifier,
+        color = color,
+        style = MaterialTheme.typography.bodySmall,
+    )
 }
 
 /**
@@ -85,6 +100,7 @@ fun ValidatedOutlinedTextField(
     keyboardActions: KeyboardActions = KeyboardActions.Default,
     visualTransformation: VisualTransformation = VisualTransformation.None,
     idleSupportingText: String? = null,
+    validSupportingText: String? = null,
     maxDisplayedErrors: Int = 1,
 ) {
     OutlinedTextField(
@@ -104,6 +120,7 @@ fun ValidatedOutlinedTextField(
             ValidationSupportingText(
                 field = field,
                 idleText = idleSupportingText,
+                validText = validSupportingText,
                 maxErrors = maxDisplayedErrors,
             )
         },

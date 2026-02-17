@@ -1,22 +1,18 @@
 package com.segnities007.cmp_form_validation.catalog.screens
 
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import com.segnities007.cmp_form_validation.catalog.components.CatalogHero
+import com.segnities007.cmp_form_validation.catalog.components.CatalogLazyColumn
 import com.segnities007.cmp_form_validation.catalog.screens.components.RuleSampleSection
 import com.segnities007.cmp_form_validation.validation.email
 import com.segnities007.cmp_form_validation.validation.maxLength
 import com.segnities007.cmp_form_validation.validation.minLength
 import com.segnities007.cmp_form_validation.validation.pattern
 import com.segnities007.cmp_form_validation.validation.required
+import com.segnities007.cmp_form_validation.validation.compose.ComposeValidatedField
 import com.segnities007.cmp_form_validation.validation.compose.rememberValidatedField
 import kotlinx.collections.immutable.persistentListOf
 
@@ -35,49 +31,58 @@ fun RuleCatalogScreen(innerPadding: PaddingValues) {
             pattern(Regex("^\\d{3}-\\d{4}$"), message = "Use format like 123-4567."),
         ),
     )
+    val samples = listOf(
+        RuleSampleItem(
+            title = "Nickname",
+            description = "required + minLength(3) + maxLength(20)",
+            placeholder = "your nickname",
+            field = nicknameField,
+            chips = listOf("required", "minLength(3)", "maxLength(20)"),
+        ),
+        RuleSampleItem(
+            title = "Email",
+            description = "required + email",
+            placeholder = "name@example.com",
+            field = emailField,
+            chips = listOf("required", "email"),
+        ),
+        RuleSampleItem(
+            title = "Postal code",
+            description = "required + pattern(^\\\\d{3}-\\\\d{4}$)",
+            placeholder = "123-4567",
+            field = postalCodeField,
+            chips = listOf("required", "pattern"),
+        ),
+    )
 
-    LazyColumn(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(innerPadding),
-        contentPadding = PaddingValues(16.dp),
-        verticalArrangement = Arrangement.spacedBy(12.dp),
-    ) {
+    CatalogLazyColumn(innerPadding = innerPadding) {
         item {
             CatalogHero(
                 title = "Rule Playground",
                 subtitle = "Inspect each built-in rule behavior independently.",
             )
         }
-        item {
-            RuleSampleSection(
-                title = "Nickname",
-                description = "required + minLength(3) + maxLength(20)",
-                placeholder = "your nickname",
-                field = nicknameField,
-                chips = arrayOf("required", "minLength(3)", "maxLength(20)"),
-            )
-        }
-        item {
-            RuleSampleSection(
-                title = "Email",
-                description = "required + email",
-                placeholder = "name@example.com",
-                field = emailField,
-                chips = arrayOf("required", "email"),
-            )
-        }
-        item {
-            RuleSampleSection(
-                title = "Postal code",
-                description = "required + pattern(^\\\\d{3}-\\\\d{4}$)",
-                placeholder = "123-4567",
-                field = postalCodeField,
-                chips = arrayOf("required", "pattern"),
-            )
+        samples.forEach { sample ->
+            item {
+                RuleSampleSection(
+                    title = sample.title,
+                    description = sample.description,
+                    placeholder = sample.placeholder,
+                    field = sample.field,
+                    *sample.chips.toTypedArray(),
+                )
+            }
         }
     }
 }
+
+private data class RuleSampleItem(
+    val title: String,
+    val description: String,
+    val placeholder: String,
+    val field: ComposeValidatedField<String>,
+    val chips: List<String>,
+)
 
 @Preview
 @Composable

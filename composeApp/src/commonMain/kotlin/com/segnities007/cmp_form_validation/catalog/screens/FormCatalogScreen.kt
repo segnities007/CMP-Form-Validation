@@ -1,20 +1,16 @@
 package com.segnities007.cmp_form_validation.catalog.screens
 
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import com.segnities007.cmp_form_validation.catalog.components.CatalogHero
+import com.segnities007.cmp_form_validation.catalog.components.CatalogLazyColumn
 import com.segnities007.cmp_form_validation.catalog.components.CatalogSection
 import com.segnities007.cmp_form_validation.catalog.components.RuleChips
 import com.segnities007.cmp_form_validation.catalog.screens.components.FormActionButtons
@@ -49,18 +45,15 @@ fun FormCatalogScreen(innerPadding: PaddingValues) {
         rules = persistentListOf(
             required(),
             minLength(8),
-            Rule<String> { value ->
-                if (value.any(Char::isDigit)) null else ValidationError(
-                    code = "password_number",
-                    defaultMessage = "Password must include at least one number.",
-                )
-            },
+            requireDigitRule(),
         ),
     )
     val confirmField = rememberValidatedField(
         initialValue = "",
         rules = persistentListOf(required()),
     )
+    var submitted by remember { mutableStateOf(false) }
+    var isFormValid by remember { mutableStateOf(false) }
     val form = rememberValidatedStringForm(
         fields = persistentMapOf(
             "name" to nameField,
@@ -77,17 +70,13 @@ fun FormCatalogScreen(innerPadding: PaddingValues) {
             ),
         ),
     )
+    val revalidateCrossFieldOnEdit = {
+        if (submitted) {
+            form.revalidateCrossField()
+        }
+    }
 
-    var submitted by remember { mutableStateOf(false) }
-    var isFormValid by remember { mutableStateOf(false) }
-
-    LazyColumn(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(innerPadding),
-        contentPadding = PaddingValues(16.dp),
-        verticalArrangement = Arrangement.spacedBy(12.dp),
-    ) {
+    CatalogLazyColumn(innerPadding = innerPadding) {
         item {
             CatalogHero(
                 title = "Form Validation Flow",
@@ -104,36 +93,30 @@ fun FormCatalogScreen(innerPadding: PaddingValues) {
                     label = "Name",
                     idleText = "2 to 30 chars",
                     field = nameField,
-                    onEdited = {
-                        if (submitted) form.revalidateCrossField()
-                    },
+                    onEdited = revalidateCrossFieldOnEdit,
                 )
 
                 FormValidatedField(
                     label = "Email",
                     idleText = "name@example.com",
                     field = emailField,
-                    onEdited = {
-                        if (submitted) form.revalidateCrossField()
-                    },
+                    onEdited = revalidateCrossFieldOnEdit,
                 )
 
                 FormValidatedField(
                     label = "Password",
                     idleText = "At least 8 chars + number",
                     field = passwordField,
-                    onEdited = {
-                        if (submitted) form.revalidateCrossField()
-                    },
+                    visualTransformation = PasswordVisualTransformation(),
+                    onEdited = revalidateCrossFieldOnEdit,
                 )
 
                 FormValidatedField(
                     label = "Confirm password",
                     idleText = "Must match password",
                     field = confirmField,
-                    onEdited = {
-                        if (submitted) form.revalidateCrossField()
-                    },
+                    visualTransformation = PasswordVisualTransformation(),
+                    onEdited = revalidateCrossFieldOnEdit,
                 )
 
                 if (submitted && form.formErrors.isNotEmpty()) {
@@ -157,6 +140,20 @@ fun FormCatalogScreen(innerPadding: PaddingValues) {
                 }
             }
         }
+    }
+}
+
+private fun requireDigitRule(
+    code: String = "password_number",
+    message: String = "Password must include at least one number.",
+): Rule<String> = Rule { value ->
+    if (value.any(Char::isDigit)) {
+        null
+    } else {
+        ValidationError(
+            code = code,
+            defaultMessage = message,
+        )
     }
 }
 

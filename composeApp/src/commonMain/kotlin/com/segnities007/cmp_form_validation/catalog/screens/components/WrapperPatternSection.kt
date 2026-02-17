@@ -5,6 +5,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import com.segnities007.cmp_form_validation.catalog.components.CatalogSection
 import com.segnities007.cmp_form_validation.catalog.components.RuleChips
@@ -26,6 +27,7 @@ fun WrapperPatternSection(field: ComposeValidatedField<String>) {
             field = field,
             modifier = Modifier.fillMaxWidth(),
             singleLine = true,
+            visualTransformation = PasswordVisualTransformation(),
             label = { Text("Password") },
             idleSupportingText = "Good for rapid screen construction",
         )

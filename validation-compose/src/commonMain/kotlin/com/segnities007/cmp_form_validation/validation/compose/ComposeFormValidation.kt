@@ -56,8 +56,10 @@ class ComposeValidatedStringForm internal constructor(
         formErrors = persistentListOf()
     }
 
-    private fun evaluateFormRules(): ImmutableList<ValidationError> =
-        formRules.mapNotNull { it.validate(values()) }.toImmutableList()
+    private fun evaluateFormRules(): ImmutableList<ValidationError> {
+        val currentValues = values()
+        return formRules.mapNotNull { it.validate(currentValues) }.toImmutableList()
+    }
 }
 
 /**

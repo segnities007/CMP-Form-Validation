@@ -1,16 +1,10 @@
 package com.segnities007.cmp_form_validation.catalog.screens.components
 
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedTextField
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import com.segnities007.cmp_form_validation.validation.compose.ComposeValidatedField
-import com.segnities007.cmp_form_validation.validation.compose.ValidationSupportingText
 import com.segnities007.cmp_form_validation.validation.compose.rememberValidatedField
 import com.segnities007.cmp_form_validation.validation.minLength
 import com.segnities007.cmp_form_validation.validation.required
@@ -21,20 +15,18 @@ fun FormValidatedField(
     label: String,
     idleText: String,
     field: ComposeValidatedField<String>,
+    visualTransformation: VisualTransformation = VisualTransformation.None,
     onEdited: () -> Unit,
 ) {
-    OutlinedTextField(
-        value = field.value,
+    CatalogValidatedOutlinedField(
+        label = label,
+        idleText = idleText,
+        field = field,
+        visualTransformation = visualTransformation,
         onValueChange = {
             field.onValueChange(it)
             onEdited()
         },
-        modifier = Modifier.fillMaxWidth(),
-        singleLine = true,
-        shape = RoundedCornerShape(12.dp),
-        label = { Text(label) },
-        isError = field.showErrors && !field.result.isValid,
-        supportingText = { ValidationSupportingText(field, idleText = idleText) },
     )
 }
 

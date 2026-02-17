@@ -114,6 +114,18 @@ object ErrorCode {
     const val EMAIL = "email"
 }
 
+private fun validationError(
+    code: String,
+    defaultMessage: String,
+    path: String? = null,
+    meta: Map<String, String> = emptyMap(),
+): ValidationError = ValidationError(
+    code = code,
+    defaultMessage = defaultMessage,
+    path = path,
+    meta = meta.toImmutableMap(),
+)
+
 /**
  * Validates that a string is not blank.
  *
@@ -126,7 +138,7 @@ fun required(
 ): Rule<String> = Rule { value ->
     val candidate = if (trim) value.trim() else value
     if (candidate.isEmpty()) {
-        ValidationError(
+        validationError(
             code = ErrorCode.REQUIRED,
             defaultMessage = message,
         )
@@ -147,10 +159,10 @@ fun minLength(
     require(min >= 0) { "min must be >= 0" }
     return Rule { value ->
         if (value.length < min) {
-            ValidationError(
+            validationError(
                 code = ErrorCode.MIN_LENGTH,
                 defaultMessage = message,
-                meta = mapOf("min" to min.toString()).toImmutableMap(),
+                meta = mapOf("min" to min.toString()),
             )
         } else {
             null
@@ -170,10 +182,10 @@ fun maxLength(
     require(max >= 0) { "max must be >= 0" }
     return Rule { value ->
         if (value.length > max) {
-            ValidationError(
+            validationError(
                 code = ErrorCode.MAX_LENGTH,
                 defaultMessage = message,
-                meta = mapOf("max" to max.toString()).toImmutableMap(),
+                meta = mapOf("max" to max.toString()),
             )
         } else {
             null
@@ -183,6 +195,10 @@ fun maxLength(
 
 /**
  * Validates that a string matches [regex].
+ *
+ * **Security note**: Avoid using complex regular expressions with nested quantifiers
+ * (e.g. `(a+)+`) as they can cause catastrophic backtracking (ReDoS).
+ * Consider combining with [maxLength] to limit input size before regex evaluation.
  *
  * @param code custom error code to expose when matching fails.
  * @param message fallback error message.
@@ -195,30 +211,48 @@ fun pattern(
     if (regex.matches(value)) {
         null
     } else {
-        ValidationError(
+        validationError(
             code = code,
             defaultMessage = message,
-            meta = mapOf("regex" to regex.pattern).toImmutableMap(),
+            meta = mapOf("regex" to regex.pattern),
         )
     }
 }
 
-private val simpleEmailRegex = Regex("^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$")
+/**
+ * Maximum input length accepted by [email]. Inputs exceeding this length are
+ * rejected early to prevent catastrophic backtracking in the regex engine.
+ */
+private const val EMAIL_MAX_LENGTH = 320
+
+/**
+ * Pragmatic email regex designed to resist backtracking.
+ *
+ * Structure:
+ * - Local part: `[A-Za-z0-9+_.-]+` — one or more allowed characters (no nested quantifiers).
+ * - Domain labels: `[A-Za-z0-9-]+` separated by `.` — possessive-style matching via atomic groups
+ *   is not available in all KMP targets, so we instead guard with a length check.
+ * - TLD: `[A-Za-z]{2,}` — at least two alpha characters.
+ */
+private val safeEmailRegex = Regex("^[A-Za-z0-9+_.-]+@[A-Za-z0-9-]+(?:\\.[A-Za-z0-9-]+)*\\.[A-Za-z]{2,}$")
 
 /**
  * Validates an email with a pragmatic (not RFC-complete) regex.
  *
- * Why this exists:
- * - It covers common product forms without overfitting edge cases.
- * - Products with stricter requirements can provide a custom [pattern] rule.
+ * **Limitations**:
+ * - Only ASCII email addresses are supported.
+ * - Internationalized domain names (IDN) and non-ASCII local parts are rejected.
+ * - Input length is capped at [EMAIL_MAX_LENGTH] (320 chars) to mitigate ReDoS.
+ *
+ * Products with stricter requirements can provide a custom [pattern] rule.
  */
 fun email(
     message: String = "Invalid email address.",
 ): Rule<String> = Rule { value ->
-    if (simpleEmailRegex.matches(value)) {
+    if (value.length <= EMAIL_MAX_LENGTH && safeEmailRegex.matches(value)) {
         null
     } else {
-        ValidationError(
+        validationError(
             code = ErrorCode.EMAIL,
             defaultMessage = message,
         )
