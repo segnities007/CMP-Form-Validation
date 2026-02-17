@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <!-- Navigation -->
+    <string name="nav_home">Home</string>
+    <string name="nav_docs">Docs</string>
+    <string name="nav_api">API</string>
+    <string name="nav_examples">Examples</string>
+
+    <!-- Hero -->
+    <string name="hero_title">CMP Form Validation</string>
+    <string name="hero_subtitle">Type-safe, composable form validation\nfor Kotlin Multiplatform.</string>
+    <string name="hero_get_started">Get Started</string>
+    <string name="hero_github">GitHub</string>
+    <string name="hero_badge">Kotlin Multiplatform</string>
+
+    <!-- Why Section -->
+    <string name="why_title">Why CMP Form Validation?</string>
+    <string name="feature_boundary_title">Clear Module Boundaries</string>
+    <string name="feature_boundary_desc">validation-core is a pure Kotlin module with zero Compose dependency. validation-compose provides first-class Compose state integration. Each module is independently publishable with a clean, focused API surface.</string>
+    <string name="feature_compose_title">Compose-Native Design</string>
+    <string name="feature_compose_desc">No annotation processing, no code generation, no hidden behavior. Validation state lives in your Composable functions via remember APIs, giving you full control and transparency over the validation lifecycle.</string>
+    <string name="feature_stable_title">Stable by Default</string>
+    <string name="feature_stable_desc">All public Compose-facing models use ImmutableList and ImmutableMap from kotlinx-collections-immutable. This prevents unnecessary recompositions caused by unstable collection types.</string>
+    <string name="feature_type_safe_title">Type-Safe Rules</string>
+    <string name="feature_type_safe_desc">Rule&lt;T&gt; is generic, so you can validate String, Int, or any custom type. Built-in rules cover common patterns, and custom rules take just a few lines to implement.</string>
+
+    <!-- Platform Section -->
+    <string name="platform_title">Multiplatform Support</string>
+    <string name="platform_subtitle">Write validation logic once, run it on every Compose Multiplatform target. The same rules, validators, and form models work across all platforms without any platform-specific code.</string>
+    <string name="platform_android">Android</string>
+    <string name="platform_ios">iOS</string>
+    <string name="platform_desktop">Desktop</string>
+    <string name="platform_web">Web</string>
+    <string name="platform_android_desc">Full support for Jetpack Compose with native Material3 integration.</string>
+    <string name="platform_ios_desc">Compose Multiplatform on iOS via Kotlin/Native.</string>
+    <string name="platform_desktop_desc">JVM desktop applications with Compose Desktop runtime.</string>
+    <string name="platform_web_desc">Browser applications via Kotlin/JS and Kotlin/Wasm targets.</string>
+
+    <!-- Quick Start -->
+    <string name="quick_start_title">Quick Start</string>
+    <string name="quick_start_desc">Add a validated email field in under 10 lines of code.</string>
+
+    <!-- Architecture -->
+    <string name="architecture_title">Architecture</string>
+    <string name="module_core_desc">Pure Kotlin validation engine. Contains Rule, Validator, ValidatedField, ValidatedStringForm, and all built-in rules. No Compose dependency.</string>
+    <string name="module_compose_desc">Compose state adapters. Provides rememberValidatedField, rememberValidatedStringForm, ComposeValidatedField, ValidationSupportingText, ValidatedOutlinedTextField, and Modifier.validation.</string>
+
+    <!-- Docs Page -->
+    <string name="docs_title">Getting Started</string>
+    <string name="docs_subtitle">Learn how to add CMP Form Validation to your project and build your first validated form.</string>
+    <string name="docs_time">~10 min</string>
+    <string name="docs_overview">This guide walks you through installing the library, creating validated fields, connecting them to Material3 text fields, configuring triggers and strategies, building multi-field forms with cross-field validation, and creating custom rules.</string>
+    <string name="step1_title">1. Add Dependencies</string>
+    <string name="step1_desc">Add the validation modules to your shared module\'s build.gradle.kts. validation-core provides the validation engine; validation-compose adds Compose state integration.</string>
+    <string name="step1_note">validation-core has no Compose dependency, so you can use it in your data or domain layer.</string>
+    <string name="step2_title">2. Create a Validated Field</string>
+    <string name="step2_desc">Use rememberValidatedField to create a field with built-in validation rules. This composable remembers validation state across recompositions.</string>
+    <string name="step2_explain">rememberValidatedField returns a ComposeValidatedField that holds the current value, validation result, and touch/blur/submit state. The rules parameter accepts an ImmutableList of Rule&lt;String&gt;.</string>
+    <string name="step3_title">3. Connect to UI</string>
+    <string name="step3_desc">Bind the validated field to a Material3 OutlinedTextField. The field handles value changes, error state, and error message display.</string>
+    <string name="step3_explain">showErrors is true only when the field should display errors based on the trigger setting. isValid comes from the latest validation result. ValidationSupportingText renders error messages below the field.</string>
+    <string name="step4_title">4. Choose a Validation Trigger</string>
+    <string name="step4_desc">ValidationTrigger controls when validation runs. Choose the trigger that best fits your UX pattern.</string>
+    <string name="trigger_on_change_desc">Validates on every keystroke. Provides immediate feedback. Best for short fields like email or username.</string>
+    <string name="trigger_on_blur_desc">Validates when the field loses focus. Less intrusive. Best for forms where real-time feedback is distracting.</string>
+    <string name="trigger_on_submit_desc">Validates only after the first submit() call, then on every subsequent change. Best for traditional form submission flows. This is the default trigger.</string>
+    <string name="step5_title">5. Choose a Validation Strategy</string>
+    <string name="step5_desc">ValidationStrategy controls how many errors are collected when validation runs.</string>
+    <string name="strategy_collect_all_desc">Runs all rules and collects every error. Use when you want to show all issues at once. This is the default strategy.</string>
+    <string name="strategy_first_error_desc">Stops at the first failing rule. Use for progressive disclosure of errors, or when later rules depend on earlier ones passing.</string>
+    <string name="step6_title">6. Build a Multi-Field Form</string>
+    <string name="step6_desc">Combine multiple validated fields into a ValidatedStringForm with cross-field validation rules.</string>
+    <string name="step6_explain">fieldsMatchRule compares two fields by their map keys. When you call form.submit(), it validates all individual fields first, then runs cross-field rules. The return value is true if the entire form is valid.</string>
+    <string name="step7_title">7. Create Custom Rules</string>
+    <string name="step7_desc">Implement the Rule&lt;T&gt; fun interface to create rules for any validation logic.</string>
+    <string name="step7_explain">Return null if the value passes validation, or a ValidationError with a unique code and descriptive message. The code field enables programmatic error handling.</string>
+    <string name="integration_title">Integration Styles</string>
+    <string name="integration_primary">Primary (Recommended)</string>
+    <string name="integration_primary_desc">rememberValidatedField + native OutlinedTextField. Full control over UI layout and validation state. Best for most use cases.</string>
+    <string name="integration_modifier">Modifier Extension</string>
+    <string name="integration_modifier_desc">Modifier.validation(field) adds blur-trigger validation to any text field. Useful when you need minimal changes to existing fields.</string>
+    <string name="integration_wrapper">Wrapper Component</string>
+    <string name="integration_wrapper_desc">ValidatedOutlinedTextField combines field, validation, and error display in a single composable. Best for rapid prototyping with less boilerplate.</string>
+    <string name="tip_immutable">Use persistentListOf() and persistentMapOf() from kotlinx-collections-immutable for rule and field lists. This prevents unnecessary recompositions.</string>
+    <string name="tip_cross_field">Cross-field rules run only during form.submit(). They do not trigger on individual field changes.</string>
+    <string name="tip_error_codes">Use meaningful ErrorCode strings (e.g., "password_too_weak") for programmatic error handling and custom error message rendering.</string>
+
+    <!-- API Page -->
+    <string name="api_title">API Reference</string>
+    <string name="api_subtitle">Complete reference for the validation-core and validation-compose modules.</string>
+    <string name="api_core_title">Core Types</string>
+    <string name="api_rule_desc">Fun interface. Single method: validate(value: T): ValidationError?. Return null for valid, ValidationError for invalid.</string>
+    <string name="api_validator_desc">Executes a list of rules against a value. Returns ValidationResult. Supports plus operator for combining.</string>
+    <string name="api_result_desc">Holds a list of ValidationError instances. Provides isValid property and factory methods valid() and invalid().</string>
+    <string name="api_error_desc">Describes a single validation failure. Contains code (unique identifier), defaultMessage, optional path, and metadata map.</string>
+    <string name="api_strategy_desc">Enum: CollectAll (run all rules) or FirstError (stop at first failure).</string>
+    <string name="api_error_code_desc">Object with constants: REQUIRED, MIN_LENGTH, MAX_LENGTH, PATTERN, EMAIL.</string>
+    <string name="api_validator_of_desc">Factory function to create a Validator from a variable number of rules. Optional strategy parameter.</string>
+    <string name="api_rules_title">Built-in Rules</string>
+    <string name="api_required_desc">Fails if the string is blank (or blank after trimming). Default trim = true.</string>
+    <string name="api_min_length_desc">Fails if the string has fewer than min characters.</string>
+    <string name="api_max_length_desc">Fails if the string has more than max characters.</string>
+    <string name="api_pattern_desc">Fails if the string does not match the given Regex pattern.</string>
+    <string name="api_email_desc">Fails if the string is not a valid email address format.</string>
+    <string name="api_field_title">Field and Form Types</string>
+    <string name="api_validated_field_desc">Core field model. Holds value, validator, trigger, and validation state. Methods: onValueChange, onBlur, validate, submit, reset.</string>
+    <string name="api_trigger_desc">Enum: OnChange, OnBlur, OnSubmitThenChange. Controls when showErrors becomes true.</string>
+    <string name="api_form_desc">Multi-field string form. Groups ValidatedField instances with cross-field FormRule list. Methods: submit (returns FormValidationSnapshot), reset.</string>
+    <string name="api_form_rule_desc">Fun interface for cross-field validation. validate(values: ImmutableMap&lt;String, String&gt;): ValidationError?</string>
+    <string name="api_fields_match_desc">Built-in FormRule that checks two fields have equal values. Commonly used for password confirmation.</string>
+    <string name="api_compose_title">Compose API</string>
+    <string name="api_remember_field_desc">Creates and remembers a ComposeValidatedField. Overloads accept Validator, vararg rules, or ImmutableList of rules. Optional trigger and strategy parameters.</string>
+    <string name="api_remember_form_desc">Creates and remembers a ComposeValidatedStringForm from a map of ComposeValidatedField instances and optional form rules.</string>
+    <string name="api_compose_field_desc">Compose-friendly wrapper around ValidatedField. Properties: value, result, touched, blurred, submitted, dirty, showErrors. Methods: onValueChange, onBlur, validate, submit, reset.</string>
+    <string name="api_compose_form_desc">Compose-friendly wrapper around ValidatedStringForm. Properties: formErrors. Methods: values, submit (returns Boolean), revalidateCrossField, reset.</string>
+    <string name="api_supporting_text_desc">Composable that displays validation errors below a field as Material supporting text. Parameters: field, maxErrors (default 1), idleText.</string>
+    <string name="api_validated_tf_desc">Convenience composable wrapping OutlinedTextField with automatic validation binding. Includes label, placeholder, keyboard options, visual transformation, and error display.</string>
+    <string name="api_modifier_validation_desc">Modifier extension that adds onFocusChanged handling. When validateOnBlur is true (default), calls field.onBlur() when focus is lost.</string>
+
+    <!-- Examples Page -->
+    <string name="examples_title">Examples</string>
+    <string name="examples_subtitle">Production-ready code snippets. Copy them into your project and customize.</string>
+    <string name="ex_email_title">Email Field</string>
+    <string name="ex_email_desc">A single email field with required and format validation. This is the simplest use case.</string>
+    <string name="ex_login_title">Login Form</string>
+    <string name="ex_login_desc">Email and password fields with independent validation. Demonstrates multiple fields and form submit.</string>
+    <string name="ex_signup_title">Registration Form</string>
+    <string name="ex_signup_desc">Full sign-up form with password confirmation using cross-field validation.</string>
+    <string name="ex_custom_title">Custom Rule</string>
+    <string name="ex_custom_desc">Create a reusable password strength rule that checks for uppercase, digit, and minimum length.</string>
+    <string name="ex_modifier_title">Modifier Approach</string>
+    <string name="ex_modifier_desc">Add blur-based validation to an existing TextField without changing its structure.</string>
+    <string name="ex_wrapper_title">Wrapper Component</string>
+    <string name="ex_wrapper_desc">Use ValidatedOutlinedTextField for minimal boilerplate. Combines field, validation, and error display.</string>
+
+    <!-- Footer -->
+    <string name="footer_tagline">Compose Multiplatform form validation library</string>
+    <string name="footer_copyright">\u00A9 2025 segnities007. All rights reserved.</string>
+    <string name="footer_license">Apache License 2.0</string>
+</resources>

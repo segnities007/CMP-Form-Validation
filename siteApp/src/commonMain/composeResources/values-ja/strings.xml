@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <!-- Navigation -->
+    <string name="nav_home">ホーム</string>
+    <string name="nav_docs">ドキュメント</string>
+    <string name="nav_api">API</string>
+    <string name="nav_examples">サンプル</string>
+
+    <!-- Hero -->
+    <string name="hero_title">CMP Form Validation</string>
+    <string name="hero_subtitle">Kotlin Multiplatform のための\n型安全でコンポーザブルなフォームバリデーション</string>
+    <string name="hero_get_started">はじめる</string>
+    <string name="hero_github">GitHub</string>
+    <string name="hero_badge">Kotlin Multiplatform</string>
+
+    <!-- Why Section -->
+    <string name="why_title">CMP Form Validation を選ぶ理由</string>
+    <string name="feature_boundary_title">明確なモジュール境界</string>
+    <string name="feature_boundary_desc">validation-core は Compose 非依存の純粋な Kotlin モジュールです。validation-compose は Compose ステート統合を提供します。各モジュールは独立して公開可能で、クリーンな API を維持します。</string>
+    <string name="feature_compose_title">Compose ネイティブ設計</string>
+    <string name="feature_compose_desc">アノテーション処理もコード生成も隠れた動作もありません。バリデーション状態は remember API を通じて Composable 関数内に存在し、バリデーションライフサイクルの完全な制御と透明性を提供します。</string>
+    <string name="feature_stable_title">デフォルトで安定</string>
+    <string name="feature_stable_desc">Compose 向けの全公開モデルは kotlinx-collections-immutable の ImmutableList と ImmutableMap を使用し、不安定なコレクション型による不要な再コンポジションを防ぎます。</string>
+    <string name="feature_type_safe_title">型安全なルール</string>
+    <string name="feature_type_safe_desc">Rule&lt;T&gt; はジェネリクスなので、String、Int、カスタム型を検証できます。組み込みルールがあり、カスタムルールは数行で実装可能です。</string>
+
+    <!-- Platform Section -->
+    <string name="platform_title">マルチプラットフォーム対応</string>
+    <string name="platform_subtitle">バリデーションロジックを一度書けば、全ての Compose Multiplatform ターゲットで動作します。プラットフォーム固有のコードは不要です。</string>
+    <string name="platform_android">Android</string>
+    <string name="platform_ios">iOS</string>
+    <string name="platform_desktop">デスクトップ</string>
+    <string name="platform_web">Web</string>
+    <string name="platform_android_desc">Jetpack Compose と Material3 のネイティブ統合を完全サポート。</string>
+    <string name="platform_ios_desc">Kotlin/Native による Compose Multiplatform の iOS サポート。</string>
+    <string name="platform_desktop_desc">Compose Desktop ランタイムによる JVM デスクトップアプリケーション。</string>
+    <string name="platform_web_desc">Kotlin/JS と Kotlin/Wasm ターゲットによるブラウザアプリケーション。</string>
+
+    <!-- Quick Start -->
+    <string name="quick_start_title">クイックスタート</string>
+    <string name="quick_start_desc">10行以下のコードでバリデーション付きメールフィールドを追加できます。</string>
+
+    <!-- Architecture -->
+    <string name="architecture_title">アーキテクチャ</string>
+    <string name="module_core_desc">純粋な Kotlin バリデーションエンジン。Rule、Validator、ValidatedField、ValidatedStringForm、全ての組み込みルールを含みます。Compose 非依存。</string>
+    <string name="module_compose_desc">Compose ステートアダプター。rememberValidatedField、rememberValidatedStringForm、ComposeValidatedField、ValidationSupportingText、ValidatedOutlinedTextField、Modifier.validation を提供。</string>
+
+    <!-- Docs Page -->
+    <string name="docs_title">はじめに</string>
+    <string name="docs_subtitle">CMP Form Validation をプロジェクトに追加し、最初のバリデーション付きフォームを構築する方法を学びます。</string>
+    <string name="docs_time">約10分</string>
+    <string name="docs_overview">このガイドでは、ライブラリのインストール、バリデーション付きフィールドの作成、Material3 テキストフィールドとの接続、トリガーとストラテジーの設定、クロスフィールドバリデーション付きマルチフィールドフォームの構築、カスタムルールの作成を順を追って解説します。</string>
+    <string name="step1_title">1. 依存関係の追加</string>
+    <string name="step1_desc">共有モジュールの build.gradle.kts にバリデーションモジュールを追加します。validation-core はバリデーションエンジン、validation-compose は Compose ステート統合を提供します。</string>
+    <string name="step1_note">validation-core は Compose 非依存のため、データ層やドメイン層でも使用できます。</string>
+    <string name="step2_title">2. バリデーション付きフィールドの作成</string>
+    <string name="step2_desc">rememberValidatedField を使用して、組み込みバリデーションルール付きのフィールドを作成します。このコンポーザブルは再コンポジション間でバリデーション状態を記憶します。</string>
+    <string name="step2_explain">rememberValidatedField は、現在の値、バリデーション結果、タッチ/ブラー/サブミット状態を保持する ComposeValidatedField を返します。rules パラメータは ImmutableList&lt;Rule&lt;String&gt;&gt; を受け取ります。</string>
+    <string name="step3_title">3. UI への接続</string>
+    <string name="step3_desc">バリデーション付きフィールドを Material3 の OutlinedTextField にバインドします。フィールドが値の変更、エラー状態、エラーメッセージ表示を処理します。</string>
+    <string name="step3_explain">showErrors はトリガー設定に基づいてエラーを表示すべき時のみ true になります。isValid は最新のバリデーション結果から取得されます。ValidationSupportingText はフィールド下部にエラーメッセージを描画します。</string>
+    <string name="step4_title">4. バリデーショントリガーの選択</string>
+    <string name="step4_desc">ValidationTrigger はバリデーションの実行タイミングを制御します。UX パターンに最適なトリガーを選択してください。</string>
+    <string name="trigger_on_change_desc">キーストロークごとにバリデーション。即座にフィードバック。メールやユーザー名など短いフィールドに最適。</string>
+    <string name="trigger_on_blur_desc">フォーカスが外れた時にバリデーション。押しつけがましくない。リアルタイムフィードバックが煩わしいフォームに最適。</string>
+    <string name="trigger_on_submit_desc">最初の submit() 呼び出し後にのみバリデーション、以降は変更ごとに実行。従来のフォーム送信フローに最適。デフォルトのトリガー。</string>
+    <string name="step5_title">5. バリデーションストラテジーの選択</string>
+    <string name="step5_desc">ValidationStrategy はバリデーション実行時に収集するエラー数を制御します。</string>
+    <string name="strategy_collect_all_desc">全ルールを実行し、全エラーを収集。全ての問題を一度に表示したい場合に使用。デフォルトのストラテジー。</string>
+    <string name="strategy_first_error_desc">最初の失敗ルールで停止。エラーの段階的開示や、後続ルールが前のルールの成功に依存する場合に使用。</string>
+    <string name="step6_title">6. マルチフィールドフォームの構築</string>
+    <string name="step6_desc">複数のバリデーション付きフィールドをクロスフィールドバリデーションルール付きの ValidatedStringForm にまとめます。</string>
+    <string name="step6_explain">fieldsMatchRule はマップキーで二つのフィールドを比較します。form.submit() を呼ぶと、まず全ての個別フィールドをバリデーションし、次にクロスフィールドルールを実行します。戻り値はフォーム全体が有効かどうかの Boolean です。</string>
+    <string name="step7_title">7. カスタムルールの作成</string>
+    <string name="step7_desc">Rule&lt;T&gt; fun interface を実装して、任意のバリデーションロジック用のルールを作成します。</string>
+    <string name="step7_explain">バリデーションに合格した場合は null を返し、不合格の場合はユニークなコードと説明メッセージを持つ ValidationError を返します。code フィールドによりプログラム的なエラー処理が可能になります。</string>
+    <string name="integration_title">統合スタイル</string>
+    <string name="integration_primary">プライマリ（推奨）</string>
+    <string name="integration_primary_desc">rememberValidatedField + ネイティブ OutlinedTextField。UI レイアウトとバリデーション状態を完全に制御。ほとんどのユースケースに最適。</string>
+    <string name="integration_modifier">Modifier 拡張</string>
+    <string name="integration_modifier_desc">Modifier.validation(field) で既存テキストフィールドにブラートリガーバリデーションを追加。既存フィールドへの最小限の変更に便利。</string>
+    <string name="integration_wrapper">ラッパーコンポーネント</string>
+    <string name="integration_wrapper_desc">ValidatedOutlinedTextField でフィールド、バリデーション、エラー表示を一つのコンポーザブルにまとめる。ボイラープレート削減に最適。</string>
+    <string name="tip_immutable">ルールとフィールドのリストには kotlinx-collections-immutable の persistentListOf() と persistentMapOf() を使用してください。不要な再コンポジションを防ぎます。</string>
+    <string name="tip_cross_field">クロスフィールドルールは form.submit() 中にのみ実行されます。個別フィールドの変更では発火しません。</string>
+    <string name="tip_error_codes">プログラム的なエラー処理には、意味のある ErrorCode 文字列（例: \"password_too_weak\"）を使用してください。</string>
+
+    <!-- API Page -->
+    <string name="api_title">API リファレンス</string>
+    <string name="api_subtitle">validation-core と validation-compose モジュールの完全なリファレンス。</string>
+    <string name="api_core_title">コア型</string>
+    <string name="api_rule_desc">fun interface。メソッド: validate(value: T): ValidationError?。有効なら null、無効なら ValidationError を返す。</string>
+    <string name="api_validator_desc">Rule のリストを値に対して実行。ValidationResult を返す。plus 演算子による結合をサポート。</string>
+    <string name="api_result_desc">ValidationError のリストを保持。isValid プロパティと valid()、invalid() ファクトリメソッドを提供。</string>
+    <string name="api_error_desc">単一のバリデーション失敗を記述。code、defaultMessage、オプションの path、メタデータマップを含む。</string>
+    <string name="api_strategy_desc">列挙型: CollectAll（全ルール実行）または FirstError（最初の失敗で停止）。</string>
+    <string name="api_error_code_desc">定数を持つオブジェクト: REQUIRED、MIN_LENGTH、MAX_LENGTH、PATTERN、EMAIL。</string>
+    <string name="api_validator_of_desc">可変長の Rule から Validator を作成するファクトリ関数。オプションの strategy パラメータ。</string>
+    <string name="api_rules_title">組み込みルール</string>
+    <string name="api_required_desc">文字列が空白の場合に失敗。デフォルト trim = true。</string>
+    <string name="api_min_length_desc">文字列が min 文字未満の場合に失敗。</string>
+    <string name="api_max_length_desc">文字列が max 文字を超える場合に失敗。</string>
+    <string name="api_pattern_desc">文字列が指定された正規表現パターンに一致しない場合に失敗。</string>
+    <string name="api_email_desc">文字列が有効なメールアドレス形式でない場合に失敗。</string>
+    <string name="api_field_title">フィールド・フォーム型</string>
+    <string name="api_validated_field_desc">コアフィールドモデル。値、バリデータ、トリガー、バリデーション状態を保持。メソッド: onValueChange、onBlur、validate、submit、reset。</string>
+    <string name="api_trigger_desc">列挙型: OnChange、OnBlur、OnSubmitThenChange。showErrors が true になるタイミングを制御。</string>
+    <string name="api_form_desc">マルチフィールド文字列フォーム。ValidatedField をクロスフィールド FormRule でグループ化。メソッド: submit、reset。</string>
+    <string name="api_form_rule_desc">クロスフィールドバリデーション用 fun interface。validate(values: ImmutableMap&lt;String, String&gt;): ValidationError?</string>
+    <string name="api_fields_match_desc">二つのフィールドが同じ値かチェックする組み込み FormRule。パスワード確認に一般的に使用。</string>
+    <string name="api_compose_title">Compose API</string>
+    <string name="api_remember_field_desc">ComposeValidatedField を作成して記憶。Validator、vararg rules、または ImmutableList のオーバーロードあり。</string>
+    <string name="api_remember_form_desc">ComposeValidatedField のマップとオプションのフォームルールから ComposeValidatedStringForm を作成して記憶。</string>
+    <string name="api_compose_field_desc">ValidatedField の Compose 向けラッパー。プロパティ: value、result、touched、blurred、submitted、dirty、showErrors。</string>
+    <string name="api_compose_form_desc">ValidatedStringForm の Compose 向けラッパー。プロパティ: formErrors。メソッド: values、submit、revalidateCrossField、reset。</string>
+    <string name="api_supporting_text_desc">フィールド下部にバリデーションエラーを Material サポートテキストとして表示。パラメータ: field、maxErrors、idleText。</string>
+    <string name="api_validated_tf_desc">自動バリデーションバインディング付き OutlinedTextField を包むコンポーザブル。label、placeholder、キーボードオプション、エラー表示を含む。</string>
+    <string name="api_modifier_validation_desc">onFocusChanged ハンドリングを追加する Modifier 拡張。validateOnBlur が true の場合、フォーカス喪失時に field.onBlur() を呼び出す。</string>
+
+    <!-- Examples Page -->
+    <string name="examples_title">サンプル</string>
+    <string name="examples_subtitle">プロジェクトにコピーしてカスタマイズできる実用的なコードスニペット。</string>
+    <string name="ex_email_title">メールフィールド</string>
+    <string name="ex_email_desc">必須チェックとフォーマットバリデーション付きの単一メールフィールド。最もシンプルなユースケース。</string>
+    <string name="ex_login_title">ログインフォーム</string>
+    <string name="ex_login_desc">独立したバリデーション付きのメールとパスワードフィールド。複数フィールドとフォーム送信のデモ。</string>
+    <string name="ex_signup_title">登録フォーム</string>
+    <string name="ex_signup_desc">クロスフィールドバリデーションによるパスワード確認付きの完全な登録フォーム。</string>
+    <string name="ex_custom_title">カスタムルール</string>
+    <string name="ex_custom_desc">大文字、数字、最小長をチェックする再利用可能なパスワード強度ルールを作成。</string>
+    <string name="ex_modifier_title">Modifier アプローチ</string>
+    <string name="ex_modifier_desc">既存の TextField の構造を変えずにブラーベースのバリデーションを追加。</string>
+    <string name="ex_wrapper_title">ラッパーコンポーネント</string>
+    <string name="ex_wrapper_desc">ValidatedOutlinedTextField で最小限のボイラープレート。フィールド、バリデーション、エラー表示を統合。</string>
+
+    <!-- Footer -->
+    <string name="footer_tagline">Compose Multiplatform フォームバリデーションライブラリ</string>
+    <string name="footer_copyright">\u00A9 2025 segnities007. All rights reserved.</string>
+    <string name="footer_license">Apache License 2.0</string>
+</resources>
