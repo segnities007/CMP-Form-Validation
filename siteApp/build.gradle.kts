@@ -28,6 +28,9 @@ kotlin {
             implementation(libs.compose.uiToolingPreview)
             @Suppress("DEPRECATION")
             implementation(compose.materialIconsExtended)
+            implementation(libs.markdown.renderer)
+            implementation(libs.markdown.renderer.m3)
+            implementation(libs.markdown.renderer.code)
             implementation(projects.validationCore)
             implementation(projects.validationCompose)
         }
