@@ -18,7 +18,7 @@ kotlinx-collections-immutable = "0.4.0"
 material3 = "1.11.0-alpha02"
 markdownRenderer = "0.39.2"
 detekt = "1.23.8"
-ktlintGradle = "12.1.2"
+ktlintGradle = "14.0.1"
 
 [libraries]
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
