@@ -40,7 +40,11 @@ plugins {
     id("org.gradle.toolchains.foojay-resolver-convention") version "1.0.0"
 }
 
-include(":composeApp")
 include(":validation-core")
 include(":validation-compose")
-include(":siteApp")
+
+val isJitPackBuild = System.getenv("JITPACK") == "true"
+if (!isJitPackBuild) {
+    include(":composeApp")
+    include(":siteApp")
+}
