@@ -16,6 +16,12 @@ plugins {
     alias(libs.plugins.ktlint) apply false
 }
 
+allprojects {
+    group = (findProperty("GROUP") as String?) ?: "com.github.segnities007.cmpformvalidation"
+    val jitpackVersion = System.getenv("VERSION")?.takeIf { it.isNotBlank() }
+    version = jitpackVersion ?: (findProperty("VERSION_NAME") as String?) ?: "0.1.0-SNAPSHOT"
+}
+
 subprojects {
     pluginManager.apply("io.gitlab.arturbosch.detekt")
     pluginManager.apply("org.jlleitschuh.gradle.ktlint")

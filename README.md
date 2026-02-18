@@ -5,7 +5,7 @@
 
 [![Kotlin](https://img.shields.io/badge/kotlin-2.3.0-blue.svg?logo=kotlin)](https://kotlinlang.org)
 [![Compose Multiplatform](https://img.shields.io/badge/compose%20multiplatform-1.10.0-4285F4.svg)](https://www.jetbrains.com/compose-multiplatform/)
-[![Maven](https://img.shields.io/badge/maven-not%20published-lightgrey.svg)](#installation)
+[![JitPack](https://jitpack.io/v/segnities007/cmpformvalidation.svg)](https://jitpack.io/#segnities007/cmpformvalidation)
 [![GitHub License](https://img.shields.io/badge/license-Apache%202.0-blue.svg)](LICENSE)
 [![Status](https://img.shields.io/badge/status-early%20stage-orange.svg)](#project-status)
 
@@ -15,7 +15,7 @@ CMP Form Validation helps you share form validation logic across Android, iOS, D
 
 - Pre-release (API may change)
 - API is not stable yet
-- Maven publishing has not started yet
+- Maven Central publishing has not started yet (JitPack available)
 
 ## Why
 
@@ -63,9 +63,22 @@ field.onValueChange("abc12345") // revalidated after submit
 
 ## Installation
 
-Not published to Maven Central yet.
+Add JitPack repository:
 
-Use this repository as a local source dependency until publishing starts.
+```kotlin
+repositories {
+    maven("https://jitpack.io")
+}
+```
+
+Then add dependencies (replace with your git tag such as `v0.1.0`, or commit hash):
+
+```kotlin
+dependencies {
+    implementation("com.github.segnities007.cmpformvalidation:validation-core:<version>")
+    implementation("com.github.segnities007.cmpformvalidation:validation-compose:<version>")
+}
+```
 
 ## Run Locally
 
