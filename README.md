@@ -5,7 +5,7 @@
 
 [![Kotlin](https://img.shields.io/badge/kotlin-2.3.0-blue.svg?logo=kotlin)](https://kotlinlang.org)
 [![Compose Multiplatform](https://img.shields.io/badge/compose%20multiplatform-1.10.0-4285F4.svg)](https://www.jetbrains.com/compose-multiplatform/)
-[![JitPack](https://img.shields.io/jitpack/version/com.github.segnities007/cmpformvalidation.svg)](https://jitpack.io/#segnities007/cmpformvalidation)
+[![JitPack](https://jitpack.io/v/segnities007/cmpformvalidation.svg)](https://jitpack.io/#segnities007/cmpformvalidation)
 [![GitHub License](https://img.shields.io/badge/license-Apache%202.0-blue.svg)](LICENSE)
 [![Status](https://img.shields.io/badge/status-early%20stage-orange.svg)](#project-status)
 
@@ -71,7 +71,7 @@ repositories {
 }
 ```
 
-Then add dependencies (replace with your tag or commit hash):
+Then add dependencies (replace with your git tag such as `v0.1.0`, or commit hash):
 
 ```kotlin
 dependencies {

@@ -2,4 +2,4 @@ jdk:
   - openjdk17
 
 install:
-  - ./gradlew :validation-core:publishToMavenLocal :validation-compose:publishToMavenLocal -x test
+  - ./gradlew :validation-core:publishToMavenLocal :validation-compose:publishToMavenLocal -PVERSION_NAME="${VERSION:-0.1.0-SNAPSHOT}" -x test

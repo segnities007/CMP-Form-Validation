@@ -18,7 +18,8 @@ plugins {
 
 allprojects {
     group = (findProperty("GROUP") as String?) ?: "com.github.segnities007.cmpformvalidation"
-    version = (findProperty("VERSION_NAME") as String?) ?: "0.1.0-SNAPSHOT"
+    val jitpackVersion = System.getenv("VERSION")?.takeIf { it.isNotBlank() }
+    version = jitpackVersion ?: (findProperty("VERSION_NAME") as String?) ?: "0.1.0-SNAPSHOT"
 }
 
 subprojects {
